@@ -103,7 +103,7 @@ export function ProductsCarousel({
             ).map((p: any) => (
               <CarouselItem
                 key={p.id}
-                className={`pl-6 basis-3/4 sm:basis-1/2 ${basisClass[slidesPerView]}`}
+                className={`pl-6 basis-full sm:basis-1/2 ${basisClass[slidesPerView]}`}
               >
                 {products.length === 0 ? (
                   <div className="aspect-[4/5] w-full animate-pulse rounded-md bg-muted" />
@@ -113,8 +113,8 @@ export function ProductsCarousel({
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden md:inline-flex" />
-          <CarouselNext className="hidden md:inline-flex" />
+          <CarouselPrevious className="left-2 md:-left-12" />
+          <CarouselNext className="right-2 md:-right-12" />
         </Carousel>
       </Container>
     </section>
