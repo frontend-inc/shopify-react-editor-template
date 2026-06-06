@@ -7,7 +7,7 @@ export const initialData: Record<string, UserData> = {
   "/": {
     root: {
       props: {
-        title: "Maison — Considered essentials",
+        title: "PULSE — Considered essentials",
         headerFont: "Inter",
         bodyFont: "Inter",
       },
@@ -17,7 +17,7 @@ export const initialData: Record<string, UserData> = {
         type: "navigation",
         props: {
           id: "nav-home",
-          brand: "Maison",
+          brand: "PULSE",
           links: [
             { label: "Shop", href: "/collections" },
             { label: "Lookbook", href: "/lookbook" },
@@ -154,7 +154,7 @@ export const initialData: Record<string, UserData> = {
         type: "footer",
         props: {
           id: "footer-home",
-          brand: "Maison",
+          brand: "PULSE",
           tagline:
             "Considered essentials, made in small batches and built to last beyond the season.",
           columns: [
@@ -198,7 +198,7 @@ export const initialData: Record<string, UserData> = {
           showNewsletter: "no",
           newsletterHeading: "Stay in touch",
           newsletterEndpoint: "",
-          copyright: "© 2026 Maison. All rights reserved.",
+          copyright: "© 2026 PULSE. All rights reserved.",
         },
       },
     ],
