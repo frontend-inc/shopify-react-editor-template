@@ -25,7 +25,7 @@
     "@radix-ui/react-switch": "^1.2.5",
     "@radix-ui/react-tabs": "^1.1.12",
     "@radix-ui/react-tooltip": "^1.2.7",
-    "@reacteditor/core": "0.0.32",
+    "@reacteditor/core": "0.0.35",
     "@reacteditor/field-google-fonts": "^0.0.3",
     "@reacteditor/field-shopify": "^0.0.2",
     "@reacteditor/plugin-media": "0.0.6",
