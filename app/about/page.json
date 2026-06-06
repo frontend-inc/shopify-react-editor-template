@@ -1,0 +1,214 @@
+{
+  "root": {
+    "props": {
+      "title": "About — Pulse",
+      "headerFont": "Archivo Black",
+      "headerFontWeight": "400",
+      "bodyFont": "Inter",
+      "primaryColor": "#111111",
+      "secondaryColor": "#707072",
+      "accentColor": "#f5f5f5",
+      "bgColor": "#ffffff",
+      "fgColor": "#111111",
+      "mutedColor": "#f5f5f5",
+      "radius": "xl",
+      "buttonRadius": "full",
+      "shadow": "none",
+      "maxWidth": "2xl"
+    }
+  },
+  "content": [
+    {
+      "type": "navigation",
+      "props": {
+        "id": "nav-about",
+        "brand": "PULSE",
+        "links": [
+          {
+            "label": "Run",
+            "href": "/collections/run"
+          },
+          {
+            "label": "Train",
+            "href": "/collections/train"
+          },
+          {
+            "label": "Recover",
+            "href": "/collections/recover"
+          },
+          {
+            "label": "Sale",
+            "href": "/collections/sale"
+          },
+          {
+            "label": "About",
+            "href": "/about"
+          }
+        ],
+        "showSearch": "yes",
+        "showAccount": "yes",
+        "showCart": "yes",
+        "sticky": "yes",
+        "tone": "default"
+      }
+    },
+    {
+      "type": "hero",
+      "props": {
+        "id": "hero-about",
+        "tagline": "The lab",
+        "heading": "We don't make activewear.",
+        "subheading": "Pulse started in a converted warehouse with three coaches, two athletes, and a whiteboard full of things they wished worked better. Eight years later, the whiteboard is still there. So is the standard.",
+        "buttons": [
+          {
+            "label": "Shop the kit",
+            "href": "/search",
+            "variant": "primary"
+          }
+        ],
+        "imageUrl": "https://supabase.frontend-ai.com/storage/v1/object/public/assets/themes/pulse-nike/hero-about.png",
+        "align": "left",
+        "height": "lg",
+        "tone": "light"
+      }
+    },
+    {
+      "type": "features",
+      "props": {
+        "id": "features-about",
+        "tagline": "What we believe",
+        "heading": "Three rules. No exceptions.",
+        "subheading": "",
+        "columns": "3",
+        "items": [
+          {
+            "title": "Engineered",
+            "body": "Every fabric, every seam, every fit decision starts with athletes on a track. Lab work comes after, if at all."
+          },
+          {
+            "title": "Field tested",
+            "body": "Twelve weeks of training. Two race blocks. One full season. Nothing leaves the lab without that on the record."
+          },
+          {
+            "title": "Guaranteed",
+            "body": "If it fails before its time, we replace it. If it fails on race day, we apologize and replace it. That's the deal."
+          }
+        ]
+      }
+    },
+    {
+      "type": "hero",
+      "props": {
+        "id": "cover-about-performance",
+        "tagline": "Used up is the goal",
+        "heading": "Designed to be worn out, not preserved.",
+        "subheading": "If you're babying your kit, we did something wrong. Bring it back when it's done — we'll send the next one.",
+        "buttons": [],
+        "imageUrl": "https://supabase.frontend-ai.com/storage/v1/object/public/assets/themes/pulse-nike/cover-performance.jpeg",
+        "align": "left",
+        "height": "lg",
+        "tone": "light"
+      }
+    },
+    {
+      "type": "newsletter-cta",
+      "props": {
+        "id": "newsletter-about",
+        "tagline": "Field notes",
+        "heading": "Weekly notes from the lab.",
+        "subheading": "Test results, training blocks, gear we cut and gear we kept. Every Monday at 5:30am.",
+        "buttonLabel": "Subscribe",
+        "endpoint": "",
+        "imageUrl": "https://supabase.frontend-ai.com/storage/v1/object/public/assets/themes/pulse-nike/newsletter.png",
+        "layout": "split"
+      }
+    },
+    {
+      "type": "footer",
+      "props": {
+        "id": "footer-about",
+        "brand": "PULSE",
+        "tagline": "Performance gear for athletes who break their kit before they break themselves.",
+        "columns": [
+          {
+            "title": "Shop",
+            "links": [
+              {
+                "label": "All gear",
+                "href": "/search"
+              },
+              {
+                "label": "New",
+                "href": "/collections/new"
+              },
+              {
+                "label": "Run",
+                "href": "/collections/run"
+              },
+              {
+                "label": "Train",
+                "href": "/collections/train"
+              }
+            ]
+          },
+          {
+            "title": "About",
+            "links": [
+              {
+                "label": "Our story",
+                "href": "/about"
+              },
+              {
+                "label": "The lab",
+                "href": "/lab"
+              },
+              {
+                "label": "Athletes",
+                "href": "/athletes"
+              }
+            ]
+          },
+          {
+            "title": "Help",
+            "links": [
+              {
+                "label": "Shipping",
+                "href": "/help/shipping"
+              },
+              {
+                "label": "Returns",
+                "href": "/help/returns"
+              },
+              {
+                "label": "Lifetime guarantee",
+                "href": "/help/guarantee"
+              },
+              {
+                "label": "Contact",
+                "href": "/contact"
+              }
+            ]
+          }
+        ],
+        "social": [
+          {
+            "label": "Instagram",
+            "href": "#"
+          },
+          {
+            "label": "Strava",
+            "href": "#"
+          },
+          {
+            "label": "YouTube",
+            "href": "#"
+          }
+        ],
+        "showNewsletter": "no",
+        "newsletterHeading": "",
+        "newsletterEndpoint": "",
+        "copyright": "© 2026 Pulse. Built to be replaced when used up."
+      }
+    }
+  ]
+}

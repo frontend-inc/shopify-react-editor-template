@@ -1,0 +1,195 @@
+{
+  "root": {
+    "props": {
+      "title": "Collection — Pulse",
+      "headerFont": "Archivo Black",
+      "headerFontWeight": "400",
+      "bodyFont": "Inter",
+      "primaryColor": "#111111",
+      "secondaryColor": "#707072",
+      "accentColor": "#f5f5f5",
+      "bgColor": "#ffffff",
+      "fgColor": "#111111",
+      "mutedColor": "#f5f5f5",
+      "radius": "xl",
+      "buttonRadius": "full",
+      "shadow": "none",
+      "maxWidth": "2xl"
+    }
+  },
+  "content": [
+    {
+      "type": "navigation",
+      "props": {
+        "id": "nav-collection",
+        "brand": "PULSE",
+        "links": [
+          {
+            "label": "Run",
+            "href": "/collections/run"
+          },
+          {
+            "label": "Train",
+            "href": "/collections/train"
+          },
+          {
+            "label": "Recover",
+            "href": "/collections/recover"
+          },
+          {
+            "label": "Sale",
+            "href": "/collections/sale"
+          },
+          {
+            "label": "About",
+            "href": "/about"
+          }
+        ],
+        "showSearch": "yes",
+        "showAccount": "yes",
+        "showCart": "yes",
+        "sticky": "yes",
+        "tone": "default"
+      }
+    },
+    {
+      "type": "collection",
+      "props": {
+        "id": "collection-detail",
+        "collection": null,
+        "showDescription": "yes",
+        "showCoverImage": "yes",
+        "customCoverImage": "",
+        "columns": "4",
+        "limit": 24,
+        "defaultSort": "BEST_SELLING",
+        "showAvailability": "yes",
+        "showPriceRange": "yes",
+        "showProductType": "yes",
+        "productTypeOptions": [
+          {
+            "label": "Tops"
+          },
+          {
+            "label": "Shorts"
+          },
+          {
+            "label": "Tights"
+          },
+          {
+            "label": "Outerwear"
+          },
+          {
+            "label": "Shoes"
+          },
+          {
+            "label": "Accessories"
+          }
+        ],
+        "showVendor": "no",
+        "vendorOptions": [],
+        "showTags": "no",
+        "tagOptions": [],
+        "showColor": "yes",
+        "colorOptions": [
+          {
+            "label": "Black",
+            "color": "#111111"
+          },
+          {
+            "label": "White",
+            "color": "#ffffff"
+          },
+          {
+            "label": "Grey",
+            "color": "#707072"
+          },
+          {
+            "label": "Volt",
+            "color": "#d6ff3f"
+          },
+          {
+            "label": "Sodium",
+            "color": "#fa5400"
+          }
+        ],
+        "showStyle": "no",
+        "styleOptions": [],
+        "showSize": "yes",
+        "sizeOptions": [
+          {
+            "label": "XS"
+          },
+          {
+            "label": "S"
+          },
+          {
+            "label": "M"
+          },
+          {
+            "label": "L"
+          },
+          {
+            "label": "XL"
+          },
+          {
+            "label": "XXL"
+          }
+        ],
+        "showMaterial": "no",
+        "materialOptions": [],
+        "metafieldFilters": []
+      }
+    },
+    {
+      "type": "footer",
+      "props": {
+        "id": "footer-collection",
+        "brand": "PULSE",
+        "tagline": "Performance gear for athletes who break their kit before they break themselves.",
+        "columns": [
+          {
+            "title": "Shop",
+            "links": [
+              {
+                "label": "All gear",
+                "href": "/search"
+              },
+              {
+                "label": "New",
+                "href": "/collections/new"
+              }
+            ]
+          },
+          {
+            "title": "Help",
+            "links": [
+              {
+                "label": "Shipping",
+                "href": "/help/shipping"
+              },
+              {
+                "label": "Returns",
+                "href": "/help/returns"
+              }
+            ]
+          }
+        ],
+        "social": [
+          {
+            "label": "Instagram",
+            "href": "#"
+          },
+          {
+            "label": "Strava",
+            "href": "#"
+          }
+        ],
+        "showNewsletter": "no",
+        "newsletterHeading": "",
+        "newsletterEndpoint": "",
+        "copyright": "© 2026 Pulse. Built to be replaced when used up."
+      }
+    }
+  ]
+}

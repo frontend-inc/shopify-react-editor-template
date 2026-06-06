@@ -1,0 +1,302 @@
+{
+  "root": {
+    "props": {
+      "title": "Pulse — Made to Move",
+      "headerFont": "Archivo Black",
+      "headerFontWeight": "400",
+      "bodyFont": "Inter",
+      "primaryColor": "#111111",
+      "secondaryColor": "#707072",
+      "accentColor": "#f5f5f5",
+      "bgColor": "#ffffff",
+      "fgColor": "#111111",
+      "mutedColor": "#f5f5f5",
+      "radius": "xl",
+      "buttonRadius": "full",
+      "shadow": "none",
+      "maxWidth": "2xl"
+    }
+  },
+  "content": [
+    {
+      "type": "navigation",
+      "props": {
+        "id": "nav-home",
+        "brand": "PULSE",
+        "links": [
+          {
+            "label": "Run",
+            "href": "/collections/run"
+          },
+          {
+            "label": "Train",
+            "href": "/collections/train"
+          },
+          {
+            "label": "Recover",
+            "href": "/collections/recover"
+          },
+          {
+            "label": "Sale",
+            "href": "/collections/sale"
+          },
+          {
+            "label": "About",
+            "href": "/about"
+          }
+        ],
+        "showSearch": "yes",
+        "showAccount": "yes",
+        "showCart": "yes",
+        "sticky": "yes",
+        "tone": "default"
+      }
+    },
+    {
+      "type": "hero",
+      "props": {
+        "id": "hero-home",
+        "tagline": "Spring 2026",
+        "heading": "Made to move.",
+        "subheading": "Performance gear engineered for athletes who train like they mean it. Built light. Built honest. Built for the next mile.",
+        "buttons": [
+          {
+            "label": "Shop the kit",
+            "href": "/search",
+            "variant": "primary"
+          },
+          {
+            "label": "Our story",
+            "href": "/about",
+            "variant": "secondary"
+          }
+        ],
+        "imageUrl": "https://supabase.frontend-ai.com/storage/v1/object/public/assets/themes/pulse-nike/athletic-assortment.jpeg",
+        "align": "left",
+        "height": "lg",
+        "tone": "light"
+      }
+    },
+    {
+      "type": "products-carousel",
+      "props": {
+        "id": "carousel-home",
+        "tagline": "Just dropped",
+        "heading": "New arrivals",
+        "subheading": "Fresh kit for the season ahead.",
+        "limit": 12,
+        "slidesPerView": "4",
+        "ctaLabel": "Shop new",
+        "ctaHref": "/collections/new"
+      }
+    },
+    {
+      "type": "hero",
+      "props": {
+        "id": "cover-home-performance",
+        "tagline": "Performance Series",
+        "heading": "Engineered to outlast you.",
+        "subheading": "Tested on track, trail, and treadmill. Every piece earns its place.",
+        "buttons": [],
+        "imageUrl": "https://supabase.frontend-ai.com/storage/v1/object/public/assets/themes/pulse-nike/cover-performance.jpeg",
+        "align": "left",
+        "height": "lg",
+        "tone": "light"
+      }
+    },
+    {
+      "type": "features",
+      "props": {
+        "id": "features-home",
+        "tagline": "Why Pulse",
+        "heading": "Three rules. No exceptions.",
+        "subheading": "",
+        "columns": "3",
+        "items": [
+          {
+            "title": "Engineered",
+            "body": "Every fabric, every seam, every fit decision starts with athletes on a track. Lab work comes after."
+          },
+          {
+            "title": "Field tested",
+            "body": "Twelve weeks. Two race blocks. One full season. Nothing ships without that on the record."
+          },
+          {
+            "title": "Guaranteed",
+            "body": "If it fails before its time, we replace it. If it fails on race day, we apologize and replace it."
+          }
+        ]
+      }
+    },
+    {
+      "type": "hero",
+      "props": {
+        "id": "cover-home-discipline",
+        "tagline": "Discipline",
+        "heading": "The work happens before sunrise.",
+        "subheading": "We make the kit. You do the work. Five-thirty isn't early — it's the only honest hour.",
+        "buttons": [],
+        "imageUrl": "https://supabase.frontend-ai.com/storage/v1/object/public/assets/themes/pulse-nike/cover-discipline.jpeg",
+        "align": "left",
+        "height": "lg",
+        "tone": "light"
+      }
+    },
+    {
+      "type": "collection-grid",
+      "props": {
+        "id": "collections-home",
+        "tagline": "Shop by sport",
+        "heading": "Built for what you actually do.",
+        "subheading": "",
+        "layout": "tiles",
+        "limit": 6
+      }
+    },
+    {
+      "type": "testimonials",
+      "props": {
+        "id": "testimonials-home",
+        "tagline": "From the field",
+        "heading": "Athletes on Pulse",
+        "items": [
+          {
+            "quote": "Took the shell to Chamonix and back. Still smells, still works, still cheaper than therapy.",
+            "author": "Mateo S.",
+            "role": "Sub-3 marathoner / Boulder",
+            "avatar": ""
+          },
+          {
+            "quote": "I have one drawer of running gear. The Pulse half is the half I actually wear.",
+            "author": "Priya N.",
+            "role": "Ultra runner / Portland",
+            "avatar": ""
+          },
+          {
+            "quote": "Wore the shorts for an entire 16-week block. They held. That's the whole review.",
+            "author": "Jonas R.",
+            "role": "Track coach / Berlin",
+            "avatar": ""
+          }
+        ]
+      }
+    },
+    {
+      "type": "newsletter-cta",
+      "props": {
+        "id": "newsletter-home",
+        "tagline": "Field notes",
+        "heading": "Weekly notes from the lab.",
+        "subheading": "Test results, training blocks, gear we cut and gear we kept. Every Monday at 5:30am.",
+        "buttonLabel": "Subscribe",
+        "endpoint": "",
+        "imageUrl": "https://supabase.frontend-ai.com/storage/v1/object/public/assets/themes/pulse-nike/newsletter.png",
+        "layout": "split"
+      }
+    },
+    {
+      "type": "footer",
+      "props": {
+        "id": "footer-home",
+        "brand": "PULSE",
+        "tagline": "Performance gear for athletes who break their kit before they break themselves.",
+        "columns": [
+          {
+            "title": "Shop",
+            "links": [
+              {
+                "label": "All gear",
+                "href": "/search"
+              },
+              {
+                "label": "New",
+                "href": "/collections/new"
+              },
+              {
+                "label": "Run",
+                "href": "/collections/run"
+              },
+              {
+                "label": "Train",
+                "href": "/collections/train"
+              },
+              {
+                "label": "Sale",
+                "href": "/collections/sale"
+              }
+            ]
+          },
+          {
+            "title": "About",
+            "links": [
+              {
+                "label": "Our story",
+                "href": "/about"
+              },
+              {
+                "label": "The lab",
+                "href": "/lab"
+              },
+              {
+                "label": "Athletes",
+                "href": "/athletes"
+              }
+            ]
+          },
+          {
+            "title": "Help",
+            "links": [
+              {
+                "label": "Shipping",
+                "href": "/help/shipping"
+              },
+              {
+                "label": "Returns",
+                "href": "/help/returns"
+              },
+              {
+                "label": "Lifetime guarantee",
+                "href": "/help/guarantee"
+              },
+              {
+                "label": "Contact",
+                "href": "/contact"
+              }
+            ]
+          },
+          {
+            "title": "Legal",
+            "links": [
+              {
+                "label": "Terms",
+                "href": "/terms"
+              },
+              {
+                "label": "Privacy",
+                "href": "/privacy"
+              }
+            ]
+          }
+        ],
+        "social": [
+          {
+            "label": "Instagram",
+            "href": "#"
+          },
+          {
+            "label": "Strava",
+            "href": "#"
+          },
+          {
+            "label": "YouTube",
+            "href": "#"
+          }
+        ],
+        "showNewsletter": "no",
+        "newsletterHeading": "",
+        "newsletterEndpoint": "",
+        "copyright": "© 2026 Pulse. Built to be replaced when used up."
+      }
+    }
+  ]
+}
