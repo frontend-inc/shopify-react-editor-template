@@ -1,34 +1,29 @@
 import { Config, Data } from "@reacteditor/core";
 
-import { HeroProps } from "@/components/hero/hero";
-import { LogosProps } from "@/components/logos/logos";
-import { FeaturesProps } from "@/components/features/features";
-import { TestimonialsProps } from "@/components/testimonials/testimonials";
-import { CTAProps } from "@/components/cta/cta";
-import { FAQProps } from "@/components/faq/faq";
-import { NavigationProps } from "@/components/navigation/navigation";
+import { CoverProps } from "@/components/cover/cover";
+import { HeaderProps } from "@/components/header/header";
 import { FooterProps } from "@/components/footer/footer";
 
-import { ProductsGridProps } from "@/components/commerce/products-grid";
-import { ProductsCarouselProps } from "@/components/commerce/products-carousel";
-import { CollectionGridProps } from "@/components/commerce/collection-grid";
-import { CollectionProps } from "@/components/commerce/collection";
-import { ProductDetailsProps } from "@/components/commerce/product-details";
-import { RecommendedProductsProps } from "@/components/commerce/recommended-products";
-import { FeaturedProductProps } from "@/components/commerce/featured-product";
+import { ProductsGridProps } from "@/components/shopify/products-grid";
+import { ProductsCarouselProps } from "@/components/shopify/products-carousel";
+import { CollectionGridProps } from "@/components/shopify/collection-grid";
+import { CollectionProps } from "@/components/shopify/collection";
+import { ProductDetailsProps } from "@/components/shopify/product-details";
+import { RecommendedProductsProps } from "@/components/shopify/recommended-products";
+import { ProductRecommendationsProps } from "@/components/shopify/product-recommendations";
+import { SearchProductsProps } from "@/components/shopify/search-products";
+import { FeaturedProductProps } from "@/components/shopify/featured-product";
 
-import { BannerProps } from "@/components/landing/banner";
-import { NewsletterCtaProps } from "@/components/landing/newsletter-cta";
-import { ImageGalleryProps } from "@/components/landing/image-gallery";
+import { NewsletterCtaProps } from "@/components/newsletter-cta/newsletter-cta";
 
 import { RootProps } from "./root";
 
 export type { RootProps } from "./root";
 
 export type Components = {
-  navigation: NavigationProps;
-  hero: HeroProps;
-  banner: BannerProps;
+  header: HeaderProps;
+  cover: CoverProps;
+  "newsletter-cta": NewsletterCtaProps;
   "featured-product": FeaturedProductProps;
   "products-grid": ProductsGridProps;
   "products-carousel": ProductsCarouselProps;
@@ -36,20 +31,15 @@ export type Components = {
   collection: CollectionProps;
   "product-details": ProductDetailsProps;
   "recommended-products": RecommendedProductsProps;
-  features: FeaturesProps;
-  testimonials: TestimonialsProps;
-  "image-gallery": ImageGalleryProps;
-  "newsletter-cta": NewsletterCtaProps;
-  logos: LogosProps;
-  cta: CTAProps;
-  faq: FAQProps;
+  "product-recommendations": ProductRecommendationsProps;
+  "search-products": SearchProductsProps;
   footer: FooterProps;
 };
 
 export type UserConfig = Config<{
   components: Components;
   root: RootProps;
-  categories: ["navigation", "hero", "commerce", "content", "footer"];
+  categories: ["header", "cover", "commerce", "content", "footer"];
   fields: {
     userField: {
       type: "userField";

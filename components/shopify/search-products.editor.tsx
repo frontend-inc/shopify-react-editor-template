@@ -1,6 +1,6 @@
 import { ComponentConfig } from '@reacteditor/core';
 import { Search } from 'lucide-react';
-import { SearchProductsView, type SearchProductsProps } from '@/components/commerce/search-products';
+import { SearchProductsView, type SearchProductsProps } from '@/components/shopify/search-products';
 
 const searchProductsEditor: ComponentConfig<SearchProductsProps> = {
   label: 'Search & filter',

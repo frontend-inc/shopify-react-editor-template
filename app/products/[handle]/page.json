@@ -19,7 +19,7 @@
   },
   "content": [
     {
-      "type": "navigation",
+      "type": "header",
       "props": {
         "id": "nav-product",
         "brand": "PULSE",

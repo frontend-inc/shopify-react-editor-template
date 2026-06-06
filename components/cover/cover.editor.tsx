@@ -1,9 +1,9 @@
 import { ComponentConfig } from "@reacteditor/core";
 import { LayoutTemplate } from "lucide-react";
-import { Hero, type HeroProps } from "@/components/hero/hero";
+import { Cover, type CoverProps } from "@/components/cover/cover";
 
-const heroEditor: ComponentConfig<HeroProps> = {
-  label: "Hero",
+const coverEditor: ComponentConfig<CoverProps> = {
+  label: "Cover",
   icon: <LayoutTemplate size={16} />,
   category: "hero",
   defaultProps: {
@@ -76,7 +76,7 @@ const heroEditor: ComponentConfig<HeroProps> = {
       ],
     },
   },
-  render: (props) => <Hero {...props} />,
+  render: (props) => <Cover {...props} />,
 };
 
-export default heroEditor;
+export default coverEditor;

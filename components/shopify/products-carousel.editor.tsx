@@ -1,6 +1,6 @@
 import { ComponentConfig } from "@reacteditor/core";
 import { GalleryHorizontalEnd } from "lucide-react";
-import { ProductsCarousel, type ProductsCarouselProps } from "@/components/commerce/products-carousel";
+import { ProductsCarousel, type ProductsCarouselProps } from "@/components/shopify/products-carousel";
 
 const productsCarouselEditor: ComponentConfig<ProductsCarouselProps> = {
     label: "Products carousel",

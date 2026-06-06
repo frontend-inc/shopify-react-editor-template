@@ -1,6 +1,6 @@
 import { DefaultRootProps, RootConfig } from "@reacteditor/core";
 import { createFieldGoogleFonts } from "@reacteditor/field-google-fonts";
-import { ThemeProvider, ThemeProps } from "@/components/ThemeProvider";
+import { ThemeProvider, ThemeProps } from "@/components/theme-provider";
 
 export type RootProps = DefaultRootProps &
   ThemeProps & {

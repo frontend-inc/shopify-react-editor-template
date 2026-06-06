@@ -14,7 +14,7 @@ export const initialData: Record<string, UserData> = {
     },
     content: [
       {
-        type: "navigation",
+        type: "header",
         props: {
           id: "nav-home",
           brand: "PULSE",
@@ -34,7 +34,7 @@ export const initialData: Record<string, UserData> = {
         },
       },
       {
-        type: "hero",
+        type: "cover",
         props: {
           id: "hero-home",
           tagline: "Spring 2026",
@@ -83,56 +83,6 @@ export const initialData: Record<string, UserData> = {
           subheading: "Bundles built around the way you actually live.",
           layout: "tiles",
           limit: 6,
-        },
-      },
-      {
-        type: "features",
-        props: {
-          id: "features-home",
-          tagline: "Why us",
-          heading: "Built with intention",
-          subheading: "A small set of values that shape every piece we make.",
-          columns: "3",
-          items: [
-            {
-              title: "Natural fibers",
-              body: "Linen, organic cotton, and merino — sourced from mills with traceable supply chains.",
-            },
-            {
-              title: "Small batches",
-              body: "Made in considered quantities so nothing goes to waste.",
-            },
-            {
-              title: "Built to last",
-              body: "Reinforced seams and finishes that age into something better.",
-            },
-          ],
-        },
-      },
-      {
-        type: "testimonials",
-        props: {
-          id: "testimonials-home",
-          tagline: "Reviews",
-          heading: "What our customers say",
-          items: [
-            {
-              quote:
-                "I've been wearing the same linen shirt for two summers now and it's somehow gotten better with every wash.",
-              author: "Mara K.",
-              role: "Berlin",
-              avatar:
-                "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80",
-            },
-            {
-              quote:
-                "Considered cuts, neutral palette, real fabric. Exactly what I want when I'm getting dressed in the dark.",
-              author: "Theo R.",
-              role: "Brooklyn",
-              avatar:
-                "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80",
-            },
-          ],
         },
       },
       {

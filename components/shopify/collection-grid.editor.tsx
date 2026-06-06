@@ -1,6 +1,6 @@
 import { ComponentConfig } from "@reacteditor/core";
 import { FolderOpen } from "lucide-react";
-import { CollectionGrid, type CollectionGridProps } from "@/components/commerce/collection-grid";
+import { CollectionGrid, type CollectionGridProps } from "@/components/shopify/collection-grid";
 
 const collectionGridEditor: ComponentConfig<CollectionGridProps> = {
   label: "Collections",

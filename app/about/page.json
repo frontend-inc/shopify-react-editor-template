@@ -19,7 +19,7 @@
   },
   "content": [
     {
-      "type": "navigation",
+      "type": "header",
       "props": {
         "id": "nav-about",
         "brand": "PULSE",
@@ -53,7 +53,7 @@
       }
     },
     {
-      "type": "hero",
+      "type": "cover",
       "props": {
         "id": "hero-about",
         "tagline": "The lab",
@@ -73,31 +73,7 @@
       }
     },
     {
-      "type": "features",
-      "props": {
-        "id": "features-about",
-        "tagline": "What we believe",
-        "heading": "Three rules. No exceptions.",
-        "subheading": "",
-        "columns": "3",
-        "items": [
-          {
-            "title": "Engineered",
-            "body": "Every fabric, every seam, every fit decision starts with athletes on a track. Lab work comes after, if at all."
-          },
-          {
-            "title": "Field tested",
-            "body": "Twelve weeks of training. Two race blocks. One full season. Nothing leaves the lab without that on the record."
-          },
-          {
-            "title": "Guaranteed",
-            "body": "If it fails before its time, we replace it. If it fails on race day, we apologize and replace it. That's the deal."
-          }
-        ]
-      }
-    },
-    {
-      "type": "hero",
+      "type": "cover",
       "props": {
         "id": "cover-about-performance",
         "tagline": "Used up is the goal",

@@ -1,6 +1,6 @@
 import { ComponentConfig } from "@reacteditor/core";
 import { Package } from "lucide-react";
-import { ProductDetailsView, type ProductDetailsProps } from "@/components/commerce/product-details";
+import { ProductDetailsView, type ProductDetailsProps } from "@/components/shopify/product-details";
 
 const productDetailsEditor: ComponentConfig<ProductDetailsProps> = {
     label: "Product details",

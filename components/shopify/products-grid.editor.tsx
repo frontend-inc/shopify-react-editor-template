@@ -1,6 +1,6 @@
 import { ComponentConfig } from "@reacteditor/core";
 import { LayoutGrid } from "lucide-react";
-import { ProductsGrid, type ProductsGridProps } from "@/components/commerce/products-grid";
+import { ProductsGrid, type ProductsGridProps } from "@/components/shopify/products-grid";
 
 const productsGridEditor: ComponentConfig<ProductsGridProps> = {
     label: "Products grid",

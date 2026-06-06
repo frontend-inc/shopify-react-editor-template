@@ -113,8 +113,8 @@ export function ProductsCarousel({
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="left-2 md:-left-12" />
-          <CarouselNext className="right-2 md:-right-12" />
+          <CarouselPrevious className="left-2 md:left-4" />
+          <CarouselNext className="right-2 md:right-4" />
         </Carousel>
       </Container>
     </section>

@@ -1,6 +1,6 @@
 import { ComponentConfig } from "@reacteditor/core";
 import { Star } from "lucide-react";
-import { FeaturedProductView, type FeaturedProductProps } from "@/components/commerce/featured-product";
+import { FeaturedProductView, type FeaturedProductProps } from "@/components/shopify/featured-product";
 
 const featuredProductEditor: ComponentConfig<FeaturedProductProps> = {
     label: "Featured product",

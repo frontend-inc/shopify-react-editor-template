@@ -3,7 +3,7 @@ import { LayoutGrid } from "lucide-react";
 import {
   ProductRecommendationsView,
   type ProductRecommendationsProps,
-} from "@/components/commerce/product-recommendations";
+} from "@/components/shopify/product-recommendations";
 
 const productRecommendationsEditor: ComponentConfig<ProductRecommendationsProps> = {
     label: "Product recommendations",

@@ -1,6 +1,6 @@
 import { ComponentConfig } from "@reacteditor/core";
 import { FolderOpen } from "lucide-react";
-import { CollectionView, type CollectionProps } from "@/components/commerce/collection";
+import { CollectionView, type CollectionProps } from "@/components/shopify/collection";
 
 const collectionEditor: ComponentConfig<CollectionProps> = {
     label: "Collection page",

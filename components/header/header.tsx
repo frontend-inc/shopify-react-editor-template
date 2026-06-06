@@ -7,7 +7,7 @@ import { Container } from "@/components/layout/Container";
 import { Typography } from "@/components/Typography";
 import { cn } from "@/lib/utils";
 
-export type NavigationProps = {
+export type HeaderProps = {
   brand: string;
   logo?: string;
   links: Array<{ label: string; href: string }>;
@@ -17,7 +17,7 @@ export type NavigationProps = {
   tone: "default" | "muted" | "inverse";
 };
 
-export function Navigation({
+export function Header({
   brand,
   logo,
   links,
@@ -25,12 +25,12 @@ export function Navigation({
   showCart,
   sticky,
   tone,
-}: NavigationProps) {
+}: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const cart = useShopifyCart();
   const itemCount = cart?.itemCount ?? 0;
 
-  const toneClass: Record<NavigationProps["tone"], string> = {
+  const toneClass: Record<HeaderProps["tone"], string> = {
     default: "bg-background text-foreground border-b border-border",
     muted: "bg-muted/40 text-foreground border-b border-border",
     inverse: "bg-foreground text-background",

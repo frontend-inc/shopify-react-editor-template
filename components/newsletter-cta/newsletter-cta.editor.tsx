@@ -1,6 +1,6 @@
 import { ComponentConfig, Fields } from "@reacteditor/core";
 import { Mail } from "lucide-react";
-import { NewsletterCta, type NewsletterCtaProps } from "@/components/landing/newsletter-cta";
+import { NewsletterCta, type NewsletterCtaProps } from "@/components/newsletter-cta/newsletter-cta";
 
 const baseFields: Fields<NewsletterCtaProps> = {
   tagline: { label: "Tagline", type: "text", contentEditable: true },

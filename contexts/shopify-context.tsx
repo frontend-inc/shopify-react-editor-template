@@ -10,7 +10,7 @@ import {
   updateCartLines,
 } from '@/hooks/use-shopify-cart';
 import { setShopifyCredentials } from '@/services/shopify/client';
-import CartDrawer from '@/components/commerce/cart-drawer';
+import CartDrawer from '@/components/shopify/cart-drawer';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 
 const CART_ID_KEY = 'cartId';

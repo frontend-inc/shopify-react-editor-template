@@ -2,32 +2,32 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Typography } from "@/components/Typography";
 
-export type HeroButtonVariant = "primary" | "secondary" | "outline" | "ghost";
+export type CoverButtonVariant = "primary" | "secondary" | "outline" | "ghost";
 
-export type HeroButton = {
+export type CoverButton = {
   label: string;
   href: string;
-  variant: HeroButtonVariant;
+  variant: CoverButtonVariant;
 };
 
-export type HeroProps = {
+export type CoverProps = {
   tagline: string;
   heading: string;
   subheading: string;
-  buttons: HeroButton[];
+  buttons: CoverButton[];
   imageUrl: string;
   align: "left" | "center";
   height: "md" | "lg" | "full";
   tone: "light" | "dark";
 };
 
-const heightClass: Record<HeroProps["height"], string> = {
+const heightClass: Record<CoverProps["height"], string> = {
   md: "min-h-[60vh]",
   lg: "min-h-[80vh]",
   full: "min-h-screen",
 };
 
-function buttonClass(variant: HeroButtonVariant, isDark: boolean): string {
+function buttonClass(variant: CoverButtonVariant, isDark: boolean): string {
   switch (variant) {
     case "primary":
       return cn(
@@ -48,7 +48,7 @@ function buttonClass(variant: HeroButtonVariant, isDark: boolean): string {
   }
 }
 
-export function Hero({
+export function Cover({
   tagline,
   heading,
   subheading,
@@ -57,7 +57,7 @@ export function Hero({
   align,
   height,
   tone,
-}: HeroProps) {
+}: CoverProps) {
   const isDark = tone === "dark";
   const visibleButtons = (buttons ?? []).filter((b) => b?.label);
 

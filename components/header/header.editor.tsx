@@ -1,9 +1,9 @@
 import { ComponentConfig } from "@reacteditor/core";
 import { Menu as MenuIcon } from "lucide-react";
-import { Navigation, type NavigationProps } from "@/components/navigation/navigation";
+import { Header, type HeaderProps } from "@/components/header/header";
 
-const navigationEditor: ComponentConfig<NavigationProps> = {
-  label: "Navigation",
+const headerEditor: ComponentConfig<HeaderProps> = {
+  label: "Header",
   icon: <MenuIcon size={16} />,
   category: "navigation",
   global: true,
@@ -68,7 +68,7 @@ const navigationEditor: ComponentConfig<NavigationProps> = {
       ],
     },
   },
-  render: (props) => <Navigation {...props} />,
+  render: (props) => <Header {...props} />,
 };
 
-export default navigationEditor;
+export default headerEditor;

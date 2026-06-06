@@ -19,7 +19,7 @@
   },
   "content": [
     {
-      "type": "navigation",
+      "type": "header",
       "props": {
         "id": "nav-home",
         "brand": "PULSE",
@@ -53,7 +53,7 @@
       }
     },
     {
-      "type": "hero",
+      "type": "cover",
       "props": {
         "id": "hero-home",
         "tagline": "Spring 2026",
@@ -91,7 +91,7 @@
       }
     },
     {
-      "type": "hero",
+      "type": "cover",
       "props": {
         "id": "cover-home-performance",
         "tagline": "Performance Series",
@@ -105,31 +105,7 @@
       }
     },
     {
-      "type": "features",
-      "props": {
-        "id": "features-home",
-        "tagline": "Why Pulse",
-        "heading": "Three rules. No exceptions.",
-        "subheading": "",
-        "columns": "3",
-        "items": [
-          {
-            "title": "Engineered",
-            "body": "Every fabric, every seam, every fit decision starts with athletes on a track. Lab work comes after."
-          },
-          {
-            "title": "Field tested",
-            "body": "Twelve weeks. Two race blocks. One full season. Nothing ships without that on the record."
-          },
-          {
-            "title": "Guaranteed",
-            "body": "If it fails before its time, we replace it. If it fails on race day, we apologize and replace it."
-          }
-        ]
-      }
-    },
-    {
-      "type": "hero",
+      "type": "cover",
       "props": {
         "id": "cover-home-discipline",
         "tagline": "Discipline",
@@ -151,34 +127,6 @@
         "subheading": "",
         "layout": "tiles",
         "limit": 6
-      }
-    },
-    {
-      "type": "testimonials",
-      "props": {
-        "id": "testimonials-home",
-        "tagline": "From the field",
-        "heading": "Athletes on Pulse",
-        "items": [
-          {
-            "quote": "Took the shell to Chamonix and back. Still smells, still works, still cheaper than therapy.",
-            "author": "Mateo S.",
-            "role": "Sub-3 marathoner / Boulder",
-            "avatar": ""
-          },
-          {
-            "quote": "I have one drawer of running gear. The Pulse half is the half I actually wear.",
-            "author": "Priya N.",
-            "role": "Ultra runner / Portland",
-            "avatar": ""
-          },
-          {
-            "quote": "Wore the shorts for an entire 16-week block. They held. That's the whole review.",
-            "author": "Jonas R.",
-            "role": "Track coach / Berlin",
-            "avatar": ""
-          }
-        ]
       }
     },
     {

@@ -1,6 +1,6 @@
 import { ComponentConfig } from "@reacteditor/core";
 import { Sparkles } from "lucide-react";
-import { RecommendedProductsView, type RecommendedProductsProps } from "@/components/commerce/recommended-products";
+import { RecommendedProductsView, type RecommendedProductsProps } from "@/components/shopify/recommended-products";
 
 const recommendedProductsEditor: ComponentConfig<RecommendedProductsProps> = {
     label: "Recommended products",
