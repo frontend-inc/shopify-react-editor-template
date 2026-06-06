@@ -593,7 +593,7 @@
         "props": {
           "id": "hero-about",
           "tagline": "The lab",
-          "heading": "We don't make activewear. We make tools.",
+          "heading": "We don't make activewear.",
           "subheading": "Pulse started in a converted warehouse with three coaches, two athletes, and a whiteboard full of things they wished worked better. Eight years later, the whiteboard is still there. So is the standard.",
           "buttons": [
             { "label": "Shop the kit", "href": "/search", "variant": "primary" }
