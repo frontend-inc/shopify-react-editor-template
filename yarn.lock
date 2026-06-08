@@ -1113,10 +1113,10 @@
   resolved "https://registry.yarnpkg.com/@radix-ui/rect/-/rect-1.1.1.tgz#78244efe12930c56fd255d7923865857c41ac8cb"
   integrity sha512-HPwpGIzkl28mWyZqG52jiqDJ12waP11Pa1lGoiyUkIEuMLBP0oeK/C89esbXrxsky5we7dfd8U58nm0SgAWpVw==
 
-"@reacteditor/core@0.0.35":
-  version "0.0.35"
-  resolved "https://registry.yarnpkg.com/@reacteditor/core/-/core-0.0.35.tgz#5fc1ef19f1069a896b94a43944978b336631ec1d"
-  integrity sha512-r+22XwP0Zd48coWzG7I73PzNTpJvo6BjXIcVgwkW6cNiANvOnwMM77GbwJw8Xl7zFjyKdwqoLCGkLBPRM3W5FQ==
+"@reacteditor/core@0.0.39":
+  version "0.0.39"
+  resolved "https://registry.yarnpkg.com/@reacteditor/core/-/core-0.0.39.tgz#7bf898337ee68b1576f3b31a9927168d7b6b46c4"
+  integrity sha512-No4C4j7tG6INrlT6Uwde/B/0VxtI6hDw53uXxmRlvyuBZ/x7+T9o7ogK8oBpmvZP3KWgnWWXBUfSW5ZkduvJJA==
   dependencies:
     "@chakra-ui/react" "^3.35.0"
     "@dnd-kit/abstract" "0.4.0"
@@ -1157,31 +1157,6 @@
     use-debounce "^9.0.4"
     uuid "^11.1.1"
     zustand "^5.0.13"
-
-"@reacteditor/field-google-fonts@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@reacteditor/field-google-fonts/-/field-google-fonts-0.0.3.tgz#ff8ac76ad36488fdd5ddb934324155be7e24fac1"
-  integrity sha512-Z2Y1DOtX8McpBLnUK4V63HypZE2R2L71IsAI5XYC3w1CzfnaaU+GEZBPYi2tmF1ahkouOXwrKeawD3LtsllmJg==
-
-"@reacteditor/field-shopify@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@reacteditor/field-shopify/-/field-shopify-0.0.2.tgz#ee1e67f5142cebc9bb9bff816752f53b74ecaf23"
-  integrity sha512-1ZdqK55QlGl4b2l370XWJkiGAWqJP7KjeQrAw9RU7c7w7SOPm2YlAsCeRqjdcFODLOm0ab8vfuExXseVVb54CQ==
-
-"@reacteditor/plugin-media@0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@reacteditor/plugin-media/-/plugin-media-0.0.6.tgz#15f35e8d4af3982c4fe3d10767615b501eeb1f24"
-  integrity sha512-uj5ANPZ3DVDyNb9h40TMzQrOeB9d6/b0HNroOWbYCL4WG5l9NnWG3bXU3y5qu9n3GR2LOFvNVuBFCXwbpOOq5A==
-
-"@reacteditor/plugin-shopify@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@reacteditor/plugin-shopify/-/plugin-shopify-0.0.1.tgz#5c419b7ab93e46b43d6ec53836d401ff4298b45a"
-  integrity sha512-MpikjXcNw7RNBlMnC61OcX3qZeEvaf4meolqS9eC2mNSaQWjK2WA/2g2afqnwilx5HNG14Eu+8GLXLEH8hhOzQ==
-
-"@reacteditor/plugin-tailwind-cdn@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@reacteditor/plugin-tailwind-cdn/-/plugin-tailwind-cdn-0.0.3.tgz#355af37a738b3477778294f6fa1f339d90ae6f07"
-  integrity sha512-YMMfJC9ZOa5ntfo7hSk3IBlR1lNBpEPmVGfvc8U/dN6z+WIxdFoSLJw87IltblhaBlxjqD9OWUNLvbyXIL8zZQ==
 
 "@shopify/graphql-client@^1.4.2":
   version "1.4.2"
