@@ -1,6 +1,6 @@
 "use client";
 
-import { Render } from "@reacteditor/core";
+import { Render } from "@reacteditor/core/render";
 import { appConfig } from "@/editor.config";
 import globals from "@/app.globals.json";
 
