@@ -11,8 +11,6 @@ import type { SearchResultsBlockProps } from '@/components/shopify/search-result
 import type { StoreAssistantBlockProps } from '@/components/shopify/store-assistant.editor';
 import type { ContentSectionProps } from '@/components/shopify/content-section';
 import type { PolicyBodyProps } from '@/components/shopify/policy-body';
-import type { AccountPanelProps } from '@/components/shopify/account-panel';
-import type { AccountOrdersProps } from '@/components/shopify/account-orders';
 
 import type { RootProps } from './root';
 
@@ -30,18 +28,12 @@ export type Components = {
   'store-assistant': StoreAssistantBlockProps;
   'content-section': ContentSectionProps;
   policy: PolicyBodyProps;
-  'account-login': AccountPanelProps;
-  'account-register': AccountPanelProps;
-  'account-recover': AccountPanelProps;
-  'account-reset': AccountPanelProps;
-  'account-activate': AccountPanelProps;
-  'account-orders': AccountOrdersProps;
 };
 
 export type UserConfig = Config<{
   components: Components;
   root: RootProps;
-  categories: ['navigation', 'commerce', 'content', 'account'];
+  categories: ['navigation', 'commerce', 'content'];
 }>;
 
 export type UserData = Data<Components, RootProps>;

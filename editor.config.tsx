@@ -12,20 +12,11 @@ import searchResultsEditor from '@/components/shopify/search-results.editor';
 import storeAssistantEditor from '@/components/shopify/store-assistant.editor';
 import contentSectionEditor from '@/components/shopify/content-section.editor';
 import policyBodyEditor from '@/components/shopify/policy-body.editor';
-import accountOrdersEditor from '@/components/shopify/account-orders.editor';
-import {
-  accountActivateEditor,
-  accountLoginEditor,
-  accountRecoverEditor,
-  accountRegisterEditor,
-  accountResetEditor,
-} from '@/components/shopify/account-panel.editor';
 
 const categories = {
   navigation: { title: 'Navigation' },
   commerce: { title: 'Commerce' },
   content: { title: 'Content' },
-  account: { title: 'Account' },
 };
 
 /**
@@ -50,12 +41,6 @@ export const appConfig: UserConfig = {
     'store-assistant': storeAssistantEditor,
     'content-section': contentSectionEditor,
     policy: policyBodyEditor,
-    'account-login': accountLoginEditor,
-    'account-register': accountRegisterEditor,
-    'account-recover': accountRecoverEditor,
-    'account-reset': accountResetEditor,
-    'account-activate': accountActivateEditor,
-    'account-orders': accountOrdersEditor,
   } as any,
 };
 

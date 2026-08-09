@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useCartStore } from '@/hooks/use-shopify-cart';
 import CartDrawer from '@/components/shopify/cart-drawer';
 import SearchDialog from '@/components/shopify/search-dialog';
-import AccountMenu from '@/components/shopify/account-menu';
 import ShopMenu from '@/components/shopify/shop-menu';
 import { RiShoppingBagLine, RiCloseLine, RiMenu3Line } from '@remixicon/react';
 import { Button } from '@/components/ui/button';
@@ -117,7 +116,6 @@ const Header: React.FC<HeaderProps> = ({
           {/* Actions */}
           <div className="flex items-center">
             <SearchDialog />
-            <AccountMenu />
             <CartIcon />
 
             {/* Mobile hamburger */}

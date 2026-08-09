@@ -1,13 +1,14 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { Editor, outlinePlugin, type Data } from '@reacteditor/core';
-import { Loader } from '@/components/ui/loader';
 import createTailwindCdnPlugin from '@reacteditor/plugin-tailwind-cdn';
 import { createShopifyPlugin } from '@reacteditor/plugin-shopify';
 import { appConfig } from '@/editor.config';
 import { ROUTE_KEYS, editorHref, findPageRoute } from '@/lib/pages';
+import { publishPage } from '@/lib/publish-page';
+import globals from '@/app.globals.json';
 
 // Plugin instances must keep a stable identity across renders, same as
 // `appConfig`, so they are built once at module scope.
@@ -32,11 +33,15 @@ const outline = outlinePlugin();
 
 const plugins = [outline, tailwindCdn, shopify];
 
-const EMPTY_PAGE: Data = { root: { props: { title: 'Untitled' } }, content: [] };
-
 export interface PageEditorProps {
   /** Route key from `lib/pages.ts`, e.g. `/products/[handle]`. */
   routeKey: string;
+  /**
+   * The route's own `page.json`, imported by the `editor/page.tsx` that mounts
+   * this — `import pageData from '../page.json'`. Bundled at build time, so the
+   * editor opens with the page already in hand and no request to wait on.
+   */
+  page: Record<string, unknown>;
 }
 
 /**
@@ -49,16 +54,24 @@ export interface PageEditorProps {
  * calling `useParams()` inside the preview iframe sees the actual handle from
  * `/products/warrior-club-hoodie/editor` — no stand-in data required.
  *
- * Data is read from and published back to the route's own `page.json` through
- * `/api/pages`, which writes the file on disk.
+ * Data comes in as a prop — the route's own `page.json`, imported by the
+ * `editor/page.tsx` above it — and publishing writes that same file back to
+ * disk through the `publishPage` server action.
  */
-export default function PageEditor({ routeKey }: PageEditorProps) {
+export default function PageEditor({ routeKey, page }: PageEditorProps) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
 
-  const [data, setData] = useState<Data | null>(null);
   const [status, setStatus] = useState<string | null>(null);
+
+  // `app.globals.json` holds the props of blocks marked `global: true` (header,
+  // footer), which every page.json references via `"synced": true`. The editor
+  // needs them alongside the page so those blocks render their real content.
+  const data = useMemo(
+    () => ({ ...page, globals }) as unknown as Data,
+    [page]
+  );
 
   // The editor lives at `<public path>/editor`; drop that segment to recover
   // the page's own URL for the route descriptor and the URL bar.
@@ -75,67 +88,22 @@ export default function PageEditor({ routeKey }: PageEditorProps) {
     return entries;
   }, [params]);
 
-  useEffect(() => {
-    let cancelled = false;
-    setData(null);
-
-    fetch(`/api/pages?route=${encodeURIComponent(routeKey)}`)
-      .then((response) => response.json())
-      .then((body) => {
-        if (!cancelled) setData(body.page ?? EMPTY_PAGE);
-      })
-      .catch(() => {
-        if (!cancelled) setData(EMPTY_PAGE);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [routeKey]);
-
   const handlePublish = useCallback(
     async (published: Data) => {
       setStatus('Saving…');
 
       try {
-        const response = await fetch('/api/pages', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ route: routeKey, page: published }),
-        });
-        const body = await response.json().catch(() => ({}));
+        const result = await publishPage(routeKey, published);
 
-        if (!response.ok) {
-          setStatus(body.error ?? 'Could not save this page.');
-          return;
-        }
-
-        setStatus(`Saved to ${body.file}`);
+        setStatus(
+          result.error ? result.error : `Saved to ${result.file}`
+        );
       } catch {
         setStatus('Could not reach the server.');
       }
     },
     [routeKey]
   );
-
-  // Wait for the fetch: handing <Editor> a placeholder and then swapping it
-  // would seed the undo history with a page the author never wrote.
-  //
-  // Uses the local `components/ui/loader`, not core's export of the same name:
-  // core's is built on Chakra's Spinner and reads a context that only exists
-  // inside `<Editor>`, so it throws when used for a pre-Editor wait state.
-  // This one is provider-free SVG and renders anywhere.
-  if (!data) {
-    return (
-      <div
-        className="flex h-screen items-center justify-center text-muted-foreground"
-        role="status"
-        aria-label={`Loading ${routeKey}`}
-      >
-        <Loader size={24} />
-      </div>
-    );
-  }
 
   return (
     <Editor

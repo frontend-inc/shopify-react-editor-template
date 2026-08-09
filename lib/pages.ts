@@ -3,8 +3,8 @@
  *
  * `key` is what the editor's page picker shows and what `onPublish` hands back;
  * `dir` is the folder under `app/` holding that route's `page.json`. Keeping
- * the list here means the publish API can validate a request against it rather
- * than trusting a path from the browser.
+ * the list here means the publish action can validate a route key against it
+ * rather than trusting a path from the browser.
  */
 export interface PageRoute {
   key: string;
@@ -29,28 +29,6 @@ export const PAGE_ROUTES: PageRoute[] = [
   },
   { key: '/search', label: 'Search', dir: 'search' },
   { key: '/policies/[handle]', label: 'Policy', dir: 'policies/[handle]' },
-  { key: '/account', label: 'Account — orders', dir: 'account' },
-  { key: '/account/login', label: 'Account — sign in', dir: 'account/login' },
-  {
-    key: '/account/register',
-    label: 'Account — register',
-    dir: 'account/register',
-  },
-  {
-    key: '/account/recover',
-    label: 'Account — recover',
-    dir: 'account/recover',
-  },
-  {
-    key: '/account/reset/[id]/[token]',
-    label: 'Account — set password',
-    dir: 'account/reset/[id]/[token]',
-  },
-  {
-    key: '/account/activate/[id]/[token]',
-    label: 'Account — activate',
-    dir: 'account/activate/[id]/[token]',
-  },
 ];
 
 export const ROUTE_KEYS = PAGE_ROUTES.map((route) => route.key);
