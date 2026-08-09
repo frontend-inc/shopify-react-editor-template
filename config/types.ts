@@ -1,51 +1,47 @@
-import { Config, Data } from "@reacteditor/core";
+import { Config, Data } from '@reacteditor/core';
 
-import { CoverProps } from "@/components/cover/cover";
-import { HeaderProps } from "@/components/header/header";
-import { FooterProps } from "@/components/footer/footer";
+import type { HeaderBlockProps } from '@/components/shopify/header.editor';
+import type { FooterBlockProps } from '@/components/shopify/footer.editor';
+import type { ProductsBlockProps } from '@/components/shopify/products.editor';
+import type { CollectionsBlockProps } from '@/components/shopify/collections.editor';
+import type { CollectionDetailBlockProps } from '@/components/shopify/collection-detail.editor';
+import type { ProductDetailBlockProps } from '@/components/shopify/product-detail.editor';
+import type { ProductRecommendationsBlockProps } from '@/components/shopify/product-recommendations.editor';
+import type { SearchResultsBlockProps } from '@/components/shopify/search-results.editor';
+import type { StoreAssistantBlockProps } from '@/components/shopify/store-assistant.editor';
+import type { ContentSectionProps } from '@/components/shopify/content-section';
+import type { PolicyBodyProps } from '@/components/shopify/policy-body';
+import type { AccountPanelProps } from '@/components/shopify/account-panel';
+import type { AccountOrdersProps } from '@/components/shopify/account-orders';
 
-import { ProductsGridProps } from "@/components/shopify/products-grid";
-import { ProductsCarouselProps } from "@/components/shopify/products-carousel";
-import { CollectionGridProps } from "@/components/shopify/collection-grid";
-import { CollectionProps } from "@/components/shopify/collection";
-import { ProductDetailsProps } from "@/components/shopify/product-details";
-import { RecommendedProductsProps } from "@/components/shopify/recommended-products";
-import { ProductRecommendationsProps } from "@/components/shopify/product-recommendations";
-import { SearchProductsProps } from "@/components/shopify/search-products";
-import { FeaturedProductProps } from "@/components/shopify/featured-product";
+import type { RootProps } from './root';
 
-import { NewsletterCtaProps } from "@/components/newsletter-cta/newsletter-cta";
-
-import { RootProps } from "./root";
-
-export type { RootProps } from "./root";
+export type { RootProps } from './root';
 
 export type Components = {
-  header: HeaderProps;
-  cover: CoverProps;
-  "newsletter-cta": NewsletterCtaProps;
-  "featured-product": FeaturedProductProps;
-  "products-grid": ProductsGridProps;
-  "products-carousel": ProductsCarouselProps;
-  "collection-grid": CollectionGridProps;
-  collection: CollectionProps;
-  "product-details": ProductDetailsProps;
-  "recommended-products": RecommendedProductsProps;
-  "product-recommendations": ProductRecommendationsProps;
-  "search-products": SearchProductsProps;
-  footer: FooterProps;
+  header: HeaderBlockProps;
+  footer: FooterBlockProps;
+  products: ProductsBlockProps;
+  collections: CollectionsBlockProps;
+  'collection-detail': CollectionDetailBlockProps;
+  'product-detail': ProductDetailBlockProps;
+  'product-recommendations': ProductRecommendationsBlockProps;
+  'search-results': SearchResultsBlockProps;
+  'store-assistant': StoreAssistantBlockProps;
+  'content-section': ContentSectionProps;
+  policy: PolicyBodyProps;
+  'account-login': AccountPanelProps;
+  'account-register': AccountPanelProps;
+  'account-recover': AccountPanelProps;
+  'account-reset': AccountPanelProps;
+  'account-activate': AccountPanelProps;
+  'account-orders': AccountOrdersProps;
 };
 
 export type UserConfig = Config<{
   components: Components;
   root: RootProps;
-  categories: ["header", "cover", "commerce", "content", "footer"];
-  fields: {
-    userField: {
-      type: "userField";
-      option: boolean;
-    };
-  };
+  categories: ['navigation', 'commerce', 'content', 'account'];
 }>;
 
 export type UserData = Data<Components, RootProps>;

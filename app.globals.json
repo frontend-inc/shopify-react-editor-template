@@ -1,1 +1,53 @@
-{}
+{
+  "header": {
+    "props": {
+      "storeName": "Shop",
+      "logoUrl": "",
+      "showAnnouncement": "yes",
+      "announcement": "Free shipping on orders over $200",
+      "announcementUrl": "",
+      "links": [
+        {
+          "label": "Products",
+          "url": "/"
+        },
+        {
+          "label": "Collections",
+          "url": "/collections"
+        }
+      ]
+    }
+  },
+  "footer": {
+    "props": {
+      "storeName": "Shop",
+      "logoUrl": "",
+      "copyright": "\u00a9 2026 Shop. All rights reserved.",
+      "links": [
+        {
+          "label": "Terms of Service",
+          "url": "/policies/terms-of-service"
+        },
+        {
+          "label": "Privacy Policy",
+          "url": "/policies/privacy-policy"
+        },
+        {
+          "label": "Refund Policy",
+          "url": "/policies/refund-policy"
+        },
+        {
+          "label": "Shipping Policy",
+          "url": "/policies/shipping-policy"
+        },
+        {
+          "label": "Subscription Policy",
+          "url": "/policies/subscription-policy"
+        }
+      ],
+      "instagramUrl": "#",
+      "tiktokUrl": "#",
+      "facebookUrl": "#"
+    }
+  }
+}

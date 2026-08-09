@@ -1,0 +1,48 @@
+{
+  "root": {
+    "props": {
+      "title": "Create account",
+      "description": "Create a Shop account.",
+      "ogImage": ""
+    }
+  },
+  "content": [
+    {
+      "type": "header",
+      "props": {
+        "id": "header"
+      },
+      "synced": true
+    },
+    {
+      "type": "account-register",
+      "props": {
+        "id": "account-register",
+        "flow": "register",
+        "title": "Create account",
+        "description": "",
+        "submitLabel": "Create account",
+        "successMessage": "",
+        "links": [
+          {
+            "label": "Already have an account? Sign in",
+            "url": "/account/login"
+          }
+        ]
+      }
+    },
+    {
+      "type": "footer",
+      "props": {
+        "id": "footer"
+      },
+      "synced": true
+    },
+    {
+      "type": "store-assistant",
+      "props": {
+        "id": "store-assistant"
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "root": {
+    "props": {
+      "title": "Order history",
+      "description": "Your recent orders.",
+      "ogImage": ""
+    }
+  },
+  "content": [
+    {
+      "type": "header",
+      "props": {
+        "id": "header"
+      },
+      "synced": true
+    },
+    {
+      "type": "account-orders",
+      "props": {
+        "id": "account-orders",
+        "title": "Order history",
+        "signedOutMessage": "Sign in to see your orders.",
+        "emptyMessage": "You haven't placed any orders yet.",
+        "limit": 20
+      }
+    },
+    {
+      "type": "footer",
+      "props": {
+        "id": "footer"
+      },
+      "synced": true
+    },
+    {
+      "type": "store-assistant",
+      "props": {
+        "id": "store-assistant"
+      }
+    }
+  ]
+}

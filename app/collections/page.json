@@ -1,0 +1,39 @@
+{
+  "root": {
+    "props": {
+      "title": "Collections",
+      "description": "Browse every collection in the store.",
+      "ogImage": ""
+    }
+  },
+  "content": [
+    {
+      "type": "header",
+      "props": {
+        "id": "header"
+      },
+      "synced": true
+    },
+    {
+      "type": "collections",
+      "props": {
+        "id": "collections-grid",
+        "title": "Our Collections",
+        "subtitle": "Discover our carefully crafted worlds"
+      }
+    },
+    {
+      "type": "footer",
+      "props": {
+        "id": "footer"
+      },
+      "synced": true
+    },
+    {
+      "type": "store-assistant",
+      "props": {
+        "id": "store-assistant"
+      }
+    }
+  ]
+}

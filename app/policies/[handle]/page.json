@@ -1,0 +1,40 @@
+{
+  "root": {
+    "props": {
+      "title": "Policy",
+      "description": "Store policies.",
+      "ogImage": ""
+    }
+  },
+  "content": [
+    {
+      "type": "header",
+      "props": {
+        "id": "header"
+      },
+      "synced": true
+    },
+    {
+      "type": "policy",
+      "props": {
+        "id": "policy-body",
+        "handle": "",
+        "title": "",
+        "notFoundMessage": "This policy has not been published yet."
+      }
+    },
+    {
+      "type": "footer",
+      "props": {
+        "id": "footer"
+      },
+      "synced": true
+    },
+    {
+      "type": "store-assistant",
+      "props": {
+        "id": "store-assistant"
+      }
+    }
+  ]
+}

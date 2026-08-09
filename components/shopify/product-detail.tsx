@@ -1,3 +1,3 @@
-import ProductDetail from './product-detail/index.tsx';
+import ProductDetail from './product-detail/index';
 
 export default ProductDetail;

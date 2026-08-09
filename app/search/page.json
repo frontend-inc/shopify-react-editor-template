@@ -1,161 +1,37 @@
 {
   "root": {
     "props": {
-      "title": "Shop — Pulse",
-      "headerFont": "Archivo Black",
-      "headerFontWeight": "400",
-      "bodyFont": "Inter",
-      "primaryColor": "#111111",
-      "secondaryColor": "#707072",
-      "accentColor": "#f5f5f5",
-      "bgColor": "#ffffff",
-      "fgColor": "#111111",
-      "mutedColor": "#f5f5f5",
-      "radius": "xl",
-      "buttonRadius": "full",
-      "shadow": "none",
-      "maxWidth": "2xl"
+      "title": "Search",
+      "description": "Search the catalogue by product name, description or type.",
+      "ogImage": ""
     }
   },
   "content": [
     {
       "type": "header",
       "props": {
-        "id": "nav-search",
-        "brand": "PULSE",
-        "links": [
-          {
-            "label": "Run",
-            "href": "/collections/run"
-          },
-          {
-            "label": "Train",
-            "href": "/collections/train"
-          },
-          {
-            "label": "Recover",
-            "href": "/collections/recover"
-          },
-          {
-            "label": "Sale",
-            "href": "/collections/sale"
-          },
-          {
-            "label": "About",
-            "href": "/about"
-          }
-        ],
-        "showSearch": "yes",
-        "showAccount": "yes",
-        "showCart": "yes",
-        "sticky": "yes",
-        "tone": "default"
-      }
+        "id": "header"
+      },
+      "synced": true
     },
     {
-      "type": "search-products",
+      "type": "search-results",
       "props": {
-        "id": "search-products",
-        "heading": "All gear.",
-        "subheading": "Filter by sport, fabric, fit, color. Or sort by what's been beaten the hardest.",
-        "columns": "4",
-        "limit": 24,
-        "showAvailability": "yes",
-        "showPriceRange": "yes",
-        "showProductType": "yes",
-        "showVendor": "no",
-        "showTags": "yes",
-        "metafieldFilters": [],
-        "defaultSort": "BEST_SELLING",
-        "productTypeOptions": [
-          {
-            "label": "Tops"
-          },
-          {
-            "label": "Shorts"
-          },
-          {
-            "label": "Tights"
-          },
-          {
-            "label": "Outerwear"
-          },
-          {
-            "label": "Shoes"
-          },
-          {
-            "label": "Accessories"
-          }
-        ],
-        "vendorOptions": [],
-        "tagOptions": [
-          {
-            "label": "New"
-          },
-          {
-            "label": "Race day"
-          },
-          {
-            "label": "Field tested"
-          },
-          {
-            "label": "Sale"
-          }
-        ]
+        "id": "search-results",
+        "title": "Search"
       }
     },
     {
       "type": "footer",
       "props": {
-        "id": "footer-search",
-        "brand": "PULSE",
-        "tagline": "Performance gear for athletes who break their kit before they break themselves.",
-        "columns": [
-          {
-            "title": "Shop",
-            "links": [
-              {
-                "label": "All gear",
-                "href": "/search"
-              },
-              {
-                "label": "Run",
-                "href": "/collections/run"
-              },
-              {
-                "label": "Train",
-                "href": "/collections/train"
-              }
-            ]
-          },
-          {
-            "title": "Help",
-            "links": [
-              {
-                "label": "Shipping",
-                "href": "/help/shipping"
-              },
-              {
-                "label": "Returns",
-                "href": "/help/returns"
-              }
-            ]
-          }
-        ],
-        "social": [
-          {
-            "label": "Instagram",
-            "href": "#"
-          },
-          {
-            "label": "Strava",
-            "href": "#"
-          }
-        ],
-        "showNewsletter": "no",
-        "newsletterHeading": "",
-        "newsletterEndpoint": "",
-        "copyright": "© 2026 Pulse. Built to be replaced when used up."
+        "id": "footer"
+      },
+      "synced": true
+    },
+    {
+      "type": "store-assistant",
+      "props": {
+        "id": "store-assistant"
       }
     }
   ]

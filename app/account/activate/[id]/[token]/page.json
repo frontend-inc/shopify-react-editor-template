@@ -1,0 +1,43 @@
+{
+  "root": {
+    "props": {
+      "title": "Activate your account",
+      "description": "Finish setting up your account.",
+      "ogImage": ""
+    }
+  },
+  "content": [
+    {
+      "type": "header",
+      "props": {
+        "id": "header"
+      },
+      "synced": true
+    },
+    {
+      "type": "account-activate",
+      "props": {
+        "id": "account-activate",
+        "flow": "activate",
+        "title": "Activate your account",
+        "description": "Choose a password to finish setting up your account.",
+        "submitLabel": "Activate account",
+        "successMessage": "",
+        "links": []
+      }
+    },
+    {
+      "type": "footer",
+      "props": {
+        "id": "footer"
+      },
+      "synced": true
+    },
+    {
+      "type": "store-assistant",
+      "props": {
+        "id": "store-assistant"
+      }
+    }
+  ]
+}

@@ -1,25 +1,40 @@
-import { ComponentConfig } from "@reacteditor/core";
-import { LayoutGrid } from "lucide-react";
-import {
-  ProductRecommendationsView,
-  type ProductRecommendationsProps,
-} from "@/components/shopify/product-recommendations";
+import { ComponentConfig } from '@reacteditor/core';
+import type { ShopifyProduct } from '@reacteditor/plugin-shopify';
+import { Sparkles } from 'lucide-react';
+import ProductRecommendations from '@/components/shopify/product-recommendations';
 
-const productRecommendationsEditor: ComponentConfig<ProductRecommendationsProps> = {
-    label: "Product recommendations",
-    icon: <LayoutGrid size={16} />,
-    category: "commerce",
+export type ProductRecommendationsBlockProps = {
+  title?: string;
+  product?: ShopifyProduct | null;
+  limit?: number;
+};
+
+const productRecommendationsEditor: ComponentConfig<ProductRecommendationsBlockProps> =
+  {
+    label: 'Recommended products',
+    icon: <Sparkles size={16} />,
+    category: 'commerce',
     defaultProps: {
+      title: 'You May Also Like',
       product: null,
-      heading: "You Might Also Like",
       limit: 4,
     },
     fields: {
-      product: { label: "Source product", type: "shopifyProduct" } as any,
-      heading: { label: "Heading", type: "text", contentEditable: true },
-      limit: { label: "Limit", type: "number", min: 2, max: 8 },
+      title: { label: 'Title', type: 'text', contentEditable: true },
+      product: {
+        label: 'Seed product',
+        // Empty follows the `[handle]` route segment; Shopify picks the rest.
+        type: 'shopifyProduct',
+      } as any,
+      limit: { label: 'Products shown', type: 'number', min: 2, max: 12 },
     },
-    render: (props) => <ProductRecommendationsView {...props} />,
-};
+    render: ({ title, product, limit }) => (
+      <ProductRecommendations
+        title={title}
+        handle={product?.handle}
+        limit={limit}
+      />
+    ),
+  };
 
 export default productRecommendationsEditor;

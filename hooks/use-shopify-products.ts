@@ -1,72 +1,32 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { shopifyFetch } from '@/services/shopify/client';
 import {
-  GET_PRODUCTS_QUERY,
-  GET_PRODUCT_QUERY,
-  QUERY_PRODUCT_RECOMMENDATIONS,
-} from '@/graphql/products';
+  getProducts,
+  getProduct,
+  getProductRecommendations,
+} from '@/services/shopify/catalog';
 
-interface ProductImage {
-  url: string;
-  altText?: string;
-}
+// Pure fetchers live in services/shopify/catalog so server code can use them
+// too; re-exported here so existing imports keep working.
+export {
+  getProducts,
+  getProductsPage,
+  getProduct,
+  getProductRecommendations,
+} from '@/services/shopify/catalog';
+export type {
+  Product,
+  ProductOption,
+  ProductOptionValue,
+  ProductsPage,
+} from '@/services/shopify/catalog';
 
-interface ProductPrice {
-  amount: string;
-  currencyCode: string;
-}
-
-interface ProductVariant {
-  id: string;
-  title: string;
-  price: ProductPrice;
-  availableForSale: boolean;
-  selectedOptions: Array<{
-    name: string;
-    value: string;
-  }>;
-  image?: ProductImage;
-}
-
-interface ProductOption {
-  id: string;
-  name: string;
-  values: string[];
-}
-
-export interface Product {
-  id: string;
-  title: string;
-  description?: string;
-  descriptionHtml?: string;
-  handle: string;
-  vendor?: string;
-  productType?: string;
-  tags?: string[];
-  availableForSale?: boolean;
-  images: {
-    edges: Array<{
-      node: ProductImage;
-    }>;
-  };
-  priceRange: {
-    minVariantPrice: ProductPrice;
-  };
-  compareAtPriceRange?: {
-    minVariantPrice: ProductPrice;
-  };
-  variants: {
-    edges: Array<{
-      node: ProductVariant;
-    }>;
-  };
-  options: ProductOption[];
-}
+import type { Product } from '@/services/shopify/catalog';
 
 interface UseProductsOptions {
   first?: number;
+  after?: string | null;
   query?: string;
   sortKey?: 'BEST_SELLING' | 'CREATED_AT' | 'PRICE' | 'TITLE';
   reverse?: boolean;
@@ -77,41 +37,6 @@ interface UseProductsReturn {
   loading: boolean;
   error: string | null;
   refetch: () => Promise<void>;
-}
-
-// Fetch multiple products
-export async function getProducts({
-  first = 20,
-  query = '',
-  sortKey = 'BEST_SELLING',
-  reverse = false,
-}: UseProductsOptions = {}): Promise<Product[]> {
-  const response = await shopifyFetch({
-    query: GET_PRODUCTS_QUERY,
-    variables: { first, query, sortKey, reverse },
-  });
-
-  return response.data.products.edges.map((edge: { node: Product }) => edge.node);
-}
-
-// Fetch a single product by handle
-export async function getProduct(handle: string): Promise<Product | null> {
-  const response = await shopifyFetch({
-    query: GET_PRODUCT_QUERY,
-    variables: { handle },
-  });
-
-  return response.data.product;
-}
-
-// Fetch product recommendations
-export async function getProductRecommendations(productId: string): Promise<Product[]> {
-  const response = await shopifyFetch({
-    query: QUERY_PRODUCT_RECOMMENDATIONS,
-    variables: { productId },
-  });
-
-  return response.data.productRecommendations || [];
 }
 
 // Hook for fetching multiple products

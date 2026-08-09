@@ -6,3 +6,14 @@ dist
 .env.local
 .env.*.local
 *.log
+
+# Build caches
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# Yarn (Berry) — keep the lockfile and .yarnrc.yml, ignore local state
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+.pnp.*

@@ -1,8 +1,47 @@
 import React from 'react';
-import { Product, ProductVariant } from './index.tsx';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Spinner } from '@/components/ui/spinner';
+import { Loader } from '@/components/ui/loader';
+import { RiSubtractLine, RiAddLine } from '@remixicon/react';
+import ShopPayButton from '@/components/shopify/shop-pay-button';
+import type { ProductOption, ProductOptionValue } from '@/hooks/use-shopify-products';
+import { isSwatchOptionName, swatchColorForName } from '@/config/swatches';
+import { isDefaultTitleOption } from '@/services/shopify/catalog';
+
+interface ProductPrice {
+  amount: string;
+  currencyCode: string;
+}
+
+interface ProductVariant {
+  id: string;
+  title: string;
+  price: ProductPrice;
+  availableForSale: boolean;
+  selectedOptions: Array<{
+    name: string;
+    value: string;
+  }>;
+}
+
+interface Product {
+  id: string;
+  title: string;
+  description?: string;
+  descriptionHtml?: string;
+  handle: string;
+  priceRange: {
+    minVariantPrice: ProductPrice;
+  };
+  compareAtPriceRange?: {
+    minVariantPrice: ProductPrice;
+  };
+  options: ProductOption[];
+}
+
+export interface ProductFeature {
+  icon: string;
+  label: string;
+}
 
 interface ProductDetailInfoProps {
   product: Product;
@@ -11,9 +50,30 @@ interface ProductDetailInfoProps {
   quantity: number;
   setQuantity: (quantity: number) => void;
   handleAddToCart: () => void;
+  handleBuyNow?: () => void;
   onOptionChange: (optionName: string, value: string) => void;
+  /** Whether an option value still has an in-stock variant behind it. */
+  isOptionValueAvailable?: (optionName: string, value: string) => boolean;
   loading?: boolean;
+  buyingNow?: boolean;
+  addToCartLabel?: string;
 }
+
+// A swatch comes from the option value's own swatch (colour or image) or the
+// colour its name implies (see config/swatches) — never a variant photo.
+const swatchStyle = (
+  value: ProductOptionValue
+): { background?: string; image?: string } => {
+  if (value.swatch?.color) return { background: value.swatch.color };
+
+  const swatchImage = value.swatch?.image?.previewImage?.url;
+  if (swatchImage) return { image: swatchImage };
+
+  const namedColor = swatchColorForName(value.name);
+  if (namedColor) return { background: namedColor };
+
+  return {};
+};
 
 const ProductDetailInfo: React.FC<ProductDetailInfoProps> = ({
   product,
@@ -22,135 +82,199 @@ const ProductDetailInfo: React.FC<ProductDetailInfoProps> = ({
   quantity,
   setQuantity,
   handleAddToCart,
+  handleBuyNow,
   onOptionChange,
+  isOptionValueAvailable,
   loading = false,
+  buyingNow = false,
+  addToCartLabel = 'Add to Cart',
 }) => {
-  const formatPrice = (price: { amount: string; currencyCode: string }) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(parseFloat(price.amount));
+  const formatPrice = (amount: string) => {
+    return `$${parseFloat(amount).toFixed(2)}`;
   };
 
   const price = selectedVariant?.price || product.priceRange.minVariantPrice;
   const compareAtPrice = product.compareAtPriceRange?.minVariantPrice;
-  const hasDiscount = compareAtPrice && parseFloat(compareAtPrice.amount) > parseFloat(price.amount);
+  const hasDiscount =
+    compareAtPrice &&
+    parseFloat(compareAtPrice.amount) > parseFloat(price.amount);
+  const isAvailable = selectedVariant?.availableForSale ?? false;
+
+  const isSwatchOption = (option: ProductOption) =>
+    isSwatchOptionName(option.name);
+
+  // Some products return Size before Color; show the swatches first either way.
+  // Single-SKU products expose a synthetic `Title: Default Title` option — drop it.
+  const orderedOptions = [...(product.options ?? [])]
+    .filter((option) => !isDefaultTitleOption(option))
+    .sort((a, b) => Number(isSwatchOption(b)) - Number(isSwatchOption(a)));
+
+  // `optionValues` carries the swatch data; fall back to plain `values`.
+  const optionValuesFor = (option: ProductOption): ProductOptionValue[] =>
+    option.optionValues?.length
+      ? option.optionValues
+      : option.values.map((value) => ({ id: value, name: value }));
 
   return (
     <div>
-      <h1 className="text-4xl font-bold text-foreground mb-4 font-heading">
+      <h1 className="text-2xl md:text-3xl font-normal text-foreground">
         {product.title}
       </h1>
-
-      {/* Price */}
-      <div className="flex items-center space-x-4 mb-6">
-        <span className="text-2xl font-bold text-foreground">
-          {formatPrice(price)}
+      <div className="flex items-baseline gap-x-3 mt-1">
+        <span className="font-mono tabular-nums tracking-tight text-base text-foreground">
+          {formatPrice(price.amount)}
         </span>
         {hasDiscount && compareAtPrice && (
-          <>
-            <span className="text-xl text-muted-foreground line-through">
-              {formatPrice(compareAtPrice)}
-            </span>
-            <Badge variant="destructive">
-              {Math.round(((parseFloat(compareAtPrice.amount) - parseFloat(price.amount)) / parseFloat(compareAtPrice.amount)) * 100)}% OFF
-            </Badge>
-          </>
+          <span className="font-mono tabular-nums tracking-tight text-sm line-through text-muted-foreground">
+            {formatPrice(compareAtPrice.amount)}
+          </span>
         )}
       </div>
 
+      {/* Product Options — colour swatches lead, whatever order the API returns */}
+      {orderedOptions.map((option) => {
+        const isSwatch = isSwatchOption(option);
+        const selected = selectedOptions[option.name];
+
+        return (
+          <div key={option.id} className="mt-8">
+            <div className="text-sm text-muted-foreground mb-2">
+              {option.name}
+              {isSwatch && selected && (
+                <span className="text-foreground font-medium">: {selected}</span>
+              )}
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {optionValuesFor(option).map((value) => {
+                const isSelected = selected === value.name;
+                const isSoldOut =
+                  isOptionValueAvailable?.(option.name, value.name) === false;
+
+                if (isSwatch) {
+                  const { background, image } = swatchStyle(value);
+
+                  return (
+                    <Button
+                      key={value.id}
+                      onClick={() => onOptionChange(option.name, value.name)}
+                      variant="ghost"
+                      size="icon-sm"
+                      aria-label={value.name}
+                      aria-pressed={isSelected}
+                      title={
+                        isSoldOut ? `${value.name} — out of stock` : value.name
+                      }
+                      data-available={!isSoldOut}
+                      className={`rounded-full bg-cover bg-center hover:bg-transparent ${
+                        isSelected
+                          ? 'ring-2 ring-foreground ring-offset-2'
+                          : 'ring-1 ring-border hover:ring-foreground/40'
+                      } ${isSoldOut ? 'option-unavailable text-foreground/60 opacity-60' : ''}`}
+                      style={{
+                        // With no colour and no image the circle would be fully
+                        // transparent, leaving just a hairline ring that
+                        // antialiases unevenly and reads as a speckled border.
+                        // A neutral fill makes the initial-letter fallback look
+                        // deliberate. Set inline so it beats the ghost variant's
+                        // hover background.
+                        backgroundColor:
+                          background ??
+                          (image ? undefined : 'var(--color-muted)'),
+                        backgroundImage: image ? `url(${image})` : undefined,
+                      }}
+                    >
+                      {!background && !image && (
+                        <span className="text-[10px] font-medium uppercase text-muted-foreground">
+                          {value.name.at(0)}
+                        </span>
+                      )}
+                    </Button>
+                  );
+                }
+
+                return (
+                  <Button
+                    key={value.id}
+                    onClick={() => onOptionChange(option.name, value.name)}
+                    variant="outline"
+                    aria-pressed={isSelected}
+                    title={isSoldOut ? `${value.name} — out of stock` : undefined}
+                    className={`min-w-14 px-5 font-normal shadow-none ${
+                      isSelected
+                        ? 'border-foreground text-foreground'
+                        : 'text-muted-foreground hover:border-foreground hover:text-foreground'
+                    } ${isSoldOut ? 'option-unavailable text-muted-foreground/60' : ''}`}
+                  >
+                    {value.name}
+                  </Button>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+
+      {/* Quantity + Add to Cart */}
+      <div className="mt-8 flex items-stretch gap-3">
+        <div className="flex items-center rounded-md border border-border h-11">
+          <Button
+            onClick={() => setQuantity(Math.max(1, quantity - 1))}
+            disabled={quantity <= 1}
+            variant="ghost"
+            size="icon"
+            aria-label="Decrease quantity"
+            className="h-full rounded-none rounded-l-md"
+          >
+            <RiSubtractLine size={16} />
+          </Button>
+          <span className="w-8 text-center text-sm tabular-nums">
+            {quantity}
+          </span>
+          <Button
+            onClick={() => setQuantity(quantity + 1)}
+            variant="ghost"
+            size="icon"
+            aria-label="Increase quantity"
+            className="h-full rounded-none rounded-r-md"
+          >
+            <RiAddLine size={16} />
+          </Button>
+        </div>
+
+        <Button
+          onClick={handleAddToCart}
+          disabled={!isAvailable || loading}
+          className="flex-1 h-11"
+        >
+          {loading && <Loader size={16} />}
+          {isAvailable ? addToCartLabel : 'Out of Stock'}
+        </Button>
+      </div>
+
+      {/* Cart permalink into Shop Pay; falls back to the cart checkout URL. */}
+      <ShopPayButton
+        className="mt-3"
+        variants={
+          selectedVariant ? [{ id: selectedVariant.id, quantity }] : []
+        }
+        disabled={!isAvailable || buyingNow}
+        loading={buyingNow}
+        onFallbackClick={handleBuyNow}
+      />
+
       {/* Description */}
-      {product.description && (
-        <div className="text-muted-foreground mb-8 text-lg leading-relaxed">
+      {(product.descriptionHtml || product.description) && (
+        <div className="mt-10 text-sm leading-6 text-foreground product-description">
           {product.descriptionHtml ? (
-            <div dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+            />
           ) : (
             <p>{product.description}</p>
           )}
         </div>
       )}
-
-      {/* Product Options */}
-      {product.options.map(option => (
-        <div key={option.id} className="mb-6">
-          <label className="block text-sm font-semibold text-foreground mb-2">
-            {option.name}
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {option.values.map(value => (
-              <Button
-                key={value}
-                onClick={() => onOptionChange(option.name, value)}
-                variant={selectedOptions[option.name] === value ? 'default' : 'outline'}
-              >
-                {value}
-              </Button>
-            ))}
-          </div>
-        </div>
-      ))}
-
-      {/* Quantity Selector */}
-      <div className="mb-8">
-        <label className="block text-sm font-semibold text-foreground mb-2">
-          Quantity
-        </label>
-        <div className="flex items-center border border-border rounded-lg w-fit">
-          <Button
-            onClick={() => setQuantity(Math.max(1, quantity - 1))}
-            variant="ghost"
-            size="icon-sm"
-            disabled={quantity <= 1}
-          >
-            <i className="ri-subtract-line"></i>
-          </Button>
-          <span className="w-10 text-center font-semibold">{quantity}</span>
-          <Button
-            onClick={() => setQuantity(quantity + 1)}
-            variant="ghost"
-            size="icon-sm"
-          >
-            <i className="ri-add-line"></i>
-          </Button>
-        </div>
-      </div>
-
-      {/* Add to Cart Button */}
-      <Button
-        onClick={handleAddToCart}
-        disabled={!selectedVariant?.availableForSale || loading}
-        size="lg"
-        className="w-full text-lg"
-      >
-        {loading ? (
-          <span className="flex items-center justify-center gap-2">
-            <Spinner size="sm" />
-            <span>Adding...</span>
-          </span>
-        ) : selectedVariant?.availableForSale ? (
-          'Add to Cart'
-        ) : (
-          'Out of Stock'
-        )}
-      </Button>
-
-      {/* Additional Info */}
-      <div className="mt-8 pt-8 border-t border-border">
-        <div className="space-y-3 text-sm text-muted-foreground">
-          <div className="flex items-center space-x-2">
-            <i className="ri-truck-line"></i>
-            <span>Free shipping on orders over $100</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <i className="ri-arrow-go-back-line"></i>
-            <span>30-day return policy</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <i className="ri-secure-payment-line"></i>
-            <span>Secure payment</span>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

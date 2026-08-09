@@ -1,128 +1,47 @@
 {
   "root": {
     "props": {
-      "title": "Pulse",
-      "headerFont": "Archivo Black",
-      "headerFontWeight": "400",
-      "bodyFont": "Inter",
-      "primaryColor": "#111111",
-      "secondaryColor": "#707072",
-      "accentColor": "#f5f5f5",
-      "bgColor": "#ffffff",
-      "fgColor": "#111111",
-      "mutedColor": "#f5f5f5",
-      "radius": "xl",
-      "buttonRadius": "full",
-      "shadow": "none",
-      "maxWidth": "2xl"
+      "title": "Product",
+      "description": "Shop this product.",
+      "ogImage": ""
     }
   },
   "content": [
     {
       "type": "header",
       "props": {
-        "id": "nav-product",
-        "brand": "PULSE",
-        "links": [
-          {
-            "label": "Run",
-            "href": "/collections/run"
-          },
-          {
-            "label": "Train",
-            "href": "/collections/train"
-          },
-          {
-            "label": "Recover",
-            "href": "/collections/recover"
-          },
-          {
-            "label": "Sale",
-            "href": "/collections/sale"
-          },
-          {
-            "label": "About",
-            "href": "/about"
-          }
-        ],
-        "showSearch": "yes",
-        "showAccount": "yes",
-        "showCart": "yes",
-        "sticky": "yes",
-        "tone": "default"
+        "id": "header"
+      },
+      "synced": true
+    },
+    {
+      "type": "product-detail",
+      "props": {
+        "id": "product-detail",
+        "product": null,
+        "addToCartLabel": "Add to Cart"
       }
     },
     {
-      "type": "product-details",
+      "type": "product-recommendations",
       "props": {
-        "id": "product-details",
-        "product": null
-      }
-    },
-    {
-      "type": "products-carousel",
-      "props": {
-        "id": "carousel-related",
-        "tagline": "Pairs well with",
-        "heading": "Complete the kit",
-        "limit": 8,
-        "slidesPerView": "4",
-        "ctaLabel": "Shop all",
-        "ctaHref": "/collections"
+        "id": "product-recommendations",
+        "title": "You May Also Like",
+        "product": null,
+        "limit": 4
       }
     },
     {
       "type": "footer",
       "props": {
-        "id": "footer-product",
-        "brand": "PULSE",
-        "tagline": "Performance gear for athletes who break their kit before they break themselves.",
-        "columns": [
-          {
-            "title": "Shop",
-            "links": [
-              {
-                "label": "All gear",
-                "href": "/search"
-              },
-              {
-                "label": "New",
-                "href": "/collections/new"
-              }
-            ]
-          },
-          {
-            "title": "Help",
-            "links": [
-              {
-                "label": "Shipping",
-                "href": "/help/shipping"
-              },
-              {
-                "label": "Returns",
-                "href": "/help/returns"
-              },
-              {
-                "label": "Lifetime guarantee",
-                "href": "/help/guarantee"
-              }
-            ]
-          }
-        ],
-        "social": [
-          {
-            "label": "Instagram",
-            "href": "#"
-          },
-          {
-            "label": "Strava",
-            "href": "#"
-          }
-        ],
-        "showNewsletter": "no",
-        "newsletterHeading": "",
-        "newsletterEndpoint": "",
-        "copyright": "© 2026 Pulse. Built to be replaced when used up."
+        "id": "footer"
+      },
+      "synced": true
+    },
+    {
+      "type": "store-assistant",
+      "props": {
+        "id": "store-assistant"
       }
     }
   ]

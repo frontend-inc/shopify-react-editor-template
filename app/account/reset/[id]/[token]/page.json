@@ -1,0 +1,43 @@
+{
+  "root": {
+    "props": {
+      "title": "Set a new password",
+      "description": "Choose a new password.",
+      "ogImage": ""
+    }
+  },
+  "content": [
+    {
+      "type": "header",
+      "props": {
+        "id": "header"
+      },
+      "synced": true
+    },
+    {
+      "type": "account-reset",
+      "props": {
+        "id": "account-reset",
+        "flow": "reset",
+        "title": "Set a new password",
+        "description": "",
+        "submitLabel": "Save password",
+        "successMessage": "",
+        "links": []
+      }
+    },
+    {
+      "type": "footer",
+      "props": {
+        "id": "footer"
+      },
+      "synced": true
+    },
+    {
+      "type": "store-assistant",
+      "props": {
+        "id": "store-assistant"
+      }
+    }
+  ]
+}

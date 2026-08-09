@@ -1,19 +1,26 @@
-"use client";
+import React from 'react';
+import { cn } from '@/lib/utils';
 
-import * as React from "react";
-import * as AvatarPrimitive from "@radix-ui/react-avatar";
+interface AvatarProps extends React.ComponentProps<'div'> {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+}
 
-import { cn } from "@/lib/utils";
+const sizeClasses = {
+  sm: 'size-6',
+  md: 'size-8',
+  lg: 'size-10',
+  xl: 'size-12',
+};
 
-function Avatar({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Root>) {
+function Avatar({ className, size = 'md', ...props }: AvatarProps) {
+  const [imageError, setImageError] = React.useState(false);
+
   return (
-    <AvatarPrimitive.Root
+    <div
       data-slot="avatar"
       className={cn(
-        "relative flex size-8 shrink-0 overflow-hidden rounded-full",
+        'relative flex shrink-0 overflow-hidden rounded-full',
+        sizeClasses[size],
         className
       )}
       {...props}
@@ -23,31 +30,52 @@ function Avatar({
 
 function AvatarImage({
   className,
+  onError,
   ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Image>) {
+}: React.ComponentProps<'img'>) {
+  const [hasError, setHasError] = React.useState(false);
+
+  const handleError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    setHasError(true);
+    onError?.(e as any);
+  };
+
+  if (hasError) {
+    return null;
+  }
+
   return (
-    <AvatarPrimitive.Image
+    <img
       data-slot="avatar-image"
-      className={cn("aspect-square size-full", className)}
+      className={cn('aspect-square h-full w-full object-cover', className)}
+      onError={handleError}
       {...props}
     />
   );
+}
+
+interface AvatarFallbackProps extends React.ComponentProps<'div'> {
+  children: React.ReactNode;
 }
 
 function AvatarFallback({
   className,
+  children,
   ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {
+}: AvatarFallbackProps) {
   return (
-    <AvatarPrimitive.Fallback
+    <div
       data-slot="avatar-fallback"
       className={cn(
-        "bg-muted flex size-full items-center justify-center rounded-full",
+        'bg-muted text-muted-foreground flex size-full items-center justify-center rounded-full font-medium text-sm',
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </div>
   );
 }
 
 export { Avatar, AvatarImage, AvatarFallback };
+export type { AvatarProps };

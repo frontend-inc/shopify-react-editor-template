@@ -1,94 +1,229 @@
 'use client';
 
-import React from 'react';
-import { useCollectionProducts } from '@/hooks/use-shopify-collections';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useParams } from 'next/navigation';
 import ProductCard from './product-card';
-import { Skeleton } from '@/components/ui/skeleton';
+import ProductFilters, { type ProductFilterFacet } from './product-filters';
+import ProductToolbar from './product-toolbar';
+import { Button } from '@/components/ui/button';
+import { Loader } from '@/components/ui/loader';
+import {
+  getCollectionProductsPage,
+  type CollectionSortKey,
+} from '@/hooks/use-shopify-collections';
+import type { Product } from '@/hooks/use-shopify-products';
 
-const CollectionDetail: React.FC<{ handle?: string }> = ({ handle: handleProp }) => {
-  const handle = handleProp ?? '';
+const PAGE_SIZE = 24;
 
-  const { collection, loading, error, refetch } = useCollectionProducts(handle);
+const GRID_CLASSES =
+  'grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-x-8 gap-y-12';
 
-  // Format title from handle
+interface SortOption {
+  label: string;
+  sortKey: CollectionSortKey;
+  reverse: boolean;
+}
+
+const SORT_OPTIONS: SortOption[] = [
+  { label: 'Featured', sortKey: 'COLLECTION_DEFAULT', reverse: false },
+  { label: 'Best Selling', sortKey: 'BEST_SELLING', reverse: false },
+  { label: 'Price: Low to High', sortKey: 'PRICE', reverse: false },
+  { label: 'Price: High to Low', sortKey: 'PRICE', reverse: true },
+  { label: 'Newest', sortKey: 'CREATED', reverse: true },
+];
+
+interface CollectionDetailProps {
+  /**
+   * Pins the block to one collection. Left empty, it reads the `[handle]`
+   * segment instead, which is what the `/collections/[handle]` template does.
+   */
+  handle?: string;
+  /** Overrides the collection's own title. Empty falls back to Shopify's. */
+  title?: string;
+}
+
+const CollectionDetail: React.FC<CollectionDetailProps> = ({
+  handle: handleProp,
+  title: titleProp,
+}) => {
+  const params = useParams();
+  const handle = handleProp || (params?.handle as string);
+
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filters, setFilters] = useState<ProductFilterFacet[]>([]);
+  const [title, setTitle] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [cursor, setCursor] = useState<string | null>(null);
+  const [hasNextPage, setHasNextPage] = useState(false);
+
+  const [sortIndex, setSortIndex] = useState(0);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+
+  const sort = SORT_OPTIONS[sortIndex];
+  const activeKey = useMemo(() => activeFilters.join('|'), [activeFilters]);
+
+  // Fall back to the handle until the collection's real title arrives.
   const formattedTitle = handle
-    ? handle.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+    ? handle.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())
     : 'Collection';
 
-  if (loading || !handle) {
-    return (
-      <div className="pt-4 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="mb-16 flex justify-center">
-            <Skeleton className="h-12 w-64" />
-          </div>
+  useEffect(() => {
+    // Reached when the editor was opened on the literal `[handle]` pattern
+    // rather than a real collection URL. Drop the skeleton and say so rather
+    // than spinning forever.
+    if (!handle || handle === '[handle]') {
+      setLoading(false);
+      setError(
+        'Open a collection page and add /editor to preview it, or pick a collection above.'
+      );
+      return;
+    }
+    let cancelled = false;
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {Array.from({ length: 8 }).map((_, index) => (
-              <div key={index} className="flex flex-col gap-3">
-                <Skeleton className="aspect-square w-full" />
-                <Skeleton className="h-5 w-3/4" />
-                <Skeleton className="h-4 w-1/3" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
+    const run = async () => {
+      try {
+        setLoading(true);
+        setError(null);
 
-  if (error) {
-    return (
-      <div className="pt-4 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto flex max-w-md flex-col items-start gap-3 rounded-lg border border-border bg-foreground/[0.02] p-6">
-            <p className="text-sm font-medium">Could not load collection</p>
-            <p className="font-mono text-xs leading-relaxed text-muted-foreground line-clamp-3">
-              {error}
-            </p>
-            <button
-              onClick={() => refetch()}
-              className="rounded-md border border-border px-3 py-1.5 text-xs font-medium hover:bg-muted"
-            >
-              Retry
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        const page = await getCollectionProductsPage(handle, {
+          first: PAGE_SIZE,
+          sortKey: sort.sortKey,
+          reverse: sort.reverse,
+          filterInputs: activeFilters,
+        });
 
-  const products = collection?.products || [];
-  const title = collection?.title || formattedTitle;
+        if (cancelled) return;
+
+        if (!page.collection) {
+          setError('Collection not found');
+          return;
+        }
+
+        setTitle(page.collection.title);
+        setProducts(page.products);
+        setCursor(page.endCursor);
+        setHasNextPage(page.hasNextPage);
+        // Keep the facet list stable while a selection is active, so options
+        // don't disappear out from under the panel.
+        if (activeFilters.length === 0) setFilters(page.filters);
+      } catch (err) {
+        if (cancelled) return;
+        console.error('Error fetching collection products:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load collection');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    run();
+    return () => {
+      cancelled = true;
+    };
+  }, [handle, sort.sortKey, sort.reverse, activeKey]);
+
+  const handleLoadMore = async () => {
+    if (loadingMore || !hasNextPage) return;
+
+    try {
+      setLoadingMore(true);
+      const page = await getCollectionProductsPage(handle, {
+        first: PAGE_SIZE,
+        after: cursor,
+        sortKey: sort.sortKey,
+        reverse: sort.reverse,
+        filterInputs: activeFilters,
+      });
+
+      setProducts((prev) => {
+        const seen = new Set(prev.map((p) => p.id));
+        return [...prev, ...page.products.filter((p) => !seen.has(p.id))];
+      });
+      setCursor(page.endCursor);
+      setHasNextPage(page.hasNextPage);
+    } catch (err) {
+      console.error('Failed to load more products:', err);
+    } finally {
+      setLoadingMore(false);
+    }
+  };
 
   return (
-    <div className="pt-4 pb-16">
-      <div className="container mx-auto px-4">
-        <h2 className="text-5xl font-bold text-center mb-16 text-foreground font-heading">
-          {title}
-        </h2>
+    <section className="bg-background py-10">
+      <div className="max-w-screen-2xl mx-auto px-8">
+        <h1 className="text-3xl md:text-4xl font-normal text-foreground">
+          {titleProp || title || formattedTitle}
+        </h1>
 
-        {products.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="bg-muted border border-border rounded-lg p-8 max-w-md mx-auto">
-              <i className="ri-shopping-bag-line text-4xl text-muted-foreground mb-4"></i>
-              <h3 className="text-lg font-semibold text-foreground mb-2">
-                No Products in Collection
-              </h3>
-              <p className="text-muted-foreground">
-                This collection doesn&apos;t have any products yet.
-              </p>
+        <div className="mt-6">
+          <ProductToolbar
+            totalCount={products.length > 0 ? products.length : null}
+            onOpenFilters={() => setFiltersOpen(true)}
+            sortOptions={SORT_OPTIONS}
+            sortIndex={sortIndex}
+            onSortChange={setSortIndex}
+            activeFilterCount={activeFilters.length}
+          />
+        </div>
+
+        <div className="mt-8">
+          {loading ? (
+            <div className={GRID_CLASSES}>
+              {Array.from({ length: 10 }).map((_, index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="aspect-square bg-zinc-100"></div>
+                  <div className="pt-4 space-y-2">
+                    <div className="h-4 w-4/5 bg-zinc-200"></div>
+                    <div className="h-4 w-1/4 bg-zinc-200"></div>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        )}
+          ) : error ? (
+            <p className="text-sm text-muted-foreground">{error}</p>
+          ) : products.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              {activeFilters.length > 0
+                ? 'No products matched your filters.'
+                : "This collection doesn't have any products yet."}
+            </p>
+          ) : (
+            <>
+              <div className={GRID_CLASSES}>
+                {products.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+
+              {hasNextPage && (
+                <div className="mt-16 flex justify-center">
+                  <Button
+                    onClick={handleLoadMore}
+                    disabled={loadingMore}
+                    variant="outline"
+                    size="lg"
+                    className="font-normal text-muted-foreground hover:text-foreground"
+                  >
+                    {loadingMore && <Loader size={16} />}
+                    {loadingMore ? 'Loading' : 'Load more'}
+                  </Button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
       </div>
-    </div>
+
+      <ProductFilters
+        open={filtersOpen}
+        onOpenChange={setFiltersOpen}
+        filters={filters}
+        activeFilters={activeFilters}
+        onActiveFiltersChange={setActiveFilters}
+      />
+    </section>
   );
 };
 

@@ -1,75 +1,79 @@
 'use client';
 
 import React from 'react';
-import type { ShopifyProduct } from '@reacteditor/field-shopify';
+import { useParams } from 'next/navigation';
 import {
   useProduct,
   useProductRecommendations,
 } from '@/hooks/use-shopify-products';
-import { useRouteSegment } from '@/hooks/use-route-segment';
-import { ProductCard } from './product-card';
+import ProductCard from './product-card';
 
-export type ProductRecommendationsProps = {
-  product: ShopifyProduct | null;
-  heading: string;
-  limit: number;
-};
+interface ProductRecommendationsProps {
+  productId?: string;
+  /**
+   * Seeds recommendations from a specific product. Left empty, it reads the
+   * `[handle]` segment, which is what the `/products/[handle]` template does.
+   */
+  handle?: string;
+  title?: string;
+  limit?: number;
+}
 
-export function ProductRecommendationsView({
-  product: selected,
-  heading,
-  limit,
-}: ProductRecommendationsProps) {
-  const routeHandle = useRouteSegment();
-  const handle = selected?.handle ?? routeHandle ?? null;
-  const { product } = useProduct(handle);
+const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
+  productId: productIdProp,
+  handle: handleProp,
+  title = 'You May Also Like',
+  limit = 4,
+}) => {
+  const params = useParams();
+  const handle = handleProp || (params?.handle as string | undefined);
+  const { product } = useProduct(productIdProp ? null : (handle ?? null));
+  const resolvedProductId = productIdProp || product?.id || '';
+
   const { recommendations, loading, error } = useProductRecommendations(
-    product?.id ?? null,
+    resolvedProductId || null
   );
 
-  // Don't show section if we're not loading and have no recommendations
   if (!loading && (!recommendations || recommendations.length === 0)) {
     return null;
   }
 
   return (
-    <div className="bg-muted py-16">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 text-foreground font-heading">
-          {heading}
+    <section className="bg-background py-16">
+      <div className="max-w-screen-2xl mx-auto px-8">
+        <h2 className="text-2xl md:text-3xl font-normal text-foreground mb-8">
+          {title}
         </h2>
 
-        {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {Array.from({ length: limit }).map((_, index) => (
-              <div key={index} className="bg-card rounded-lg shadow-md overflow-hidden animate-pulse">
-                <div className="aspect-square bg-muted"></div>
-                <div className="p-6">
-                  <div className="h-6 bg-muted rounded mb-2"></div>
-                  <div className="h-4 bg-muted rounded mb-4"></div>
-                  <div className="h-8 bg-muted rounded mb-4"></div>
-                  <div className="h-12 bg-muted rounded"></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : error ? (
-          <div className="text-center py-8">
-            <p className="text-muted-foreground">Recommendations could not be loaded</p>
-          </div>
+        {error ? (
+          <p className="text-sm text-muted-foreground">
+            Recommendations could not be loaded
+          </p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {recommendations.slice(0, limit).map((recommendedProduct) => (
-              <ProductCard
-                key={recommendedProduct.id}
-                product={recommendedProduct}
-              />
-            ))}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+            {loading
+              ? Array.from({ length: limit }).map((_, index) => (
+                  <div key={index} className="animate-pulse">
+                    <div className="aspect-square bg-zinc-100"></div>
+                    <div className="pt-4 space-y-2">
+                      <div className="h-4 bg-zinc-200 w-4/5"></div>
+                      <div className="h-4 bg-zinc-200 w-1/4"></div>
+                    </div>
+                  </div>
+                ))
+              : recommendations
+                  .slice(0, limit)
+                  .map((recommendedProduct) => (
+                    <ProductCard
+                      key={recommendedProduct.id}
+                      product={recommendedProduct}
+                    />
+                  ))}
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
-}
+};
 
-export default ProductRecommendationsView;
+export default ProductRecommendations;

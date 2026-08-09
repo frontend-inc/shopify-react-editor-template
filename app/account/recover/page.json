@@ -1,0 +1,48 @@
+{
+  "root": {
+    "props": {
+      "title": "Reset password",
+      "description": "Request a password reset link.",
+      "ogImage": ""
+    }
+  },
+  "content": [
+    {
+      "type": "header",
+      "props": {
+        "id": "header"
+      },
+      "synced": true
+    },
+    {
+      "type": "account-recover",
+      "props": {
+        "id": "account-recover",
+        "flow": "recover",
+        "title": "Reset password",
+        "description": "Enter your email and we'll send you a link to set a new password.",
+        "submitLabel": "Send reset link",
+        "successMessage": "If that email has an account, a reset link is on its way.",
+        "links": [
+          {
+            "label": "Back to sign in",
+            "url": "/account/login"
+          }
+        ]
+      }
+    },
+    {
+      "type": "footer",
+      "props": {
+        "id": "footer"
+      },
+      "synced": true
+    },
+    {
+      "type": "store-assistant",
+      "props": {
+        "id": "store-assistant"
+      }
+    }
+  ]
+}
