@@ -19,7 +19,7 @@
     "@radix-ui/react-use-controllable-state": "^1.2.6",
     "@reacteditor/core": "0.0.41-alpha.3",
     "@reacteditor/plugin-shopify": "0.0.1-alpha.1",
-    "@reacteditor/plugin-tailwind-cdn": "0.0.3-alpha.1",
+    "@reacteditor/plugin-tailwind-cdn": "0.0.3-alpha.2",
     "@remixicon/react": "^4.9.0",
     "@shopify/hydrogen": "0.0.0-preview-116d5d7-20260730141607",
     "@shopify/storefront-api-client": "^1.0.0",
