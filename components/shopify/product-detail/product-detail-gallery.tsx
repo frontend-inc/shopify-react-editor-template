@@ -26,8 +26,6 @@ const ProductDetailGallery: React.FC<ProductDetailGalleryProps> = ({
 
   const close = useCallback(() => setZoomedIndex(null), []);
 
-  // The slide whose left edge sits closest to the scroller's left edge is the
-  // one in view. Measuring rects keeps this correct whatever the gap or width.
   const handleScroll = useCallback(() => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
@@ -47,8 +45,7 @@ const ProductDetailGallery: React.FC<ProductDetailGalleryProps> = ({
     setActiveIndex(nearest);
   }, []);
 
-  // Touch already scrolls natively; this adds click-and-drag for pointers that
-  // don't (mouse at mobile widths), suspending snap so the drag stays smooth.
+  // Add pointer dragging without disrupting native touch scrolling.
   const drag = useRef<{ startX: number; startScroll: number } | null>(null);
 
   const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -74,7 +71,6 @@ const ProductDetailGallery: React.FC<ProductDetailGalleryProps> = ({
     if (!drag.current || !scroller) return;
 
     drag.current = null;
-    // Restoring snap lets the browser settle on the nearest slide.
     scroller.style.scrollSnapType = '';
   };
 
@@ -88,7 +84,6 @@ const ProductDetailGallery: React.FC<ProductDetailGalleryProps> = ({
     scroller.scrollTo({ left: scroller.scrollLeft + offset, behavior: 'smooth' });
   };
 
-  // Close on Escape, and keep the page behind the overlay from scrolling.
   useEffect(() => {
     if (!isZoomed) return;
 
@@ -119,7 +114,6 @@ const ProductDetailGallery: React.FC<ProductDetailGalleryProps> = ({
 
   return (
     <>
-      {/* Swipeable carousel on mobile, grid from sm up */}
       <div
         ref={scrollerRef}
         onScroll={handleScroll}
@@ -152,7 +146,6 @@ const ProductDetailGallery: React.FC<ProductDetailGalleryProps> = ({
         ))}
       </div>
 
-      {/* Carousel pagination — the grid needs no dots, so mobile only */}
       {!isSingle && (
         <div className="flex justify-center gap-2 pt-4 sm:hidden">
           {images.map((_, index) => (
@@ -182,15 +175,10 @@ const ProductDetailGallery: React.FC<ProductDetailGalleryProps> = ({
           <Image
             src={zoomedImage.url}
             alt={zoomedImage.altText || 'Product image'}
-            // Shopify gives us the intrinsic size; the square fallback only
-            // reserves space until CSS scales it down to fit the overlay.
             width={zoomedImage.width || 1600}
             height={zoomedImage.height || 1600}
             sizes="100vw"
             onClick={(event) => event.stopPropagation()}
-            // w/h-auto keeps the box at the image's own ratio; without it the
-            // width+height attributes make both axes definite and the element
-            // stretches to the overlay, swallowing backdrop clicks that close it.
             className="max-h-full max-w-full w-auto h-auto object-contain"
           />
 

@@ -19,13 +19,6 @@ const categories = {
   content: { title: 'Content' },
 };
 
-/**
- * The block library. Every entry pairs a storefront component with a config
- * that exposes *content only* — copy, imagery, and which Shopify product or
- * collection to show. Design decisions (columns, spacing, tone, typography)
- * stay inside the components and `app/globals.css`, so editing a page can
- * never take the storefront off-brand.
- */
 export const appConfig: UserConfig = {
   root: Root,
   categories,

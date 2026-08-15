@@ -8,11 +8,6 @@ export type ProductDetailBlockProps = {
   addToCartLabel?: string;
 };
 
-/**
- * On `/products/[handle]` leave `product` empty so the block follows the route;
- * the picker then only chooses what the editor previews. Pinning a product
- * turns it into a featured-product block usable on any page.
- */
 const productDetailEditor: ComponentConfig<ProductDetailBlockProps> = {
   label: 'Product page',
   icon: <Tag size={16} />,

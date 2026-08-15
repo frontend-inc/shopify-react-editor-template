@@ -10,10 +10,6 @@ import ProductCard from './product-card';
 
 interface ProductRecommendationsProps {
   productId?: string;
-  /**
-   * Seeds recommendations from a specific product. Left empty, it reads the
-   * `[handle]` segment, which is what the `/products/[handle]` template does.
-   */
   handle?: string;
   title?: string;
   limit?: number;

@@ -14,8 +14,6 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
 });
 
-// Per-page tags come from each page.json's root props via pageMetadata(); this
-// is the fallback for routes that don't set their own.
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -44,9 +42,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
-      {/* Header, footer and the store assistant are editable blocks now, so
-          each page.json carries its own chrome rather than the layout doing
-          it. Keeps what the editor shows identical to what the route ships. */}
       <body className="font-body antialiased bg-background text-foreground m-0 p-0 flex min-h-screen flex-col">
         <div className="flex-1">{children}</div>
       </body>

@@ -18,7 +18,6 @@ const policyBodyEditor: ComponentConfig<PolicyBodyProps> = {
     handle: {
       label: 'Policy',
       type: 'select',
-      // Empty follows the `[handle]` route segment on /policies/[handle].
       options: [
         { label: 'Follow the page URL', value: '' },
         ...POLICY_HANDLES.map((handle) => ({

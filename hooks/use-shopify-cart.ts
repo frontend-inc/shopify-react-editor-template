@@ -12,8 +12,6 @@ import {
 } from '@/graphql/cart';
 import { useEffect } from 'react';
 
-// ─── Types ───────────────────────────────────────────────────────────
-
 export interface CartLineInput {
   merchandiseId: string;
   quantity: number;
@@ -91,13 +89,7 @@ export interface Cart {
   };
 }
 
-// ─── Shopify API functions ───────────────────────────────────────────
-
-/**
- * Every cart mutation returns the same `{ cart, userErrors }` payload, and both
- * the payload and the cart inside it are nullable — Shopify returns no cart when
- * the mutation could not be applied. Callers want a cart or an exception.
- */
+/** Normalizes nullable Shopify cart mutation payloads. */
 function unwrapCartPayload<T>(
   payload:
     | {
@@ -200,12 +192,9 @@ export function redirectToCheckout(checkoutUrl: string): void {
   }
 }
 
-// ─── Zustand Store ───────────────────────────────────────────────────
-
 const CART_ID_KEY = 'cartId';
 
 interface CartState {
-  // State
   isOpen: boolean;
   cartId: string | null;
   cart: Cart | null;
@@ -213,10 +202,6 @@ interface CartState {
   error: string | null;
   _initialized: boolean;
 
-  // Computed (derived in the hook)
-  // items, itemCount, totalAmount, checkoutUrl
-
-  // Actions
   openCart: () => void;
   closeCart: () => void;
   toggleCart: () => void;
@@ -229,7 +214,6 @@ interface CartState {
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
-  // Initial state
   isOpen: false,
   cartId: null,
   cart: null,
@@ -237,12 +221,10 @@ export const useCartStore = create<CartState>((set, get) => ({
   error: null,
   _initialized: false,
 
-  // UI actions
   openCart: () => set({ isOpen: true }),
   closeCart: () => set({ isOpen: false }),
   toggleCart: () => set((s) => ({ isOpen: !s.isOpen })),
 
-  // Initialize cart from localStorage
   initCart: () => {
     if (get()._initialized) return;
     set({ _initialized: true });
@@ -276,12 +258,10 @@ export const useCartStore = create<CartState>((set, get) => ({
       });
   },
 
-  // Add item to cart (creates cart if needed)
   addItem: async (variantId: string, quantity: number = 1) => {
     try {
       set({ loading: true, error: null });
 
-      // Get or create cart
       let currentCartId = get().cartId;
       if (!currentCartId) {
         const storedCartId = localStorage.getItem(CART_ID_KEY);
@@ -309,7 +289,6 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
 
-  // Remove item from cart
   removeItem: async (lineId: string) => {
     const { cartId } = get();
     if (!cartId) throw new Error('No cart exists');
@@ -327,7 +306,6 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
 
-  // Update item quantity
   updateItemQuantity: async (lineId: string, quantity: number) => {
     const { cartId, removeItem } = get();
     if (!cartId) throw new Error('No cart exists');
@@ -351,8 +329,7 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
 
-  // Apply a discount code. Shopify accepts unknown codes and reports them back
-  // as `applicable: false`, so callers should check the returned cart.
+  // Invalid discount codes return `applicable: false` instead of an error.
   applyDiscountCode: async (code: string) => {
     const { cartId } = get();
     if (!cartId) throw new Error('No cart exists');
@@ -374,7 +351,6 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
 
-  // Refresh cart from Shopify
   refreshCart: async () => {
     const storedCartId = localStorage.getItem(CART_ID_KEY);
     if (!storedCartId) {
@@ -403,12 +379,9 @@ export const useCartStore = create<CartState>((set, get) => ({
   },
 }));
 
-// ─── Hook (backwards-compatible API) ─────────────────────────────────
-
 export function useShopifyCart() {
   const store = useCartStore();
 
-  // Initialize cart safely in an effect, not during render
   useEffect(() => {
     if (!store._initialized) {
       store.initCart();

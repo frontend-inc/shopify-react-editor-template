@@ -26,7 +26,7 @@ import {
   EmptyDescription,
   EmptyContent,
 } from '@/components/ui/empty';
-import { isDefaultTitleSelection } from '@/services/shopify/catalog';
+import { isDefaultTitleSelection } from '@/services/shopify/shop';
 
 const CartDrawer: React.FC = () => {
   const isOpen = useCartStore((s) => s.isOpen);
@@ -40,8 +40,7 @@ const CartDrawer: React.FC = () => {
   const [discountCode, setDiscountCode] = useState('');
   const [discountError, setDiscountError] = useState<string | null>(null);
   const [applyingDiscount, setApplyingDiscount] = useState(false);
-  // The store's `loading` flag is global, so track the specific line being
-  // changed to keep the other rows interactive.
+  // Track row-level work separately from the cart's global loading state.
   const [pendingLineId, setPendingLineId] = useState<string | null>(null);
 
   const runLineAction = async (lineId: string, action: () => Promise<unknown>) => {
@@ -80,7 +79,6 @@ const CartDrawer: React.FC = () => {
       setDiscountError(null);
       const updatedCart = await applyDiscountCode(code);
 
-      // Shopify accepts unknown codes silently, flagging them as inapplicable.
       const accepted = updatedCart.discountCodes?.some(
         (discount) =>
           discount.applicable &&
@@ -104,7 +102,6 @@ const CartDrawer: React.FC = () => {
   };
 
   const getSelectedOptions = (item: (typeof items)[0]) => {
-    // Single-SKU items carry a synthetic `Title: Default Title` — not worth a line.
     return (item.merchandise.selectedOptions ?? []).filter(
       (option) => !isDefaultTitleSelection(option)
     );
@@ -119,7 +116,6 @@ const CartDrawer: React.FC = () => {
       <AnimatePresence>
         {isOpen && (
           <SheetContent className="w-full max-w-md" showCloseButton={false}>
-            {/* Header */}
             <SheetHeader className="min-h-0 px-5 py-4 border-b-0">
               <div className="flex items-center justify-between w-full">
                 <SheetTitle className="text-base font-medium flex items-center gap-x-2">
@@ -140,7 +136,6 @@ const CartDrawer: React.FC = () => {
               </div>
             </SheetHeader>
 
-            {/* Cart Items */}
             <SheetBody className="px-5">
               {loading && items.length === 0 ? (
                 <div className="flex items-center justify-center py-12">
@@ -169,7 +164,6 @@ const CartDrawer: React.FC = () => {
 
                     return (
                       <div key={item.id} className="flex items-start gap-x-3">
-                        {/* Product Image */}
                         <div className="w-16 h-16 bg-zinc-100 overflow-hidden shrink-0">
                           {image ? (
                             <Image
@@ -186,7 +180,6 @@ const CartDrawer: React.FC = () => {
                           )}
                         </div>
 
-                        {/* Product Details */}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-x-3">
                             <h4 className="text-sm font-medium text-foreground line-clamp-2">
@@ -209,7 +202,6 @@ const CartDrawer: React.FC = () => {
                             </div>
                           )}
 
-                          {/* Quantity Controls */}
                           <div className="flex items-center gap-x-2 mt-2">
                             <div className="inline-flex items-center rounded-full bg-secondary">
                               <Button
@@ -274,10 +266,8 @@ const CartDrawer: React.FC = () => {
               )}
             </SheetBody>
 
-            {/* Footer — discount, total, checkout */}
             {items.length > 0 && (
               <div className="px-5 py-5 space-y-4">
-                {/* Discount Code */}
                 <form onSubmit={handleApplyDiscount} className="flex gap-x-2">
                   <input
                     type="text"
@@ -309,7 +299,6 @@ const CartDrawer: React.FC = () => {
                   </p>
                 )}
 
-                {/* Estimated total */}
                 <div>
                   <div className="flex items-baseline justify-between">
                     <span className="text-base text-foreground">

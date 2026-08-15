@@ -1,7 +1,6 @@
 import { gql } from '@shopify/hydrogen';
 import { ProductFragment } from '@/graphql/products';
 
-// Get all collections
 export const GET_COLLECTIONS_QUERY = gql(`
   query GetCollections($first: Int!, $country: CountryCode, $language: LanguageCode)
   @inContext(country: $country, language: $language) {
@@ -30,7 +29,6 @@ export const GET_COLLECTIONS_QUERY = gql(`
   }
 `);
 
-// Get products in a collection
 export const GET_COLLECTION_PRODUCTS_QUERY = gql(
   `
   query GetCollectionProducts(

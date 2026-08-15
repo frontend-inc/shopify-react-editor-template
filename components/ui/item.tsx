@@ -1,11 +1,9 @@
 import React from 'react';
 
-// Utility function to combine classNames
 function cn(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
-// Item variants helper
 function getItemVariants(
   variant: 'default' | 'outline' | 'muted',
   size: 'default' | 'sm'
@@ -27,7 +25,6 @@ function getItemVariants(
   return cn(baseStyles, variantStyles[variant], sizeStyles[size]);
 }
 
-// Item media variants helper
 function getItemMediaVariants(variant: 'default' | 'icon' | 'image'): string {
   const baseStyles =
     'flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:self-start [&_svg]:pointer-events-none group-has-[[data-slot=item-description]]/item:translate-y-0.5';

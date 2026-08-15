@@ -10,10 +10,6 @@ export type ProductsBlockProps = {
   limit?: number;
 };
 
-/**
- * Column counts, gutters and the card design are fixed in `products.tsx`. The
- * editor picks *which* products appear and what the section says about them.
- */
 const productsEditor: ComponentConfig<ProductsBlockProps> = {
   label: 'Product grid',
   icon: <LayoutGrid size={16} />,
@@ -30,8 +26,6 @@ const productsEditor: ComponentConfig<ProductsBlockProps> = {
     subtitle: { label: 'Subtitle', type: 'textarea', contentEditable: true },
     collection: {
       label: 'Collection',
-      // Registered by createShopifyPlugin — a live search against the store.
-      // Leave empty to show the newest products across the whole catalogue.
       type: 'shopifyCollection',
     } as any,
     limit: { label: 'Products shown', type: 'number', min: 2, max: 48 },

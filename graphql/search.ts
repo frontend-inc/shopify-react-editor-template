@@ -1,9 +1,6 @@
 import { gql } from '@shopify/hydrogen';
 import { ProductFragment } from '@/graphql/products';
 
-// Storefront search over products. `productFilters` accepts the raw `input`
-// values returned in `productFilters[].values[].input`, so facets round-trip
-// without the client needing to know each filter's shape.
 export const SEARCH_PRODUCTS_QUERY = gql(
   `
   query SearchProducts(
@@ -57,8 +54,6 @@ export const SEARCH_PRODUCTS_QUERY = gql(
   [ProductFragment]
 );
 
-// Lightweight variant for the autocomplete dropdown — just enough to render a
-// row, so the dialog stays responsive while typing.
 export const SEARCH_SUGGESTIONS_QUERY = gql(`
   query SearchSuggestions($query: String!, $first: Int!, $country: CountryCode, $language: LanguageCode)
   @inContext(country: $country, language: $language) {

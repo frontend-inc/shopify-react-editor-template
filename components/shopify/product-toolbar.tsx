@@ -21,8 +21,6 @@ interface ProductToolbarProps {
   activeFilterCount?: number;
 }
 
-// Filters trigger on the left, item count and sort menu on the right — shared
-// by the search results and collection pages.
 const ProductToolbar: React.FC<ProductToolbarProps> = ({
   totalCount,
   onOpenFilters,
@@ -69,7 +67,6 @@ const ProductToolbar: React.FC<ProductToolbarProps> = ({
 
           {sortOpen && (
             <>
-              {/* Click-away layer sits under the menu, above the page. */}
               <div
                 className="fixed inset-0 z-40"
                 onClick={() => setSortOpen(false)}

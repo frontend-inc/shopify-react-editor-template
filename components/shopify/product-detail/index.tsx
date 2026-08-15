@@ -60,7 +60,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
   const [addingToCart, setAddingToCart] = useState(false);
   const [buyingNow, setBuyingNow] = useState(false);
 
-  // Initialize variant when product loads
   useEffect(() => {
     if (product) {
       const firstVariant = product.variants.edges[0]?.node;
@@ -78,9 +77,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
     }
   }, [product]);
 
-  // A value is available if some in-stock variant carries it alongside the
-  // other currently-selected options. Options the shopper hasn't chosen yet
-  // act as wildcards, so nothing is struck through before a full selection.
+  // Unselected options act as wildcards when checking variant availability.
   const isOptionValueAvailable = (optionName: string, value: string) => {
     const variants = product?.variants.edges ?? [];
     if (variants.length === 0) return true;
@@ -100,7 +97,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
     const newOptions = { ...selectedOptions, [optionName]: value };
     setSelectedOptions(newOptions);
 
-    // Find matching variant
     const matchingVariant = product?.variants.edges.find(({ node }) => {
       return node.selectedOptions.every(
         (option) => newOptions[option.name] === option.value
@@ -126,8 +122,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
     }
   };
 
-  // Adds the item, then sends the shopper straight to the Shopify checkout
-  // (where Shop Pay is offered) rather than opening the cart drawer.
   const handleBuyNow = async () => {
     if (!selectedVariant || !product) return;
 
@@ -152,7 +146,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
     return (
       <div className="max-w-screen-2xl mx-auto px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10">
-          {/* Image Gallery Skeleton */}
           <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {Array.from({ length: 4 }).map((_, i) => (
               <div
@@ -162,7 +155,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
             ))}
           </div>
 
-          {/* Product Info Skeleton */}
           <div className="lg:col-span-2 animate-pulse">
             <div className="h-8 bg-zinc-100 w-2/3"></div>
             <div className="h-5 bg-zinc-100 w-24 mt-2"></div>

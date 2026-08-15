@@ -64,8 +64,6 @@ import {
   RiShoppingBag3Line,
 } from '@remixicon/react';
 
-// Feature flag. Written as a static member expression so Next inlines it at
-// build time; the assistant is off unless the env var is explicitly "1".
 const AI_ENABLED = process.env.NEXT_PUBLIC_ENABLE_AI === '1';
 
 const SUGGESTIONS = [
@@ -101,8 +99,6 @@ const toolName = (type: string) =>
 const plural = (count: number, noun: string) =>
   `${count} ${noun}${count === 1 ? '' : 's'}`;
 
-// Turns a finished tool result into the one-line summary plus any products
-// worth previewing.
 const summariseTool = (
   name: string,
   output: Record<string, unknown> | undefined
@@ -166,7 +162,6 @@ const summariseTool = (
   }
 };
 
-// Storefront links stay in-app, so they skip Streamdown's external-link modal.
 const isInternalLink = (url: string) => {
   if (url.startsWith('/')) return true;
   try {
@@ -229,7 +224,6 @@ const AttachmentItem = memo(({ attachment, onRemove }: AttachmentItemProps) => {
     <AttachmentHoverCard key={attachment.id}>
       <AttachmentHoverCardTrigger asChild>
         <Attachment data={attachment} onRemove={handleRemove}>
-          {/* Thumbnail swaps to the remove button on hover. */}
           <div className="group relative size-5 shrink-0">
             <div className="absolute inset-0 transition-opacity group-hover:opacity-0">
               <AttachmentPreview />
@@ -270,7 +264,6 @@ const AttachmentItem = memo(({ attachment, onRemove }: AttachmentItemProps) => {
 
 AttachmentItem.displayName = 'AttachmentItem';
 
-// Pending uploads, shown inline above the textarea.
 const PromptInputAttachmentsDisplay = () => {
   const attachments = usePromptInputAttachments();
 
@@ -295,15 +288,12 @@ const PromptInputAttachmentsDisplay = () => {
 };
 
 const StoreAssistant: React.FC = () => {
-  // Returns before any hooks run — safe because the flag is a build-time
-  // constant and cannot change between renders.
   if (!AI_ENABLED) return null;
 
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [input, setInput] = useState('');
 
-  // Drives the launcher's slide-in on first paint.
   useEffect(() => setMounted(true), []);
 
   const { messages, sendMessage, status, error } = useChat({
@@ -323,7 +313,6 @@ const StoreAssistant: React.FC = () => {
     setInput('');
   };
 
-  // Attachments arrive on the submitted message, so images go out with it.
   const handleSubmit = (message: PromptInputMessage) => {
     const text = (message.text ?? input).trim();
     const files = message.files ?? [];
@@ -335,7 +324,6 @@ const StoreAssistant: React.FC = () => {
 
   return (
     <>
-      {/* Popover panel, anchored above the launcher */}
       <div
         aria-hidden={!open}
         className={`fixed bottom-20 right-4 z-50 flex w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-xl border border-border bg-background shadow-xl transition-all duration-200 sm:right-6 ${
@@ -365,8 +353,6 @@ const StoreAssistant: React.FC = () => {
                 title="Ask about the store"
                 description="Find products, compare options, browse collections."
               >
-                {/* w-full + wrap so chips stack in the narrow popover rather
-                    than scrolling off the edge. */}
                 <Suggestions className="mt-3 w-full flex-wrap justify-center">
                   {SUGGESTIONS.map((suggestion) => (
                     <Suggestion
@@ -393,8 +379,6 @@ const StoreAssistant: React.FC = () => {
                       return (
                         <MessageResponse
                           key={index}
-                          // Only repair half-written markdown while it streams;
-                          // settled text is rendered exactly as sent.
                           isAnimating={
                             status === 'streaming' && part.state === 'streaming'
                           }
@@ -432,8 +416,6 @@ const StoreAssistant: React.FC = () => {
                       };
                       const name = toolName(part.type);
 
-                      // Shimmer while the call is in flight; a quiet summary
-                      // line once it returns.
                       if (
                         toolPart.state === 'input-streaming' ||
                         toolPart.state === 'input-available'
@@ -472,7 +454,6 @@ const StoreAssistant: React.FC = () => {
                     return null;
                   })}
 
-                  {/* Images the shopper attached, shown under their message. */}
                   {fileParts.length > 0 && (
                     <Attachments variant="grid" className="ml-0 justify-start">
                       {fileParts.map((part, index) => (
@@ -544,9 +525,6 @@ const StoreAssistant: React.FC = () => {
         </div>
       </div>
 
-      {/* Launcher */}
-      {/* Rainbow treatment only while the assistant is open; otherwise the
-          launcher matches the rest of the site's buttons. */}
       {open ? (
         <RainbowButton
           onClick={() => setOpen(false)}

@@ -12,13 +12,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { RiCloseLine, RiCheckLine } from '@remixicon/react';
 import { swatchColorForName } from '@/config/swatches';
-// Shape of a Storefront facet — identical for `search.productFilters` and
-// `collection.products.filters`, so both pages share this panel.
 export interface ProductFilterValue {
   id: string;
   label: string;
   count: number;
-  /** JSON string accepted back as a `ProductFilter` input. */
   input: string;
 }
 
@@ -37,7 +34,6 @@ interface ProductFiltersProps {
   onActiveFiltersChange: (filters: string[]) => void;
 }
 
-// Colour facets render as swatches; everything else as a labelled list.
 const isColorFilter = (filter: ProductFilterFacet) =>
   /colou?r/i.test(filter.label) || filter.id.toLowerCase().includes('color');
 
@@ -55,7 +51,6 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({
   const priceFilter = filters.find((filter) => filter.type === 'PRICE_RANGE');
 
   const activeSet = new Set(activeFilters);
-  // Price is rebuilt from the inputs rather than toggled, so track it apart.
   const activePriceInput = activeFilters.find((input) =>
     input.includes('"price"')
   );
@@ -93,7 +88,6 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({
     onActiveFiltersChange([]);
   };
 
-  // Labels for the chips at the top of the panel.
   const activeChips = filters
     .flatMap((filter) => filter.values)
     .filter((value) => activeSet.has(value.input));
@@ -118,7 +112,6 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({
             </SheetHeader>
 
             <SheetBody className="px-5">
-              {/* Active selections */}
               {(activeChips.length > 0 || activePriceInput) && (
                 <div className="mb-6 flex flex-wrap items-center gap-2">
                   {activeChips.map((value) => (
@@ -147,7 +140,6 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({
                 </p>
               )}
 
-              {/* Price */}
               {priceFilter && (
                 <div className="mb-8">
                   <h3 className="mb-3 text-base text-foreground">Price</h3>
@@ -183,7 +175,6 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({
                 </div>
               )}
 
-              {/* Facets */}
               {listFilters.map((filter) => (
                 <div key={filter.id} className="mb-8">
                   <h3 className="mb-3 text-base text-foreground">
@@ -209,9 +200,6 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({
                                 : 'ring-1 ring-border hover:ring-foreground/40'
                             }`}
                             style={{
-                              // A colourless swatch would otherwise be a fully
-                              // transparent circle behind a hairline ring,
-                              // which antialiases into a speckled border.
                               backgroundColor: color ?? 'var(--color-muted)',
                             }}
                           >

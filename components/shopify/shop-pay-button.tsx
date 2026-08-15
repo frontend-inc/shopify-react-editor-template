@@ -16,11 +16,10 @@ interface ShopPayButtonProps {
   disabled?: boolean;
   loading?: boolean;
   className?: string;
-  /** Used when no permalink can be built (missing domain or unusable IDs). */
   onFallbackClick?: () => void;
 }
 
-// Cart permalinks need the bare numeric ID; the Storefront API returns GIDs.
+// Cart permalinks require numeric IDs rather than Storefront GIDs.
 function toNumericVariantId(id: string): string | null {
   const trimmed = id.trim();
   const gid = trimmed.match(/^gid:\/\/shopify\/ProductVariant\/(\d+)/);
@@ -38,8 +37,6 @@ function toStoreUrl(domain?: string): string | null {
   }
 }
 
-// https://{shop}/cart/{variantId}:{qty},{variantId}:{qty}?payment=shop_pay
-// Loads the cart and drops the buyer straight into the Shop Pay checkout.
 export function buildShopPayUrl(variants: ShopPayVariant[]): string | null {
   const storeUrl = toStoreUrl(SHOPIFY_STORE_DOMAIN);
   if (!storeUrl || variants.length === 0) return null;
@@ -72,8 +69,6 @@ const ShopPayButton: React.FC<ShopPayButtonProps> = ({
     </>
   );
 
-  // An anchor keeps the checkout URL visible, openable in a new tab, and
-  // navigable without JS; the button only stands in when there's no URL.
   if (shopPayUrl && !disabled) {
     return (
       <a

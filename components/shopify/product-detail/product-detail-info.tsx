@@ -5,7 +5,7 @@ import { RiSubtractLine, RiAddLine } from '@remixicon/react';
 import ShopPayButton from '@/components/shopify/shop-pay-button';
 import type { ProductOption, ProductOptionValue } from '@/hooks/use-shopify-products';
 import { isSwatchOptionName, swatchColorForName } from '@/config/swatches';
-import { isDefaultTitleOption } from '@/services/shopify/catalog';
+import { isDefaultTitleOption } from '@/services/shopify/shop';
 
 interface ProductPrice {
   amount: string;
@@ -52,15 +52,12 @@ interface ProductDetailInfoProps {
   handleAddToCart: () => void;
   handleBuyNow?: () => void;
   onOptionChange: (optionName: string, value: string) => void;
-  /** Whether an option value still has an in-stock variant behind it. */
   isOptionValueAvailable?: (optionName: string, value: string) => boolean;
   loading?: boolean;
   buyingNow?: boolean;
   addToCartLabel?: string;
 }
 
-// A swatch comes from the option value's own swatch (colour or image) or the
-// colour its name implies (see config/swatches) — never a variant photo.
 const swatchStyle = (
   value: ProductOptionValue
 ): { background?: string; image?: string } => {
@@ -103,13 +100,11 @@ const ProductDetailInfo: React.FC<ProductDetailInfoProps> = ({
   const isSwatchOption = (option: ProductOption) =>
     isSwatchOptionName(option.name);
 
-  // Some products return Size before Color; show the swatches first either way.
-  // Single-SKU products expose a synthetic `Title: Default Title` option — drop it.
+  // Show swatches first and omit Shopify's synthetic single-SKU option.
   const orderedOptions = [...(product.options ?? [])]
     .filter((option) => !isDefaultTitleOption(option))
     .sort((a, b) => Number(isSwatchOption(b)) - Number(isSwatchOption(a)));
 
-  // `optionValues` carries the swatch data; fall back to plain `values`.
   const optionValuesFor = (option: ProductOption): ProductOptionValue[] =>
     option.optionValues?.length
       ? option.optionValues
@@ -131,7 +126,6 @@ const ProductDetailInfo: React.FC<ProductDetailInfoProps> = ({
         )}
       </div>
 
-      {/* Product Options — colour swatches lead, whatever order the API returns */}
       {orderedOptions.map((option) => {
         const isSwatch = isSwatchOption(option);
         const selected = selectedOptions[option.name];
@@ -172,12 +166,6 @@ const ProductDetailInfo: React.FC<ProductDetailInfoProps> = ({
                           : 'ring-1 ring-border hover:ring-foreground/40'
                       } ${isSoldOut ? 'option-unavailable text-foreground/60 opacity-60' : ''}`}
                       style={{
-                        // With no colour and no image the circle would be fully
-                        // transparent, leaving just a hairline ring that
-                        // antialiases unevenly and reads as a speckled border.
-                        // A neutral fill makes the initial-letter fallback look
-                        // deliberate. Set inline so it beats the ghost variant's
-                        // hover background.
                         backgroundColor:
                           background ??
                           (image ? undefined : 'var(--color-muted)'),
@@ -215,7 +203,6 @@ const ProductDetailInfo: React.FC<ProductDetailInfoProps> = ({
         );
       })}
 
-      {/* Quantity + Add to Cart */}
       <div className="mt-8 flex items-stretch gap-3">
         <div className="flex items-center rounded-md border border-border h-11">
           <Button
@@ -252,7 +239,6 @@ const ProductDetailInfo: React.FC<ProductDetailInfoProps> = ({
         </Button>
       </div>
 
-      {/* Cart permalink into Shop Pay; falls back to the cart checkout URL. */}
       <ShopPayButton
         className="mt-3"
         variants={
@@ -263,7 +249,6 @@ const ProductDetailInfo: React.FC<ProductDetailInfoProps> = ({
         onFallbackClick={handleBuyNow}
       />
 
-      {/* Description */}
       {(product.descriptionHtml || product.description) && (
         <div className="mt-10 text-sm leading-6 text-foreground product-description">
           {product.descriptionHtml ? (

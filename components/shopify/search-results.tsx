@@ -50,7 +50,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ title = 'Search' }) => {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
   const sort = SORT_OPTIONS[sortIndex];
-  // Serialised so the effect re-runs when the selection changes, not the array.
+  // Stabilize the effect dependency by filter contents.
   const activeKey = useMemo(() => activeFilters.join('|'), [activeFilters]);
 
   useEffect(() => {
@@ -62,8 +62,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({ title = 'Search' }) => {
         setError(null);
 
         const result = await searchProducts({
-          // An empty term still returns the catalogue, which is what an
-          // unqualified /search visit should show.
           query,
           first: PAGE_SIZE,
           sortKey: sort.sortKey,
@@ -77,8 +75,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ title = 'Search' }) => {
         setTotalCount(result.totalCount);
         setCursor(result.endCursor);
         setHasNextPage(result.hasNextPage);
-        // Facet counts change with the result set, but keep the panel stable
-        // while filters are applied so options don't vanish mid-selection.
+        // Do not remove active facet choices as result counts change.
         if (activeFilters.length === 0) setFilters(result.filters);
       } catch (err) {
         if (cancelled) return;
@@ -140,7 +137,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({ title = 'Search' }) => {
           />
         </div>
 
-        {/* Results */}
         <div className="mt-8">
           {loading ? (
             <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-x-8 gap-y-12">

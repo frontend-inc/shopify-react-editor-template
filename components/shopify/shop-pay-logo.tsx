@@ -1,7 +1,5 @@
 import React from 'react';
 
-// "Buy with shop" lockup — the wordmark and the Shop mark are both in the path
-// data, so the button needs no additional text beyond a screen-reader label.
 const ShopPayLogo: React.FC<{ className?: string }> = ({
   className = 'h-auto w-[98px]',
 }) => (

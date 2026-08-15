@@ -2,15 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 
 interface LogoProps {
-  /** Logo image URL. Falls back to the store name as a wordmark when absent. */
   src?: string | null;
-  /** Wordmark text, and the image's alt text. */
   storeName?: string;
-  /** Where the logo links to. Pass null to render it unwrapped. */
   href?: string | null;
-  /** Sizing for the image — height only, so the aspect ratio is preserved. */
   imageClassName?: string;
-  /** Sizing and weight for the wordmark fallback. */
   textClassName?: string;
 }
 

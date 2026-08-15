@@ -24,16 +24,12 @@ import remarkRehype from "remark-rehype";
 import remend from "remend";
 import { unified } from "unified";
 
-// Raw HTML never reaches the tree: remark-rehype drops it (allowDangerousHtml
-// is off by default) and rehype-sanitize is the second line of defence, mainly
-// for its href protocol allow-list — that is what stops `javascript:` URLs.
-// Relative hrefs carry no protocol, so storefront links pass through untouched.
+// Sanitize model output and reject unsafe URL protocols.
 const schema = {
   ...defaultSchema,
   attributes: {
     ...defaultSchema.attributes,
-    // GFM task lists render as disabled checkboxes. The default schema allows
-    // `type` and `disabled` but not `checked`, so every box would read unticked.
+    // Preserve checked state for sanitized GFM task lists.
     input: [...(defaultSchema.attributes?.input ?? []), "checked"],
   },
 };
@@ -44,22 +40,15 @@ const processor = unified()
   .use(remarkRehype)
   .use(rehypeSanitize, schema);
 
-// `text-only` leaves a half-streamed `[label](htt` as plain text. remend's
-// default instead emits a `streamdown:incomplete-link` placeholder href, which
-// the sanitizer would strip anyway.
+// Keep incomplete links as text while streaming.
 const REMEND_OPTIONS = { linkMode: "text-only" } as const;
 
-// remend only ever runs on text that is still arriving. On finished text it can
-// do damage: it reads `*$89*` as an unclosed italic (the `$` throws off its
-// closing-delimiter scan) and appends a stray `*`, which then parses as an empty
-// bullet. Prices in italics are ordinary storefront copy, so settled messages
-// render verbatim and only the in-flight one gets repaired.
+// Repair only streaming text; remend can corrupt settled italicized prices.
 const repair = (markdown: string, isStreaming: boolean) =>
   isStreaming ? remend(markdown, REMEND_OPTIONS) : markdown;
 
 export interface LinkSafetyConfig {
   enabled: boolean;
-  /** Return true for links that may open without a confirmation step. */
   onLinkCheck?: (url: string) => boolean;
 }
 
@@ -71,9 +60,6 @@ type AnchorProps = ComponentProps<"a"> & {
 const LINK_CLASS =
   "font-medium underline underline-offset-4 hover:text-foreground";
 
-// Route-relative hrefs are the storefront links the assistant emits. Deciding
-// this from the string alone keeps the server and client passes identical;
-// `linkSafety.onLinkCheck` does the origin-aware check later, at click time.
 const isRouteHref = (href: string) => /^[/#?]/.test(href);
 
 const MarkdownLink = ({
@@ -82,8 +68,6 @@ const MarkdownLink = ({
   onUntrusted,
   ...props
 }: AnchorProps) => {
-  // Runs on click rather than on render so it can read `window.location`,
-  // which is unavailable during the server pass.
   const handleClick = useCallback(
     (event: MouseEvent<HTMLAnchorElement>) => {
       if (!href || !linkSafety?.enabled || !linkSafety.onLinkCheck) return;
@@ -95,8 +79,6 @@ const MarkdownLink = ({
     [href, linkSafety, onUntrusted]
   );
 
-  // In-app destinations navigate client-side in the same tab; sending a shopper
-  // to a product page in a new tab would strand the conversation behind it.
   if (href && isRouteHref(href)) {
     return <Link className={LINK_CLASS} href={href} {...props} />;
   }
@@ -113,7 +95,6 @@ const MarkdownLink = ({
   );
 };
 
-// Fenced code renders as plain preformatted text — no tokenizer, no themes.
 const buildComponents = (
   linkSafety: LinkSafetyConfig | undefined,
   onUntrusted: (url: string) => void
@@ -128,8 +109,6 @@ const buildComponents = (
     />
   ),
   code: ({ className, ...props }: ComponentProps<"code">) => {
-    // Only fenced blocks carry a language class, and those already sit inside a
-    // <pre>, so they must not get the inline pill treatment.
     const isBlock =
       typeof className === "string" && className.includes("language-");
 
@@ -167,8 +146,6 @@ const buildComponents = (
   hr: (props: ComponentProps<"hr">) => (
     <hr className="my-4 border-border" {...props} />
   ),
-  // GFM task-list boxes are display only; readOnly silences React's warning
-  // about a `checked` input with no change handler.
   input: (props: ComponentProps<"input">) => (
     <input className="mr-1.5 align-middle" readOnly {...props} />
   ),
@@ -213,7 +190,6 @@ const buildComponents = (
 
 export type MarkdownProps = Omit<HTMLAttributes<HTMLDivElement>, "children"> & {
   children: string;
-  /** True while tokens are still arriving; enables incomplete-syntax repair. */
   isAnimating?: boolean;
   linkSafety?: LinkSafetyConfig;
 };
@@ -231,8 +207,6 @@ export const Markdown = memo(
     const handleUntrusted = useCallback((url: string) => setPending(url), []);
 
     const content = useMemo(() => {
-      // While streaming, close syntax the model has not finished emitting so a
-      // partial `**bold` renders as bold rather than as literal asterisks.
       const source = repair(children ?? "", isAnimating === true);
       const tree = processor.runSync(processor.parse(source)) as Nodes;
 

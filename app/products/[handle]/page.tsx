@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import PageRender from '@/components/page-render';
 import { pageMetadata } from '@/lib/page-metadata';
-import { getProduct } from '@/services/shopify/catalog';
+import { getProduct } from '@/services/shopify/shop';
 import { truncate } from '@/lib/utils';
 import page from './page.json';
 
@@ -12,8 +12,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { handle } = await params;
 
-  // The blocks fetch client-side and render their own empty state, so a failed
-  // lookup falls back to the page.json tags rather than a 500.
   const product = await getProduct(handle).catch(() => null);
   if (!product) return pageMetadata(page);
 

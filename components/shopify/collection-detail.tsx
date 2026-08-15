@@ -33,12 +33,7 @@ const SORT_OPTIONS: SortOption[] = [
 ];
 
 interface CollectionDetailProps {
-  /**
-   * Pins the block to one collection. Left empty, it reads the `[handle]`
-   * segment instead, which is what the `/collections/[handle]` template does.
-   */
   handle?: string;
-  /** Overrides the collection's own title. Empty falls back to Shopify's. */
   title?: string;
 }
 
@@ -65,15 +60,12 @@ const CollectionDetail: React.FC<CollectionDetailProps> = ({
   const sort = SORT_OPTIONS[sortIndex];
   const activeKey = useMemo(() => activeFilters.join('|'), [activeFilters]);
 
-  // Fall back to the handle until the collection's real title arrives.
   const formattedTitle = handle
     ? handle.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())
     : 'Collection';
 
   useEffect(() => {
-    // Reached when the editor was opened on the literal `[handle]` pattern
-    // rather than a real collection URL. Drop the skeleton and say so rather
-    // than spinning forever.
+    // The literal editor route pattern has no collection to load.
     if (!handle || handle === '[handle]') {
       setLoading(false);
       setError(
@@ -106,8 +98,7 @@ const CollectionDetail: React.FC<CollectionDetailProps> = ({
         setProducts(page.products);
         setCursor(page.endCursor);
         setHasNextPage(page.hasNextPage);
-        // Keep the facet list stable while a selection is active, so options
-        // don't disappear out from under the panel.
+        // Do not remove active facet choices as result counts change.
         if (activeFilters.length === 0) setFilters(page.filters);
       } catch (err) {
         if (cancelled) return;

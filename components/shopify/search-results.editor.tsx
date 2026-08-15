@@ -6,10 +6,6 @@ export type SearchResultsBlockProps = {
   title?: string;
 };
 
-/**
- * The result set comes from the `?q=` param and the shopper's own filter and
- * sort choices, so the heading is the only thing left for the editor to own.
- */
 const searchResultsEditor: ComponentConfig<SearchResultsBlockProps> = {
   label: 'Search results',
   icon: <Search size={16} />,

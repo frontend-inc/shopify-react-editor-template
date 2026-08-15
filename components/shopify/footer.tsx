@@ -45,9 +45,6 @@ const Footer: React.FC<FooterProps> = ({
   return (
     <footer className="bg-background">
       <div className="max-w-screen-2xl mx-auto px-8 py-10">
-        {/* Left-aligned: the bottom-right corner belongs to the floating
-            assistant launcher. Links and socials sit on separate rows so the
-            icons aren't crammed onto the end of the link list. */}
         <div className="flex flex-col items-center gap-y-5 sm:items-start">
           <Logo
             src={logoUrl}

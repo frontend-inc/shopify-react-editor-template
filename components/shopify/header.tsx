@@ -43,10 +43,8 @@ interface HeaderProps {
   storeName?: string;
   logoUrl?: string;
   links?: NavLink[];
-  /** Thin bar above the nav. Blank copy hides it. */
   announcement?: React.ReactNode;
   announcementUrl?: string;
-  /** Hides the bar outright, whatever the copy says. */
   showAnnouncement?: 'yes' | 'no';
 }
 
@@ -63,9 +61,7 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Whitespace-only copy counts as empty. While the field is edited inline the
-  // editor supplies a node rather than a string — it can't be inspected for
-  // emptiness, which is what the explicit toggle is for.
+  // Inline editing supplies a node, so only string values can be blank-checked.
   const hasAnnouncementText =
     typeof announcement === 'string'
       ? announcement.trim() !== ''
@@ -75,7 +71,6 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      {/* Sits above the sticky nav, so it scrolls away on its own. */}
       {showAnnouncementBar && (
         <div className="bg-muted text-foreground">
           <div className="max-w-screen-2xl mx-auto flex h-9 items-center justify-center px-8 text-center text-xs">
@@ -96,10 +91,8 @@ const Header: React.FC<HeaderProps> = ({
       <nav className="bg-background/95 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-screen-2xl mx-auto px-8">
         <div className="flex justify-between items-center h-14">
-          {/* Logo */}
           <Logo src={logoUrl} storeName={storeName} />
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-x-8 text-sm">
             <ShopMenu />
             {links.map((link, index) => (
@@ -113,12 +106,10 @@ const Header: React.FC<HeaderProps> = ({
             ))}
           </div>
 
-          {/* Actions */}
           <div className="flex items-center">
             <SearchDialog />
             <CartIcon />
 
-            {/* Mobile hamburger */}
             <Button
               onClick={() => setMenuOpen(!menuOpen)}
               variant="ghost"
@@ -136,7 +127,6 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden bg-background">
           <div className="max-w-screen-2xl mx-auto px-8 pb-6 flex flex-col gap-y-4 text-sm">

@@ -1,15 +1,5 @@
-// Swatch configuration for product option pickers.
-//
-// Shopify exposes a `swatch` on each option value, but plenty of products ship
-// without one configured. These settings decide which options render as colour
-// circles and what colour to use when the API doesn't supply one.
-
-// Option names (case-insensitive) rendered as colour circles instead of pills.
 export const SWATCH_OPTION_NAMES = ['color', 'colour'];
 
-// Fallback colours, keyed by lowercased option value name. The first group
-// mirrors hexes the store defines on other products, so a product missing its
-// swatches still matches the ones that have them. Add your own names here.
 export const SWATCH_COLORS: Record<string, string> = {
   clay: '#5a4b3c',
   green: '#81a69b',

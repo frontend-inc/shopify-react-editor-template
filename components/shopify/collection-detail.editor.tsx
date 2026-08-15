@@ -8,11 +8,6 @@ export type CollectionDetailBlockProps = {
   title?: string;
 };
 
-/**
- * Used two ways: dropped on `/collections/[handle]` it follows the route, so
- * `collection` stays empty and the picker only drives the editor preview;
- * dropped on any other page it pins to whichever collection is picked.
- */
 const collectionDetailEditor: ComponentConfig<CollectionDetailBlockProps> = {
   label: 'Collection page',
   icon: <Boxes size={16} />,

@@ -1,8 +1,3 @@
-// Server-safe Shopify catalogue access.
-//
-// These are plain async functions with no React imports, so they can be called
-// from Route Handlers (see app/api/chat/route.ts) as well as from the client
-// hooks in hooks/use-shopify-*.ts, which re-export them.
 import type { StorefrontApi } from '@shopify/hydrogen';
 import { storefront, unwrapStorefrontResult } from '@/services/shopify/client';
 import {
@@ -19,8 +14,6 @@ import {
   SEARCH_SUGGESTIONS_QUERY,
 } from '@/graphql/search';
 
-// Optional fields are `| null` rather than just optional: the Storefront API
-// returns explicit nulls, and the typed `gql()` documents now surface that.
 interface ProductImage {
   url: string;
   altText?: string | null;
@@ -67,10 +60,7 @@ export interface ProductOption {
   optionValues?: ProductOptionValue[];
 }
 
-/**
- * Single-variant products still carry one synthetic option — `Title` with the
- * lone value `Default Title`. It isn't a real choice, so keep it out of the UI.
- */
+/** Detects Shopify's synthetic option for single-variant products. */
 export const isDefaultTitleOption = (option: {
   name: string;
   values: string[];
@@ -79,7 +69,6 @@ export const isDefaultTitleOption = (option: {
   option.values.length === 1 &&
   option.values[0] === 'Default Title';
 
-/** Same synthetic option, as it appears on a variant's `selectedOptions`. */
 export const isDefaultTitleSelection = (selection: {
   name: string;
   value: string;
@@ -113,7 +102,6 @@ export interface Product {
 
 interface UseProductsOptions {
   first?: number;
-  /** Cursor from a previous page's `endCursor`; omit for the first page. */
   after?: string | null;
   query?: string;
   sortKey?: 'BEST_SELLING' | 'CREATED_AT' | 'PRICE' | 'TITLE';
@@ -126,14 +114,6 @@ export interface ProductsPage {
   endCursor: string | null;
 }
 
-interface UseProductsReturn {
-  products: Product[];
-  loading: boolean;
-  error: string | null;
-  refetch: () => Promise<void>;
-}
-
-// Fetch multiple products
 export async function getProducts(
   options: UseProductsOptions = {}
 ): Promise<Product[]> {
@@ -141,7 +121,6 @@ export async function getProducts(
   return products;
 }
 
-// Same fetch, but keeps the cursor so callers can page through the catalogue.
 export async function getProductsPage({
   first = 20,
   after = null,
@@ -165,7 +144,6 @@ export async function getProductsPage({
   };
 }
 
-// Fetch a single product by handle
 export async function getProduct(handle: string): Promise<Product | null> {
   const data = unwrapStorefrontResult(
     await storefront.graphql(GET_PRODUCT_QUERY, { variables: { handle } }),
@@ -175,7 +153,6 @@ export async function getProduct(handle: string): Promise<Product | null> {
   return data.product;
 }
 
-// Fetch product recommendations
 export async function getProductRecommendations(productId: string): Promise<Product[]> {
   const data = unwrapStorefrontResult(
     await storefront.graphql(QUERY_PRODUCT_RECOMMENDATIONS, {
@@ -218,7 +195,6 @@ interface UseCollectionProductsOptions {
   after?: string | null;
   sortKey?: CollectionSortKey;
   reverse?: boolean;
-  /** Raw `input` strings from the connection's `filters` facets. */
   filterInputs?: string[];
 }
 
@@ -242,7 +218,6 @@ export interface ProductFilterFacet {
   }>;
 }
 
-// Fetch all collections
 export async function getCollections(first = 50): Promise<Collection[]> {
   const data = unwrapStorefrontResult(
     await storefront.graphql(GET_COLLECTIONS_QUERY, { variables: { first } }),
@@ -252,7 +227,6 @@ export async function getCollections(first = 50): Promise<Collection[]> {
   return data.collections.edges.map((edge) => edge.node);
 }
 
-// Fetch products in a collection by handle
 export async function getCollectionProducts(
   handle: string,
   options: UseCollectionProductsOptions = {}
@@ -263,7 +237,6 @@ export async function getCollectionProducts(
   return { ...page.collection, products: page.products };
 }
 
-// Same fetch, but keeps the cursor and facet list for filtering and paging.
 export async function getCollectionProductsPage(
   handle: string,
   {
@@ -319,7 +292,6 @@ export interface SearchFilterValue {
   id: string;
   label: string;
   count: number;
-  /** JSON string accepted back as a `ProductFilter` input. */
   input: string;
 }
 
@@ -360,18 +332,14 @@ interface SearchProductsOptions {
   after?: string | null;
   sortKey?: SearchSortKey;
   reverse?: boolean;
-  /** Raw `input` strings from the facets, parsed back into filter objects. */
   filterInputs?: string[];
 }
 
-// The `ProductFilter` input shape, taken from the query that consumes it so it
-// tracks the schema rather than being restated here.
 type ProductFilterInput = NonNullable<
   StorefrontApi.VariablesOf<typeof GET_COLLECTION_PRODUCTS_QUERY>['filters']
 >[number];
 
-// Facet `input` values are opaque JSON strings produced by Shopify and handed
-// straight back as filter inputs, so they are parsed, not constructed.
+// Shopify facet inputs are opaque JSON values intended for round-tripping.
 function parseFilterInputs(inputs: string[]): ProductFilterInput[] {
   return inputs.flatMap((input) => {
     try {

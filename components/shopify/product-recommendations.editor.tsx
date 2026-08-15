@@ -23,7 +23,6 @@ const productRecommendationsEditor: ComponentConfig<ProductRecommendationsBlockP
       title: { label: 'Title', type: 'text', contentEditable: true },
       product: {
         label: 'Seed product',
-        // Empty follows the `[handle]` route segment; Shopify picks the rest.
         type: 'shopifyProduct',
       } as any,
       limit: { label: 'Products shown', type: 'number', min: 2, max: 12 },

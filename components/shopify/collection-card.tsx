@@ -25,7 +25,6 @@ const CollectionCard: React.FC<CollectionCardProps> = ({ collection }) => {
       href={`/collections/${collection.handle}`}
       className="group block h-full"
     >
-      {/* Collection Image */}
       <div className="relative aspect-square overflow-hidden">
         {collection.image ? (
           <Image
@@ -42,7 +41,6 @@ const CollectionCard: React.FC<CollectionCardProps> = ({ collection }) => {
         )}
       </div>
 
-      {/* Collection Info */}
       <div className="flex flex-col flex-1 py-2.5">
         <h3 className="text-sm font-medium text-foreground line-clamp-1">
           {collection.title}

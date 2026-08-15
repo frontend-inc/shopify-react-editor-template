@@ -36,8 +36,6 @@ function CommandDialog({
   children,
   className,
   showCloseButton = true,
-  // Forwarded to the inner Command so callers can drive filtering themselves
-  // (e.g. results already filtered server-side).
   shouldFilter,
   ...props
 }: React.ComponentProps<typeof Dialog> & {
@@ -56,7 +54,6 @@ function CommandDialog({
       <DialogContent
         className={cn(
           "overflow-hidden p-0",
-          // No fade/zoom on the command palette — it should appear instantly.
           "transition-none animate-none duration-0",
           "data-[state=closed]:animate-none data-[state=open]:animate-none",
           className

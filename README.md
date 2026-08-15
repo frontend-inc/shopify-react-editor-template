@@ -1,6 +1,4 @@
-# React Editor Demo (Shopify)
-
-Standalone Vite SPA wiring up the Shopify-aware React Editor via `<App />` from `@reacteditor/core`.
+# Shopify Hydrogen
 
 ## What's here
 

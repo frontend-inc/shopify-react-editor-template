@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Utility function to combine classNames
 function cn(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
 }

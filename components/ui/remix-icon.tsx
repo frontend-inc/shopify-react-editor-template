@@ -16,12 +16,10 @@ const RemixIcon: React.FC<RemixIconProps> = ({
 }) => {
   if (!name) return null;
 
-  // Normalise: accept "RiTruckLine", "ri-truck-line", or "riTruckLine"
+  // Accept component, kebab-case, or camelCase icon names.
   const normalised = name
-    // ri-truck-line → RiTruckLine
     .replace(/^ri-/, 'Ri')
     .replace(/-([a-z])/g, (_, c) => c.toUpperCase())
-    // ensure first char is uppercase
     .replace(/^./, (c) => c.toUpperCase());
 
   const IconComponent = (

@@ -52,10 +52,6 @@ interface ProductsProps {
   subtitle?: string;
   limit?: number;
   showLoadMore?: boolean;
-  /**
-   * Narrows the grid to one collection. Empty shows the newest products across
-   * the whole catalogue, which is what the home page does.
-   */
   collectionHandle?: string;
 }
 
@@ -73,8 +69,6 @@ const Products: React.FC<ProductsProps> = ({
   const [hasMoreProducts, setHasMoreProducts] = useState(true);
   const [cursor, setCursor] = useState<string | null>(null);
 
-  // Paging is cursor-based: without `after`, Shopify returns the same first
-  // page every time and "load more" appends nothing.
   const fetchProducts = async (loadMore = false) => {
     try {
       if (loadMore) {
@@ -84,8 +78,6 @@ const Products: React.FC<ProductsProps> = ({
         setError(null);
       }
 
-      // A pinned collection uses the collection query so its own ordering
-      // applies; otherwise fall back to newest-first across the catalogue.
       const page = collectionHandle
         ? await getCollectionProductsPage(collectionHandle, {
             first: limit,

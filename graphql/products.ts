@@ -1,6 +1,5 @@
 import { gql } from '@shopify/hydrogen';
 
-// Product Fragment for consistent product data
 export const ProductFragment = gql(`
   fragment ProductFragment on Product {
     id
@@ -102,7 +101,6 @@ export const ProductFragment = gql(`
   }
 `);
 
-// Get multiple products
 export const GET_PRODUCTS_QUERY = gql(
   `
   query GetProducts($first: Int!, $after: String, $query: String, $sortKey: ProductSortKeys, $reverse: Boolean, $country: CountryCode, $language: LanguageCode)
@@ -123,7 +121,6 @@ export const GET_PRODUCTS_QUERY = gql(
   [ProductFragment]
 );
 
-// Get a single product by handle
 export const GET_PRODUCT_QUERY = gql(
   `
   query GetProduct($handle: String!, $country: CountryCode, $language: LanguageCode)
@@ -136,7 +133,6 @@ export const GET_PRODUCT_QUERY = gql(
   [ProductFragment]
 );
 
-// Get product recommendations
 export const QUERY_PRODUCT_RECOMMENDATIONS = gql(
   `
   query GetProductRecommendations($productId: ID!, $country: CountryCode, $language: LanguageCode)

@@ -5,20 +5,11 @@ import { useParams } from 'next/navigation';
 import { getShopPolicy, type ShopPolicy } from '@/hooks/use-shopify-policies';
 
 export interface PolicyBodyProps {
-  /**
-   * Pins the block to one policy. Left empty, it reads the `[handle]` segment,
-   * which is what the `/policies/[handle]` template does.
-   */
   handle?: string;
-  /** Overrides the policy's own title. Empty falls back to Shopify's. */
   title?: string;
   notFoundMessage?: string;
 }
 
-/**
- * Policy copy is authored in the Shopify admin, not here — the editor only
- * chooses which policy to show and can override the heading.
- */
 const PolicyBody: React.FC<PolicyBodyProps> = ({
   handle: handleProp,
   title: titleProp,

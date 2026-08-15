@@ -8,9 +8,7 @@ import { cn } from '@/lib/utils';
 
 interface ShopMenuProps {
   label?: string;
-  /** Renders inline inside the mobile menu instead of as a floating panel. */
   mobile?: boolean;
-  /** Fires after a collection is picked, so the mobile menu can close itself. */
   onNavigate?: () => void;
 }
 
@@ -22,7 +20,6 @@ const ShopMenu: React.FC<ShopMenuProps> = ({
   const [open, setOpen] = useState(false);
   const { collections, loading, error, load } = useCollectionsOnDemand();
 
-  // The collection list is only worth fetching once someone opens the menu.
   const toggle = () => {
     const next = !open;
     setOpen(next);
@@ -138,7 +135,6 @@ const ShopMenu: React.FC<ShopMenuProps> = ({
 
       {open && (
         <>
-          {/* Catches the click that dismisses the panel. */}
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
           <div className="absolute left-0 top-full z-50 mt-2 max-h-[70vh] w-64 overflow-y-auto rounded-md border border-border bg-background py-1 shadow-md">
             {body}

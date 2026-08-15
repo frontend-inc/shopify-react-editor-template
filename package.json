@@ -17,7 +17,7 @@
     "@openrouter/ai-sdk-provider": "^3.0.0",
     "@radix-ui/react-slot": "^1.3.3",
     "@radix-ui/react-use-controllable-state": "^1.2.6",
-    "@reacteditor/core": "0.0.41-alpha.3",
+    "@reacteditor/core": "0.0.41-alpha.4",
     "@reacteditor/plugin-shopify": "0.0.1-alpha.1",
     "@reacteditor/plugin-tailwind-cdn": "0.0.3-alpha.2",
     "@remixicon/react": "^4.9.0",

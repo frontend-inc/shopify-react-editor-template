@@ -3,53 +3,41 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* Refined neutral modern palette */
   --color-background: hsl(0 0% 100%);
   --color-foreground: hsl(240 10% 3.9%);
 
-  /* Card */
   --color-card: hsl(0 0% 100%);
   --color-card-foreground: hsl(240 10% 3.9%);
 
-  /* Popover */
   --color-popover: hsl(0 0% 100%);
   --color-popover-foreground: hsl(240 10% 3.9%);
 
-  /* Primary - Deep neutral slate for professional look */
   --color-primary: hsl(240 5.9% 10%);
   --color-primary-foreground: hsl(0 0% 98%);
 
-  /* Secondary */
   --color-secondary: hsl(240 4.8% 95.9%);
   --color-secondary-foreground: hsl(240 5.9% 10%);
 
-  /* Muted */
   --color-muted: hsl(240 4.8% 95.9%);
   --color-muted-foreground: hsl(240 3.8% 46.1%);
 
-  /* Accent - Subtle warm gray */
   --color-accent: hsl(30 6.7% 95%);
   --color-accent-foreground: hsl(240 5.9% 10%);
 
-  /* Destructive */
   --color-destructive: hsl(0 84.2% 60.2%);
   --color-destructive-foreground: hsl(0 0% 98%);
 
-  /* Shop (accelerated checkout) purple */
   --color-shop: #5a31f4;
 
-  /* Border */
   --color-border: hsl(240 5.9% 90%);
   --color-input: hsl(240 5.9% 90%);
   --color-ring: hsl(240 5.9% 10%);
 
-  /* Radius - Modern larger corners */
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
   --radius-xl: 1.25rem;
 
-  /* Typography — Geist Sans / Geist Mono */
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
   --font-heading: var(--font-geist-sans), system-ui, sans-serif;
@@ -57,10 +45,7 @@
   --font-poppins: var(--font-geist-sans), system-ui, sans-serif;
 }
 
-/* Base styles for light, modern Shopify storefront */
-/* Tailwind v4 defaults an unqualified `border` to currentColor. shadcn
-   components (e.g. Button's outline variant) rely on this base layer to pick up
-   the theme's border colour instead of the text colour. */
+/* Tailwind v4 otherwise defaults unqualified borders to currentColor. */
 @layer base {
   * {
     border-color: var(--color-border);
@@ -75,7 +60,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Modern card design for products and collections */
 .card-modern {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid var(--color-border);
@@ -87,7 +71,6 @@ body {
   border-color: hsl(240 5.9% 85%);
 }
 
-/* Heading styles — regular weight, slightly tightened like the Geist reference */
 h1,
 h2,
 .font-heading {
@@ -95,7 +78,6 @@ h2,
   letter-spacing: -0.02em;
 }
 
-/* Swipeable rows (mobile galleries) without a visible scrollbar */
 .no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -105,7 +87,6 @@ h2,
   display: none;
 }
 
-/* Diagonal strike marking an unavailable product option (size pill, swatch) */
 .option-unavailable {
   background-image: linear-gradient(
     to top right,
@@ -116,7 +97,6 @@ h2,
   );
 }
 
-/* Product description (HTML returned by the Storefront API) */
 .product-description p {
   margin-bottom: 1rem;
 }
@@ -125,7 +105,6 @@ h2,
   margin-bottom: 0;
 }
 
-/* Shop policy body (HTML returned by the Storefront API) */
 .policy-body p,
 .policy-body ul,
 .policy-body ol {
@@ -164,7 +143,6 @@ h2,
   margin-bottom: 0;
 }
 
-/* Enhanced button styles */
 button,
 .btn-modern {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -177,12 +155,10 @@ button,
     0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
-/* Hero section styles */
 .hero-bg {
   background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f5 100%);
 }
 
-/* Product gallery improvements */
 .product-gallery-main {
   transition: box-shadow 0.3s ease;
 }
@@ -191,7 +167,6 @@ button,
   box-shadow: 0 0 0 1px hsl(240 5.9% 80%) inset;
 }
 
-/* Clean price display */
 .price-display {
   font-feature-settings: 'tnum';
 }

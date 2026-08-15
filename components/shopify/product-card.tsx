@@ -66,7 +66,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       href={`/products/${product.handle}`}
       className="group block h-full"
     >
-      {/* Product Image */}
       <div className="relative aspect-square overflow-hidden">
         {firstImage ? (
           <Image
@@ -95,7 +94,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         )}
       </div>
 
-      {/* Product Info */}
       <div className="flex flex-col flex-1 py-2.5">
         <h3 className="text-sm font-medium text-foreground line-clamp-1">
           {truncate(product.title, 65)}

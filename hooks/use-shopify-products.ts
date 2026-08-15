@@ -5,24 +5,22 @@ import {
   getProducts,
   getProduct,
   getProductRecommendations,
-} from '@/services/shopify/catalog';
+} from '@/services/shopify/shop';
 
-// Pure fetchers live in services/shopify/catalog so server code can use them
-// too; re-exported here so existing imports keep working.
 export {
   getProducts,
   getProductsPage,
   getProduct,
   getProductRecommendations,
-} from '@/services/shopify/catalog';
+} from '@/services/shopify/shop';
 export type {
   Product,
   ProductOption,
   ProductOptionValue,
   ProductsPage,
-} from '@/services/shopify/catalog';
+} from '@/services/shopify/shop';
 
-import type { Product } from '@/services/shopify/catalog';
+import type { Product } from '@/services/shopify/shop';
 
 interface UseProductsOptions {
   first?: number;
@@ -39,7 +37,6 @@ interface UseProductsReturn {
   refetch: () => Promise<void>;
 }
 
-// Hook for fetching multiple products
 export function useProducts(options: UseProductsOptions = {}): UseProductsReturn {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -66,7 +63,6 @@ export function useProducts(options: UseProductsOptions = {}): UseProductsReturn
   return { products, loading, error, refetch: fetchProducts };
 }
 
-// Hook for fetching a single product
 export function useProduct(handle: string | null) {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
@@ -101,7 +97,6 @@ export function useProduct(handle: string | null) {
   return { product, loading, error, refetch: fetchProduct };
 }
 
-// Hook for fetching product recommendations
 export function useProductRecommendations(productId: string | null) {
   const [recommendations, setRecommendations] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);

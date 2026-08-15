@@ -9,10 +9,8 @@ import {
   getCollectionProductsPage,
   isDefaultTitleOption,
   isDefaultTitleSelection,
-} from '@/services/shopify/catalog';
+} from '@/services/shopify/shop';
 
-// Streaming needs the Node runtime here because the Storefront helpers run
-// server-side on each tool call.
 export const maxDuration = 30;
 
 const MODEL = process.env.OPENROUTER_MODEL ?? 'openai/gpt-5.6-luna-pro';
@@ -36,7 +34,6 @@ Guidelines:
 - You cannot place orders, change carts, process payments, or look up customer
   or order data. Say so and point the shopper to the relevant page instead.`;
 
-// Trim the Storefront payloads to what the model actually needs to answer.
 const summariseProduct = (product: {
   id: string;
   title: string;
@@ -88,12 +85,9 @@ export async function POST(req: Request) {
   const openrouter = createOpenRouter({ apiKey });
 
   const result = streamText({
-    // `reasoning` asks OpenRouter to stream the model's thinking; the UI
-    // renders it via the Reasoning component.
     model: openrouter(MODEL, { reasoning: { enabled: true, effort: 'medium' } }),
     system: SYSTEM_PROMPT,
     messages: await convertToModelMessages(messages),
-    // Let the model call a tool, read the result, then answer.
     stopWhen: stepCountIs(5),
     tools: {
       searchCatalogue: tool({
@@ -201,7 +195,5 @@ export async function POST(req: Request) {
     },
   });
 
-  // sendReasoning forwards reasoning parts to the client; without it the
-  // stream carries text and tool calls only.
   return result.toUIMessageStreamResponse({ sendReasoning: true });
 }

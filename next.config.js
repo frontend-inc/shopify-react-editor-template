@@ -3,8 +3,7 @@ import { fileURLToPath } from 'node:url';
 
 export default {
   reactStrictMode: true,
-  // Sibling templates each carry a lockfile, so pin the tracing root here
-  // rather than letting Next infer one from a parent directory.
+  // Prevent sibling lockfiles from changing Next's inferred tracing root.
   outputFileTracingRoot: dirname(fileURLToPath(import.meta.url)),
   typescript: {
     ignoreBuildErrors: true,
@@ -15,7 +14,6 @@ export default {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
-      // Covers cdn.shopify.com plus any other Shopify-hosted image subdomain.
       {
         protocol: 'https',
         hostname: '**.shopify.com',

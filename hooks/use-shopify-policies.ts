@@ -12,7 +12,6 @@ export interface ShopPolicy {
   url: string;
 }
 
-// Handles Shopify uses for each policy — also the routes under /policies/[handle].
 export const POLICY_HANDLES = [
   'terms-of-service',
   'privacy-policy',
@@ -21,8 +20,6 @@ export const POLICY_HANDLES = [
   'subscription-policy',
 ] as const;
 
-// Policies change rarely, so this reads through the cached client (revalidated
-// hourly) rather than the no-store one used for carts and products.
 export async function getShopPolicies(): Promise<ShopPolicy[]> {
   try {
     const data = unwrapStorefrontResult(
@@ -34,7 +31,6 @@ export async function getShopPolicies(): Promise<ShopPolicy[]> {
       (policy): policy is ShopPolicy => Boolean(policy?.handle)
     );
   } catch (err) {
-    // A storefront without policies configured shouldn't break the footer.
     console.error('Failed to load shop policies:', err);
     return [];
   }
