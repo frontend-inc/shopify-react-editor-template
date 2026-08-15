@@ -160,7 +160,10 @@ const CollectionDetail: React.FC<CollectionDetailProps> = ({
         </div>
 
         <div className="mt-8">
-          {loading ? (
+          {/* A missing or failed collection keeps the skeletons up rather than
+              showing an empty state, so the page stays presentable while a
+              handle is being chosen. */}
+          {loading || error ? (
             <div className={GRID_CLASSES}>
               {Array.from({ length: 10 }).map((_, index) => (
                 <div key={index} className="animate-pulse">
@@ -172,8 +175,6 @@ const CollectionDetail: React.FC<CollectionDetailProps> = ({
                 </div>
               ))}
             </div>
-          ) : error ? (
-            <p className="text-sm text-muted-foreground">{error}</p>
           ) : products.length === 0 ? (
             <p className="text-sm text-muted-foreground">
               {activeFilters.length > 0

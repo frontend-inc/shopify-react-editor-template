@@ -6,14 +6,6 @@ import { useProduct, type Product } from '@/hooks/use-shopify-products';
 import { useShopifyCart, redirectToCheckout } from '@/hooks/use-shopify-cart';
 import ProductDetailGallery from './product-detail-gallery';
 import ProductDetailInfo from './product-detail-info';
-import { Button } from '@/components/ui/button';
-import {
-  Empty,
-  EmptyHeader,
-  EmptyTitle,
-  EmptyDescription,
-  EmptyContent,
-} from '@/components/ui/empty';
 
 interface ProductVariant {
   id: string;
@@ -142,7 +134,9 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
     }
   };
 
-  if (loading) {
+  // A missing or failed product keeps the skeletons up rather than showing an
+  // empty state, so the page stays presentable while a handle is being chosen.
+  if (loading || error || !product) {
     return (
       <div className="max-w-screen-2xl mx-auto px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10">
@@ -164,26 +158,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
             <div className="h-12 bg-zinc-100 mt-3"></div>
           </div>
         </div>
-      </div>
-    );
-  }
-
-  if (error || !product) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <Empty className="min-h-[400px]">
-          <EmptyHeader>
-            <EmptyTitle>Product Not Found</EmptyTitle>
-            <EmptyDescription>
-              {error || 'The requested product could not be found.'}
-            </EmptyDescription>
-          </EmptyHeader>
-          <EmptyContent>
-            <Button onClick={() => window.history.back()} variant="outline">
-              Go Back
-            </Button>
-          </EmptyContent>
-        </Empty>
       </div>
     );
   }
