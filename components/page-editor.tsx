@@ -42,6 +42,7 @@ export default function PageEditor({ pagePath, page }: PageEditorProps) {
     <Editor
       theme="light"
       color="teal"
+      ui={{ leftSideBarVisible: false }}
       config={appConfig as any}
       data={data}
       plugins={plugins}
