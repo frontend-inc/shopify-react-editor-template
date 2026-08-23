@@ -218,13 +218,36 @@ export interface ProductFilterFacet {
   }>;
 }
 
+export interface CollectionsPage {
+  collections: Collection[];
+  hasNextPage: boolean;
+  endCursor: string | null;
+}
+
 export async function getCollections(first = 50): Promise<Collection[]> {
+  const page = await getCollectionsPage(first);
+
+  return page.collections;
+}
+
+export async function getCollectionsPage(
+  first = 50,
+  after: string | null = null
+): Promise<CollectionsPage> {
   const data = unwrapStorefrontResult(
-    await storefront.graphql(GET_COLLECTIONS_QUERY, { variables: { first } }),
+    await storefront.graphql(GET_COLLECTIONS_QUERY, {
+      variables: { first, after },
+    }),
     'GetCollections'
   );
 
-  return data.collections.edges.map((edge) => edge.node);
+  const { edges, pageInfo } = data.collections;
+
+  return {
+    collections: edges.map((edge) => edge.node),
+    hasNextPage: Boolean(pageInfo?.hasNextPage),
+    endCursor: pageInfo?.endCursor ?? null,
+  };
 }
 
 export async function getCollectionProducts(

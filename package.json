@@ -21,7 +21,7 @@
     "@reacteditor/plugin-shopify": "0.0.2",
     "@reacteditor/plugin-tailwind-cdn": "0.0.4",
     "@remixicon/react": "^4.9.0",
-    "@shopify/hydrogen": "0.0.0-preview-116d5d7-20260730141607",
+    "@shopify/hydrogen": "2026.10.0-preview.1",
     "@shopify/storefront-api-client": "^1.0.0",
     "ai": "^7",
     "class-variance-authority": "0.7.1",

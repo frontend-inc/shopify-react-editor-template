@@ -18,7 +18,8 @@
       "type": "search-results",
       "props": {
         "id": "search-results",
-        "title": "Search"
+        "title": "Search",
+        "placeholder": "Search products"
       }
     },
     {

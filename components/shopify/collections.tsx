@@ -4,6 +4,7 @@ import React from 'react';
 import { useCollections } from '@/hooks/use-shopify-collections';
 import CollectionCard from './collection-card';
 import { Button } from '@/components/ui/button';
+import { Loader } from '@/components/ui/loader';
 
 interface CollectionsProps {
   title?: string;
@@ -32,7 +33,15 @@ const Collections: React.FC<CollectionsProps> = ({
   title = 'Our Collections',
   subtitle = 'Discover our carefully crafted worlds',
 }) => {
-  const { collections, loading, error, refetch } = useCollections(12);
+  const {
+    collections,
+    loading,
+    loadingMore,
+    error,
+    hasNextPage,
+    loadMore,
+    refetch,
+  } = useCollections(12);
 
   if (loading) {
     return (
@@ -92,6 +101,21 @@ const Collections: React.FC<CollectionsProps> = ({
             <CollectionCard key={collection.id} collection={collection} />
           ))}
         </div>
+
+        {hasNextPage && (
+          <div className="mt-16 flex justify-center">
+            <Button
+              onClick={loadMore}
+              disabled={loadingMore}
+              variant="outline"
+              size="lg"
+              className="font-normal text-muted-foreground hover:text-foreground"
+            >
+              {loadingMore && <Loader size={16} />}
+              {loadingMore ? 'Loading' : 'See more'}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

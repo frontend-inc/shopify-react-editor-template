@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import ProductCard from './product-card';
 import ProductFilters from './product-filters';
 import ProductToolbar from './product-toolbar';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Loader } from '@/components/ui/loader';
+import { RiSearchLine, RiCloseLine } from '@remixicon/react';
 import {
   searchProducts,
   type SearchFilter,
@@ -30,11 +32,17 @@ const SORT_OPTIONS: SortOption[] = [
 
 interface SearchResultsProps {
   title?: string;
+  placeholder?: string;
 }
 
-const SearchResults: React.FC<SearchResultsProps> = ({ title = 'Search' }) => {
+const SearchResults: React.FC<SearchResultsProps> = ({
+  title = 'Search',
+  placeholder = 'Search products',
+}) => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get('q') ?? '';
+  const [term, setTerm] = useState(query);
 
   const [products, setProducts] = useState<Product[]>([]);
   const [filters, setFilters] = useState<SearchFilter[]>([]);
@@ -52,6 +60,24 @@ const SearchResults: React.FC<SearchResultsProps> = ({ title = 'Search' }) => {
   const sort = SORT_OPTIONS[sortIndex];
   // Stabilize the effect dependency by filter contents.
   const activeKey = useMemo(() => activeFilters.join('|'), [activeFilters]);
+
+  // Keep the field in step with the URL, which also changes from the header
+  // search dialog and from back/forward navigation.
+  useEffect(() => {
+    setTerm(query);
+  }, [query]);
+
+  const submitSearch = (event: React.FormEvent) => {
+    event.preventDefault();
+    const next = term.trim();
+    if (next === query) return;
+    router.push(next ? `/search?q=${encodeURIComponent(next)}` : '/search');
+  };
+
+  const clearSearch = () => {
+    setTerm('');
+    if (query) router.push('/search');
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -126,7 +152,34 @@ const SearchResults: React.FC<SearchResultsProps> = ({ title = 'Search' }) => {
           {title}
         </h1>
 
-        <div className="mt-6">
+        <form onSubmit={submitSearch} className="mt-6 max-w-xl">
+          <div className="relative">
+            <RiSearchLine
+              size={18}
+              className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 text-muted-foreground"
+            />
+            <Input
+              type="text"
+              value={term}
+              onChange={(event) => setTerm(event.target.value)}
+              placeholder={placeholder}
+              aria-label="Search products"
+              className="h-11 rounded-none border-0 border-b border-border bg-transparent pl-7 pr-8 shadow-none focus-visible:border-foreground focus-visible:ring-0 dark:bg-transparent"
+            />
+            {term && (
+              <button
+                type="button"
+                onClick={clearSearch}
+                aria-label="Clear search"
+                className="absolute right-0 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground"
+              >
+                <RiCloseLine size={18} />
+              </button>
+            )}
+          </div>
+        </form>
+
+        <div className="mt-8">
           <ProductToolbar
             totalCount={totalCount}
             onOpenFilters={() => setFiltersOpen(true)}

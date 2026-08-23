@@ -2,9 +2,13 @@ import { gql } from '@shopify/hydrogen';
 import { ProductFragment } from '@/graphql/products';
 
 export const GET_COLLECTIONS_QUERY = gql(`
-  query GetCollections($first: Int!, $country: CountryCode, $language: LanguageCode)
-  @inContext(country: $country, language: $language) {
-    collections(first: $first) {
+  query GetCollections(
+    $first: Int!
+    $after: String
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    collections(first: $first, after: $after) {
       edges {
         node {
           id
