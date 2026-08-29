@@ -1,17 +1,17 @@
 import Root from '@/config/root';
 import type { UserConfig } from '@/config/types';
 
-import headerEditor from '@/components/shopify/header.editor';
-import footerEditor from '@/components/shopify/footer.editor';
-import productsEditor from '@/components/shopify/products.editor';
-import collectionsEditor from '@/components/shopify/collections.editor';
-import collectionDetailEditor from '@/components/shopify/collection-detail.editor';
-import productDetailEditor from '@/components/shopify/product-detail.editor';
-import productRecommendationsEditor from '@/components/shopify/product-recommendations.editor';
-import searchResultsEditor from '@/components/shopify/search-results.editor';
-import storeAssistantEditor from '@/components/shopify/store-assistant.editor';
-import contentSectionEditor from '@/components/shopify/content-section.editor';
-import policyBodyEditor from '@/components/shopify/policy-body.editor';
+import headerEditor from '@/components/shopify/header.config';
+import footerEditor from '@/components/shopify/footer.config';
+import productsEditor from '@/components/shopify/products.config';
+import collectionsEditor from '@/components/shopify/collections.config';
+import collectionDetailEditor from '@/components/shopify/collection-detail.config';
+import productDetailEditor from '@/components/shopify/product-detail.config';
+import productRecommendationsEditor from '@/components/shopify/product-recommendations.config';
+import searchResultsEditor from '@/components/shopify/search-results.config';
+import storeAssistantEditor from '@/components/shopify/store-assistant.config';
+import contentSectionEditor from '@/components/shopify/content-section.config';
+import policyBodyEditor from '@/components/shopify/policy-body.config';
 
 const categories = {
   navigation: { title: 'Navigation' },

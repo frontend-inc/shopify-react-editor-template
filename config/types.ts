@@ -1,14 +1,14 @@
 import { Config, Data } from '@reacteditor/core';
 
-import type { HeaderBlockProps } from '@/components/shopify/header.editor';
-import type { FooterBlockProps } from '@/components/shopify/footer.editor';
-import type { ProductsBlockProps } from '@/components/shopify/products.editor';
-import type { CollectionsBlockProps } from '@/components/shopify/collections.editor';
-import type { CollectionDetailBlockProps } from '@/components/shopify/collection-detail.editor';
-import type { ProductDetailBlockProps } from '@/components/shopify/product-detail.editor';
-import type { ProductRecommendationsBlockProps } from '@/components/shopify/product-recommendations.editor';
-import type { SearchResultsBlockProps } from '@/components/shopify/search-results.editor';
-import type { StoreAssistantBlockProps } from '@/components/shopify/store-assistant.editor';
+import type { HeaderBlockProps } from '@/components/shopify/header.config';
+import type { FooterBlockProps } from '@/components/shopify/footer.config';
+import type { ProductsBlockProps } from '@/components/shopify/products.config';
+import type { CollectionsBlockProps } from '@/components/shopify/collections.config';
+import type { CollectionDetailBlockProps } from '@/components/shopify/collection-detail.config';
+import type { ProductDetailBlockProps } from '@/components/shopify/product-detail.config';
+import type { ProductRecommendationsBlockProps } from '@/components/shopify/product-recommendations.config';
+import type { SearchResultsBlockProps } from '@/components/shopify/search-results.config';
+import type { StoreAssistantBlockProps } from '@/components/shopify/store-assistant.config';
 import type { ContentSectionProps } from '@/components/shopify/content-section';
 import type { PolicyBodyProps } from '@/components/shopify/policy-body';
 
