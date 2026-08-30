@@ -54,9 +54,9 @@ const Footer: React.FC<FooterProps> = ({
           />
 
           <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 sm:justify-start">
-            {links.map((link) => (
+            {links.map((link, index) => (
               <a
-                key={link.label}
+                key={`${link.url}-${index}`}
                 href={link.url}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >

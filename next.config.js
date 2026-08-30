@@ -27,8 +27,16 @@ export default {
   experimental: {
     reactDebugChannel: false,
   },
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, webpack }) => {
     config.cache = { type: 'memory' };
+    // Hydrogen's root entry imports this browser-only analytics module by URL.
+    // Webpack resolves it before tree-shaking and otherwise rejects the https: scheme.
+    config.plugins.push(
+      new webpack.IgnorePlugin({
+        resourceRegExp:
+          /^https:\/\/cdn\.shopify\.com\/storefront\/standard-events\.js$/,
+      })
+    );
     if (isServer) {
       config.optimization = config.optimization || {};
       config.optimization.splitChunks = false;
