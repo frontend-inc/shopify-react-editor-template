@@ -30,7 +30,7 @@ const fetchWith = (overrides: RequestInit): typeof globalThis.fetch =>
   }) as typeof globalThis.fetch;
 
 const config = {
-  storeDomain: SHOPIFY_STORE_DOMAIN!,
+  storeDomain: SHOPIFY_STORE_DOMAIN,
   apiVersion: SHOPIFY_API_VERSION,
   publicStorefrontToken: SHOPIFY_PUBLIC_ACCESS_TOKEN,
 };

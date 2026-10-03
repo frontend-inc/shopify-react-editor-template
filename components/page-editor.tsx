@@ -7,15 +7,20 @@ import { createShopifyPlugin } from '@reacteditor/plugin-shopify';
 import { appConfig } from '@/editor.config';
 import { publishPage } from '@/lib/publish-page';
 import globals from '@/app.globals.json';
+import {
+  SHOPIFY_API_VERSION,
+  SHOPIFY_PUBLIC_ACCESS_TOKEN,
+  SHOPIFY_STORE_DOMAIN,
+} from '@/services/shopify/config';
 
 const plugins = [
   outlinePlugin(),
   createTailwindCdnPlugin(),
   createShopifyPlugin({
-    storeDomain: process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN ?? 'mock.shop',
-    publicAccessToken:
-      process.env.NEXT_PUBLIC_SHOPIFY_PUBLIC_ACCESS_TOKEN ?? undefined,
-    apiVersion: process.env.NEXT_PUBLIC_SHOPIFY_API_VERSION ?? '2026-07',
+    // Same resolved config as the storefront, including the mock.shop fallback.
+    storeDomain: SHOPIFY_STORE_DOMAIN,
+    publicAccessToken: SHOPIFY_PUBLIC_ACCESS_TOKEN,
+    apiVersion: SHOPIFY_API_VERSION,
   }),
 ];
 
