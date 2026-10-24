@@ -2422,10 +2422,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shopify/hydrogen@npm:2026.10.0-preview.1":
-  version: 2026.10.0-preview.1
-  resolution: "@shopify/hydrogen@npm:2026.10.0-preview.1"
+"@shopify/hydrogen@npm:2026.10.0":
+  version: 2026.10.0
+  resolution: "@shopify/hydrogen@npm:2026.10.0"
   dependencies:
+    cross-spawn: "npm:7.0.6"
     gql.tada: "npm:1.9.2"
   peerDependencies:
     react: ^18.0.0 || ^19.0.0
@@ -2440,7 +2441,7 @@ __metadata:
       optional: true
   bin:
     hydrogen: bin/hydrogen.mjs
-  checksum: 10c0/3fdc23d9ac756634bf5a84b6fec1adad5f1e11c2a9bb901fe0928235ddeae0b50048fe5c1594a0baa0cfe9477b69067c63d9a0903ef49a2b4ee4aa7b1be0d18c
+  checksum: 10c0/3e65094480ebffc47f10325106dc47fe3cd212e427b4fbd16671d3c088cf4e65e2a6b36bfa85503fd86f0803d349bcb4e515a020a905d4c8cf860d2533b5c0c0
   languageName: node
   linkType: hard
 
@@ -4169,6 +4170,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cross-spawn@npm:7.0.6":
+  version: 7.0.6
+  resolution: "cross-spawn@npm:7.0.6"
+  dependencies:
+    path-key: "npm:^3.1.0"
+    shebang-command: "npm:^2.0.0"
+    which: "npm:^2.0.1"
+  checksum: 10c0/053ea8b2135caff68a9e81470e845613e374e7309a47731e81639de3eaeb90c3d01af0e0b44d2ab9d50b43467223b88567dfeb3262db942dc063b9976718ffc1
+  languageName: node
+  linkType: hard
+
 "csstype@npm:3.2.3, csstype@npm:^3.0.2, csstype@npm:^3.2.2, csstype@npm:^3.2.3":
   version: 3.2.3
   resolution: "csstype@npm:3.2.3"
@@ -4603,6 +4615,13 @@ __metadata:
   version: 4.1.0
   resolution: "is-plain-obj@npm:4.1.0"
   checksum: 10c0/32130d651d71d9564dc88ba7e6fda0e91a1010a3694648e9f4f47bb6080438140696d3e3e15c741411d712e47ac9edc1a8a9de1fe76f3487b0d90be06ac9975e
+  languageName: node
+  linkType: hard
+
+"isexe@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "isexe@npm:2.0.0"
+  checksum: 10c0/228cfa503fadc2c31596ab06ed6aa82c9976eec2bfd83397e7eaf06d0ccf42cd1dfd6743bf9aeb01aebd4156d009994c5f76ea898d2832c1fe342da923ca457d
   languageName: node
   linkType: hard
 
@@ -5531,6 +5550,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"path-key@npm:^3.1.0":
+  version: 3.1.1
+  resolution: "path-key@npm:3.1.1"
+  checksum: 10c0/748c43efd5a569c039d7a00a03b58eecd1d75f3999f5a28303d75f521288df4823bc057d8784eb72358b2895a05f29a070bc9f1f17d28226cc4e62494cc58c4c
+  languageName: node
+  linkType: hard
+
 "path-parse@npm:^1.0.7":
   version: 1.0.7
   resolution: "path-parse@npm:1.0.7"
@@ -5849,7 +5875,7 @@ __metadata:
     "@reacteditor/plugin-shopify": "npm:0.0.2"
     "@reacteditor/plugin-tailwind-cdn": "npm:0.0.4"
     "@remixicon/react": "npm:^4.9.0"
-    "@shopify/hydrogen": "npm:2026.10.0-preview.1"
+    "@shopify/hydrogen": "npm:2026.10.0"
     "@shopify/storefront-api-client": "npm:^1.0.0"
     "@tailwindcss/postcss": "npm:^4"
     "@types/hast": "npm:^3.0.5"
@@ -6175,6 +6201,22 @@ __metadata:
     "@types/node":
       optional: true
   checksum: 10c0/73d61270979fdb89a14d523c071662f1f557814dac62faa5491ca975e0e2b0007665456941b90356a9a511b2fba8920d9088aa7f91b4786554e12852f94a82b0
+  languageName: node
+  linkType: hard
+
+"shebang-command@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "shebang-command@npm:2.0.0"
+  dependencies:
+    shebang-regex: "npm:^3.0.0"
+  checksum: 10c0/a41692e7d89a553ef21d324a5cceb5f686d1f3c040759c50aab69688634688c5c327f26f3ecf7001ebfd78c01f3c7c0a11a7c8bfd0a8bc9f6240d4f40b224e4e
+  languageName: node
+  linkType: hard
+
+"shebang-regex@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "shebang-regex@npm:3.0.0"
+  checksum: 10c0/1dbed0726dd0e1152a92696c76c7f06084eb32a90f0528d11acd764043aacf76994b2fb30aa1291a21bd019d6699164d048286309a278855ee7bec06cf6fb690
   languageName: node
   linkType: hard
 
@@ -6548,6 +6590,17 @@ __metadata:
   version: 3.0.0
   resolution: "whatwg-mimetype@npm:3.0.0"
   checksum: 10c0/323895a1cda29a5fb0b9ca82831d2c316309fede0365047c4c323073e3239067a304a09a1f4b123b9532641ab604203f33a1403b5ca6a62ef405bcd7a204080f
+  languageName: node
+  linkType: hard
+
+"which@npm:^2.0.1":
+  version: 2.0.2
+  resolution: "which@npm:2.0.2"
+  dependencies:
+    isexe: "npm:^2.0.0"
+  bin:
+    node-which: ./bin/node-which
+  checksum: 10c0/66522872a768b60c2a65a57e8ad184e5372f5b6a9ca6d5f033d4b0dc98aff63995655a7503b9c0a2598936f532120e81dd8cc155e2e92ed662a2b9377cc4374f
   languageName: node
   linkType: hard
 
