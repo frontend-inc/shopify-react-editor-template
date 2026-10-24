@@ -3,7 +3,7 @@
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const GLOBALS_FILE = path.join(process.cwd(), 'app.globals.json');
+const LAYOUT_FILE = path.join(process.cwd(), 'app.layout.json');
 
 export interface PublishResult {
   file?: string;
@@ -31,15 +31,15 @@ export async function publishPage(
     return { error: 'Invalid page file.' };
   }
 
-  const { globals, ...pageData } = page as Record<string, unknown>;
+  const { layout, ...pageData } = page as Record<string, unknown>;
 
   try {
     await writeFile(file, `${JSON.stringify(pageData, null, 2)}\n`, 'utf8');
 
-    if (globals && typeof globals === 'object') {
+    if (layout && typeof layout === 'object') {
       await writeFile(
-        GLOBALS_FILE,
-        `${JSON.stringify(globals, null, 2)}\n`,
+        LAYOUT_FILE,
+        `${JSON.stringify(layout, null, 2)}\n`,
         'utf8'
       );
     }

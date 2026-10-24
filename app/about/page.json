@@ -1,41 +1,19 @@
 {
-  "root": {
-    "props": {
-      "title": "About — Shop",
-      "description": "About Shop.",
-      "ogImage": ""
-    }
+  "metadata": {
+    "title": "About — Shop",
+    "description": "About Shop.",
+    "ogImage": ""
   },
   "content": [
     {
-      "type": "header",
-      "props": {
-        "id": "header"
-      },
-      "synced": true
-    },
-    {
       "type": "content-section",
+      "id": "about-intro",
       "props": {
-        "id": "about-intro",
         "eyebrow": "Our story",
         "heading": "About",
         "body": "Tell your store’s story here.\n\nBlank lines start a new paragraph. Everything on this page is editable at /editor?route=/about.",
         "imageUrl": "",
         "imageAlt": ""
-      }
-    },
-    {
-      "type": "footer",
-      "props": {
-        "id": "footer"
-      },
-      "synced": true
-    },
-    {
-      "type": "store-assistant",
-      "props": {
-        "id": "store-assistant"
       }
     }
   ]

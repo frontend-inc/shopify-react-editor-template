@@ -2,12 +2,10 @@ import type { Metadata } from 'next';
 import { site } from '@/config/site';
 
 interface EditorPage {
-  root?: {
-    props?: {
-      title?: string;
-      description?: string;
-      ogImage?: string;
-    };
+  metadata?: {
+    title?: string;
+    description?: string;
+    ogImage?: string;
   };
 }
 
@@ -22,7 +20,7 @@ export function pageMetadata(
   page: EditorPage,
   overrides: MetadataOverrides = {}
 ): Metadata {
-  const props = page.root?.props ?? {};
+  const props = page.metadata ?? {};
 
   // Editor titles already include the brand; fetched titles use the template.
   const title = overrides.title ?? props.title ?? site.storeName;

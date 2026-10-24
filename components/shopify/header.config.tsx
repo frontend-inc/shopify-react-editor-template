@@ -15,17 +15,18 @@ const headerEditor: ComponentConfig<HeaderBlockProps> = {
   label: 'Header',
   icon: <Menu size={16} />,
   category: 'navigation',
-  global: true,
-  defaultProps: {
-    storeName: 'Shop',
-    logoUrl: '',
-    showAnnouncement: 'yes',
-    announcement: 'Free shipping on orders over $100',
-    announcementUrl: '',
-    links: [
-      { label: 'Products', url: '/' },
-      { label: 'Collections', url: '/collections' },
-    ],
+  default: {
+    props: {
+      storeName: 'Shop',
+      logoUrl: '',
+      showAnnouncement: 'yes',
+      announcement: 'Free shipping on orders over $100',
+      announcementUrl: '',
+      links: [
+        { label: 'Products', url: '/' },
+        { label: 'Collections', url: '/collections' },
+      ],
+    },
   },
   fields: {
     storeName: { label: 'Store name', type: 'text', contentEditable: true },

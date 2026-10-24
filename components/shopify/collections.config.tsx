@@ -11,9 +11,11 @@ const collectionsEditor: ComponentConfig<CollectionsBlockProps> = {
   label: 'Collection grid',
   icon: <FolderOpen size={16} />,
   category: 'commerce',
-  defaultProps: {
-    title: 'Our Collections',
-    subtitle: 'Discover our carefully crafted worlds',
+  default: {
+    props: {
+      title: 'Our Collections',
+      subtitle: 'Discover our carefully crafted worlds',
+    },
   },
   fields: {
     title: { label: 'Title', type: 'text', contentEditable: true },

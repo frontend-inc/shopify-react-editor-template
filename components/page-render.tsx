@@ -2,15 +2,14 @@
 
 import { Render } from '@reacteditor/core/render';
 import { appConfig } from '@/editor.config';
-import globals from '@/app.globals.json';
+import layout from '@/app.layout.json';
 
 export type PageData = {
-  root?: unknown;
+  metadata?: unknown;
   content?: unknown;
-  globals?: unknown;
 };
 
 export default function PageRender({ page }: { page: PageData }) {
-  const data = { root: page.root, content: page.content, globals };
+  const data = { metadata: page.metadata, content: page.content, layout };
   return <Render config={appConfig as any} data={data as any} />;
 }

@@ -12,9 +12,11 @@ const productDetailEditor: ComponentConfig<ProductDetailBlockProps> = {
   label: 'Product page',
   icon: <Tag size={16} />,
   category: 'commerce',
-  defaultProps: {
-    product: null,
-    addToCartLabel: 'Add to Cart',
+  default: {
+    props: {
+      product: null,
+      addToCartLabel: 'Add to Cart',
+    },
   },
   fields: {
     product: {

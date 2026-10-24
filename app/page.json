@@ -1,40 +1,18 @@
 {
-  "root": {
-    "props": {
-      "title": "Shop",
-      "description": "An agent-friendly Shopify storefront built with Next.js and Hydrogen.",
-      "ogImage": ""
-    }
+  "metadata": {
+    "title": "Shop",
+    "description": "An agent-friendly Shopify storefront built with Next.js and Hydrogen.",
+    "ogImage": ""
   },
   "content": [
     {
-      "type": "header",
-      "props": {
-        "id": "header"
-      },
-      "synced": true
-    },
-    {
       "type": "products",
+      "id": "home-products",
       "props": {
-        "id": "home-products",
         "title": "Shopify Hydrogen Storefront",
         "subtitle": "An agent-friendly Shopify storefront built with Next.js and Hydrogen.",
         "collection": null,
         "limit": 12
-      }
-    },
-    {
-      "type": "footer",
-      "props": {
-        "id": "footer"
-      },
-      "synced": true
-    },
-    {
-      "type": "store-assistant",
-      "props": {
-        "id": "store-assistant"
       }
     }
   ]

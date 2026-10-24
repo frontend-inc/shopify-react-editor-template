@@ -1,38 +1,16 @@
 {
-  "root": {
-    "props": {
-      "title": "Collection",
-      "description": "Shop the collection.",
-      "ogImage": ""
-    }
+  "metadata": {
+    "title": "Collection",
+    "description": "Shop the collection.",
+    "ogImage": ""
   },
   "content": [
     {
-      "type": "header",
-      "props": {
-        "id": "header"
-      },
-      "synced": true
-    },
-    {
       "type": "collection-detail",
+      "id": "collection-detail",
       "props": {
-        "id": "collection-detail",
         "collection": null,
         "title": ""
-      }
-    },
-    {
-      "type": "footer",
-      "props": {
-        "id": "footer"
-      },
-      "synced": true
-    },
-    {
-      "type": "store-assistant",
-      "props": {
-        "id": "store-assistant"
       }
     }
   ]

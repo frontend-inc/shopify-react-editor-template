@@ -12,9 +12,11 @@ const collectionDetailEditor: ComponentConfig<CollectionDetailBlockProps> = {
   label: 'Collection page',
   icon: <Boxes size={16} />,
   category: 'commerce',
-  defaultProps: {
-    collection: null,
-    title: '',
+  default: {
+    props: {
+      collection: null,
+      title: '',
+    },
   },
   fields: {
     collection: {

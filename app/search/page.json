@@ -1,38 +1,16 @@
 {
-  "root": {
-    "props": {
-      "title": "Search",
-      "description": "Search the catalogue by product name, description or type.",
-      "ogImage": ""
-    }
+  "metadata": {
+    "title": "Search",
+    "description": "Search the catalogue by product name, description or type.",
+    "ogImage": ""
   },
   "content": [
     {
-      "type": "header",
-      "props": {
-        "id": "header"
-      },
-      "synced": true
-    },
-    {
       "type": "search-results",
+      "id": "search-results",
       "props": {
-        "id": "search-results",
         "title": "Search",
         "placeholder": "Search products"
-      }
-    },
-    {
-      "type": "footer",
-      "props": {
-        "id": "footer"
-      },
-      "synced": true
-    },
-    {
-      "type": "store-assistant",
-      "props": {
-        "id": "store-assistant"
       }
     }
   ]

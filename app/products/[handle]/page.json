@@ -1,47 +1,25 @@
 {
-  "root": {
-    "props": {
-      "title": "Product",
-      "description": "Shop this product.",
-      "ogImage": ""
-    }
+  "metadata": {
+    "title": "Product",
+    "description": "Shop this product.",
+    "ogImage": ""
   },
   "content": [
     {
-      "type": "header",
-      "props": {
-        "id": "header"
-      },
-      "synced": true
-    },
-    {
       "type": "product-detail",
+      "id": "product-detail",
       "props": {
-        "id": "product-detail",
         "product": null,
         "addToCartLabel": "Add to Cart"
       }
     },
     {
       "type": "product-recommendations",
+      "id": "product-recommendations",
       "props": {
-        "id": "product-recommendations",
         "title": "You May Also Like",
         "product": null,
         "limit": 4
-      }
-    },
-    {
-      "type": "footer",
-      "props": {
-        "id": "footer"
-      },
-      "synced": true
-    },
-    {
-      "type": "store-assistant",
-      "props": {
-        "id": "store-assistant"
       }
     }
   ]

@@ -11,9 +11,11 @@ const searchResultsEditor: ComponentConfig<SearchResultsBlockProps> = {
   label: 'Search results',
   icon: <Search size={16} />,
   category: 'commerce',
-  defaultProps: {
-    title: 'Search',
-    placeholder: 'Search products',
+  default: {
+    props: {
+      title: 'Search',
+      placeholder: 'Search products',
+    },
   },
   fields: {
     title: { label: 'Title', type: 'text', contentEditable: true },

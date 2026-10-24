@@ -14,10 +14,12 @@ const productRecommendationsEditor: ComponentConfig<ProductRecommendationsBlockP
     label: 'Recommended products',
     icon: <Sparkles size={16} />,
     category: 'commerce',
-    defaultProps: {
-      title: 'You May Also Like',
-      product: null,
-      limit: 4,
+    default: {
+      props: {
+        title: 'You May Also Like',
+        product: null,
+        limit: 4,
+      },
     },
     fields: {
       title: { label: 'Title', type: 'text', contentEditable: true },

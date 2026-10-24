@@ -8,12 +8,14 @@ const contentSectionEditor: ComponentConfig<ContentSectionProps> = {
   label: 'Content section',
   icon: <Text size={16} />,
   category: 'content',
-  defaultProps: {
-    eyebrow: '',
-    heading: 'About',
-    body: 'Tell your store’s story here.\n\nBlank lines start a new paragraph.',
-    imageUrl: '',
-    imageAlt: '',
+  default: {
+    props: {
+      eyebrow: '',
+      heading: 'About',
+      body: 'Tell your store’s story here.\n\nBlank lines start a new paragraph.',
+      imageUrl: '',
+      imageAlt: '',
+    },
   },
   fields: {
     eyebrow: { label: 'Eyebrow', type: 'text', contentEditable: true },

@@ -1,6 +1,7 @@
-import Root from '@/config/root';
+import metadataConfig from '@/config/metadata';
 import type { UserConfig } from '@/config/types';
 
+import appLayoutEditor from '@/components/shopify/app-layout.config';
 import headerEditor from '@/components/shopify/header.config';
 import footerEditor from '@/components/shopify/footer.config';
 import productsEditor from '@/components/shopify/products.config';
@@ -20,9 +21,10 @@ const categories = {
 };
 
 export const appConfig: UserConfig = {
-  root: Root,
+  metadata: metadataConfig,
   categories,
   components: {
+    AppLayout: appLayoutEditor,
     header: headerEditor,
     footer: footerEditor,
     products: productsEditor,

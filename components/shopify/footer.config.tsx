@@ -16,21 +16,22 @@ const footerEditor: ComponentConfig<FooterBlockProps> = {
   label: 'Footer',
   icon: <PanelBottom size={16} />,
   category: 'navigation',
-  global: true,
-  defaultProps: {
-    storeName: 'Shop',
-    logoUrl: '',
-    copyright: '© 2026 Shop. All rights reserved.',
-    links: [
-      { label: 'Terms of Service', url: '/policies/terms-of-service' },
-      { label: 'Privacy Policy', url: '/policies/privacy-policy' },
-      { label: 'Refund Policy', url: '/policies/refund-policy' },
-      { label: 'Shipping Policy', url: '/policies/shipping-policy' },
-      { label: 'Subscription Policy', url: '/policies/subscription-policy' },
-    ],
-    instagramUrl: '#',
-    tiktokUrl: '#',
-    facebookUrl: '#',
+  default: {
+    props: {
+      storeName: 'Shop',
+      logoUrl: '',
+      copyright: '© 2026 Shop. All rights reserved.',
+      links: [
+        { label: 'Terms of Service', url: '/policies/terms-of-service' },
+        { label: 'Privacy Policy', url: '/policies/privacy-policy' },
+        { label: 'Refund Policy', url: '/policies/refund-policy' },
+        { label: 'Shipping Policy', url: '/policies/shipping-policy' },
+        { label: 'Subscription Policy', url: '/policies/subscription-policy' },
+      ],
+      instagramUrl: '#',
+      tiktokUrl: '#',
+      facebookUrl: '#',
+    },
   },
   fields: {
     storeName: { label: 'Store name', type: 'text', contentEditable: true },

@@ -14,12 +14,14 @@ const productsEditor: ComponentConfig<ProductsBlockProps> = {
   label: 'Product grid',
   icon: <LayoutGrid size={16} />,
   category: 'commerce',
-  defaultProps: {
-    title: 'Shopify Hydrogen Storefront',
-    subtitle:
-      'An agent-friendly Shopify storefront built with Next.js and Hydrogen.',
-    collection: null,
-    limit: 12,
+  default: {
+    props: {
+      title: 'Shopify Hydrogen Storefront',
+      subtitle:
+        'An agent-friendly Shopify storefront built with Next.js and Hydrogen.',
+      collection: null,
+      limit: 12,
+    },
   },
   fields: {
     title: { label: 'Title', type: 'text', contentEditable: true },

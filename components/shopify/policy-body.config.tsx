@@ -9,10 +9,12 @@ const policyBodyEditor: ComponentConfig<PolicyBodyProps> = {
   label: 'Policy',
   icon: <FileText size={16} />,
   category: 'content',
-  defaultProps: {
-    handle: '',
-    title: '',
-    notFoundMessage: 'This policy has not been published yet.',
+  default: {
+    props: {
+      handle: '',
+      title: '',
+      notFoundMessage: 'This policy has not been published yet.',
+    },
   },
   fields: {
     handle: {

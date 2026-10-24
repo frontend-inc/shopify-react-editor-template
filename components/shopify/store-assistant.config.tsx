@@ -8,7 +8,7 @@ const storeAssistantEditor: ComponentConfig<StoreAssistantBlockProps> = {
   label: 'Store assistant',
   icon: <MessageCircle size={16} />,
   category: 'content',
-  defaultProps: {},
+  default: { props: {} },
   fields: {},
   render: () => <StoreAssistant />,
 };
