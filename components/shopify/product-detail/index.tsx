@@ -138,7 +138,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
   // empty state, so the page stays presentable while a handle is being chosen.
   if (loading || error || !product) {
     return (
-      <div className="max-w-screen-2xl mx-auto px-8 py-8">
+      <div className="w-full max-w-screen-2xl mx-auto px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10">
           <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {Array.from({ length: 4 }).map((_, i) => (
